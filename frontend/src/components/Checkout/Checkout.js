@@ -1,50 +1,47 @@
-import { react, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_ORDER } from "../../graphql/createOrder";
-import { QUERY_CART, QUERY_CART_ORDER} from "../../graphql/CartQuery";
-import { CLEAR_CART } from "../../graphql/CartMutation";
-import { useHistory } from "react-router-dom";
-import { useSession } from "../../contexts/SessionContext";
+import { react, useState } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
+import { CREATE_ORDER } from '../../graphql/createOrder'
+import { QUERY_CART, QUERY_CART_ORDER } from '../../graphql/CartQuery'
+import { CLEAR_CART } from '../../graphql/CartMutation'
+import { useHistory } from 'react-router-dom'
+import { useSession } from '../../contexts/SessionContext'
 
 const Checkout = () => {
-  const { user } = useSession();
+  const { user } = useSession()
   const { error, loading, data } = useQuery(QUERY_CART, {
     variables: { userId: user?._id },
-  });
+  })
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER, {
     variables: { userId: user?._id },
-  });
-  const [createOrder] = useMutation(CREATE_ORDER);
-  const [clearCart] = useMutation(CLEAR_CART);
-  let history = useHistory();
-  
-  
+  })
+  const [createOrder] = useMutation(CREATE_ORDER)
+  const [clearCart] = useMutation(CLEAR_CART)
+  let history = useHistory()
 
   async function ProcessPaymentBtn() {
-    let dataOrderString = JSON.stringify(dataOrder);
-    let dataOrderJSON = JSON.parse(dataOrderString);
+    let dataOrderString = JSON.stringify(dataOrder)
+    let dataOrderJSON = JSON.parse(dataOrderString)
 
-    let a = [...dataOrderJSON.cart[0].product];
-    a.map((obj) => delete obj.__typename);
+    let a = [...dataOrderJSON.cart[0].product]
+    a.map((obj) => delete obj.__typename)
 
     let dataCreateOrder = await createOrder({
       variables: {
         userId: user?._id,
-        statusOrder: "waiting",
-        payment: "unspecify",
+        statusOrder: 'waiting',
+        payment: 'unspecify',
         product: a,
       },
-    });
+    })
 
     clearCart({
-      variables:{
+      variables: {
         userId: user?._id,
-      }
+      },
     })
 
     let orderId = dataCreateOrder?.data?.createOrder?.record?._id
-    history.push('payment/'+orderId)
-    
+    history.push('payment/' + orderId)
   }
 
   if (user) {
@@ -52,11 +49,11 @@ const Checkout = () => {
       <>
         <div className="flex">
           <div className="m-3 p-2 bg-red-200 ">
-            {data?.cart[0]?.createdByUser?.firstName}{" "}
+            {data?.cart[0]?.createdByUser?.firstName}{' '}
             {data?.cart[0]?.createdByUser?.lastName}
             {data?.cart[0]?.product.map((product) => {
               return (
-                <div className="m-1 p-2 bg-green-200">
+                <div key={product} className="m-1 p-2 bg-green-200">
                   <ul>
                     <li key="productID">
                       <b>Productid</b>
@@ -85,7 +82,7 @@ const Checkout = () => {
                     </li>
                   </ul>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -97,16 +94,16 @@ const Checkout = () => {
           Go to Payment
         </button>
       </>
-    );
+    )
   } else {
     return (
       <>
         <div className="w-screen h-screen  text-2xl align-middle p-3">
-          {"Invalid Session, Please Login First!"}
+          {'Invalid Session, Please Login First!'}
         </div>
       </>
-    );
+    )
   }
-};
+}
 
-export default Checkout;
+export default Checkout

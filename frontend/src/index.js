@@ -2,18 +2,26 @@ import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { CookiesProvider } from 'react-cookie'
 import { BrowserRouter } from 'react-router-dom'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  createHttpLink,
+} from '@apollo/client'
 import App from './App'
 import './index.css'
 import classes from './App.module.css'
 import { SessionProvider } from './contexts/SessionContext'
 import reportWebVitals from './reportWebVitals'
 
-const client = new ApolloClient({
+const link = createHttpLink({
   uri: 'http://localhost:5001/graphql',
-  cache: new InMemoryCache(),
   credentials: 'include',
+})
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
 })
 
 ReactDOM.render(
