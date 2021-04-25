@@ -32,7 +32,7 @@ const OrderCard = (props) => {
         {order?.product.map((product) => {
           //call this function for calculating a price.
           handleTotalPrice(product?.productInfo?.price * product?.quantity);
-
+          <div className="flex">
           return (
             <div className="m-1 p-2 bg-purple-200">
               <ul>
@@ -64,6 +64,7 @@ const OrderCard = (props) => {
               </ul>
             </div>
           );
+          </div>
         })}
         {/* END OF PRODUCT CREATION */}
         <div className="m-3 p-2 bg-blue-200 border-gray-400 flex">

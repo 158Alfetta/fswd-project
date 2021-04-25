@@ -13,10 +13,14 @@ const Order = () => {
   if (user) {
     return(
       <>
+      <div className="flex-row font-light bg-gray-200">
         {data && data.order.map((order) => {
           numberOrder += 1;
-          return <OrderCard order={order} numberOrder={numberOrder} />
+          return(
+            <OrderCard order={order} numberOrder={numberOrder} />
+          )
         })}
+        </div>
       </>
     )
     
