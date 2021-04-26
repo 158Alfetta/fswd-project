@@ -1,3 +1,5 @@
+import OrderSubCard from "./OrderSubCard"
+
 const OrderCard = (props) => {
 
   const order = props?.order
@@ -32,39 +34,11 @@ const OrderCard = (props) => {
         {order?.product.map((product) => {
           //call this function for calculating a price.
           handleTotalPrice(product?.productInfo?.price * product?.quantity);
-          <div className="flex">
           return (
-            <div className="m-1 p-2 bg-purple-200">
-              <ul>
-                <li key="productID">
-                  <b>Productid</b>
-                  <br />
-                  {product?.productId}
-                </li>
-                <li>
-                  <b>name</b>
-                  <br />
-                  {product?.productInfo?.name}
-                </li>
-                <li>
-                  <b>Price</b>
-                  <br />
-                  {product?.productInfo?.price}
-                </li>
-                <li>
-                  <b>Stock</b>
-                  <br />
-                  {product?.productInfo?.count}
-                </li>
-                <li>
-                  <b>Quantity</b>
-                  <br />
-                  {product?.quantity}
-                </li>
-              </ul>
+            <div className="container px-8 pt-2 mx-auto lg:px-4">
+            <OrderSubCard product={product} />
             </div>
           );
-          </div>
         })}
         {/* END OF PRODUCT CREATION */}
         <div className="m-3 p-2 bg-blue-200 border-gray-400 flex">
