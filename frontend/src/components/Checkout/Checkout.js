@@ -8,18 +8,15 @@ import { useSession } from '../../contexts/SessionContext'
 
 const Checkout = () => {
   const { user } = useSession()
-  const { error, loading, data } = useQuery(QUERY_CART, {
-    variables: { userId: user?._id },
-  })
-  const { data: dataOrder } = useQuery(QUERY_CART_ORDER, {
-    variables: { userId: user?._id },
-  })
+  const { error, loading, data } = useQuery(QUERY_CART)
+  // const { data: dataOrder } = useQuery(QUERY_CART_ORDER)
+
   const [createOrder] = useMutation(CREATE_ORDER)
   const [clearCart] = useMutation(CLEAR_CART)
   let history = useHistory()
 
   async function ProcessPaymentBtn() {
-    let dataOrderString = JSON.stringify(dataOrder)
+    let dataOrderString = JSON.stringify(data)
     let dataOrderJSON = JSON.parse(dataOrderString)
 
     let a = [...dataOrderJSON.cart[0].product]
@@ -27,18 +24,13 @@ const Checkout = () => {
 
     let dataCreateOrder = await createOrder({
       variables: {
-        userId: user?._id,
         statusOrder: 'waiting',
         payment: 'unspecify',
         product: a,
       },
     })
 
-    clearCart({
-      variables: {
-        userId: user?._id,
-      },
-    })
+    clearCart()
 
     let orderId = dataCreateOrder?.data?.createOrder?.record?._id
     history.push('payment/' + orderId)
@@ -98,7 +90,7 @@ const Checkout = () => {
   } else {
     return (
       <>
-        <div className="w-screen h-screen  text-2xl align-middle p-3">
+        <div className="w-screen h-screen mx-auto my-auto text-2xl align-middle p-3">
           {'Invalid Session, Please Login First!'}
         </div>
       </>
