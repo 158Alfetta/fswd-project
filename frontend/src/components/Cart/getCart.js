@@ -7,12 +7,12 @@ import DiscountBox from './DiscountBox'
 
 const GetCart = () => {
   const { user } = useSession()
-  const { data } = useQuery(QUERY_CART, { variables: { userId: user?._id } })
+  const { data } = useQuery(QUERY_CART)
+
   const refetchQuery = {
     refetchQueries: [
       {
-        query: QUERY_CART,
-        variables: { userId: user?._id },
+        query: QUERY_CART
       },
     ],
   }
@@ -69,7 +69,7 @@ const GetCart = () => {
     var inCart = JSON.parse(temp)
 
     var productIndex = inCart.findIndex((item) => item.productId === productId)
-    inCart[productIndex].quantity = Math.min(
+      inCart[productIndex].quantity = Math.min(
       inCart[productIndex].quantity + 1,
       inCart[productIndex].productInfo.count
     )

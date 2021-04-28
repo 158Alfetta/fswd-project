@@ -23,15 +23,15 @@ const Checkout = () => {
     let dataOrderString = JSON.stringify(dataOrder)
     let dataOrderJSON = JSON.parse(dataOrderString)
 
-    let a = [...dataOrderJSON.cart[0].product]
+    let productInfo = [...dataOrderJSON.cart[0].product]
     a.map((obj) => delete obj.__typename)
 
     let dataCreateOrder = await createOrder({
       variables: {
         userId: user?._id,
-        statusOrder: "waiting",
+        statusOrder: "Waiting",
         payment: "unspecify",
-        product: a,
+        product: productInfo,
       },
     });
 

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const QUERY_CART = gql`
-  query Cart($userId: String!) {
-    cart(filter: { createdById: $userId }) {
+  query { 
+    cart{
       product {
         productId
         productInfo {
@@ -11,20 +11,6 @@ export const QUERY_CART = gql`
           timestamp
           count
         }
-        quantity
-      }
-      createdByUser {
-        firstName
-        lastName
-      }
-    }
-  }
-`
-export const QUERY_CART_ORDER = gql`
-  query Cart($userId: String!) {
-    cart(filter: { createdById: $userId }) {
-      product {
-        productId
         quantity
       }
       createdByUser {
@@ -35,17 +21,11 @@ export const QUERY_CART_ORDER = gql`
   }
 `
 
-export const QUERY_CART_BY_USER = gql`
-  query CartByUser {
-    cartByUser {
+export const QUERY_CART_ORDER = gql`
+  query{
+    cart{
       product {
         productId
-        productInfo {
-          name
-          price
-          timestamp
-          count
-        }
         quantity
       }
       createdByUser {

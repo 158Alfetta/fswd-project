@@ -27,7 +27,7 @@ const Payment = () => {
     });
 
     console.log(result)
-    history.push('order')
+    history.push('/order')
   }
 
   return(
