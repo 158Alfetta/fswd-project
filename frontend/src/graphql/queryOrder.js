@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const QUERY_ORDER = gql`
     query {
-        orderByUser{
+        order{
             _id
             product{
             productId
