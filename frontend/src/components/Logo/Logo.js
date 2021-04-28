@@ -7,7 +7,7 @@ const logo = () => (
       className="h-100 w-auto"
       width="280"
       height="280"
-      src={'/shop.png'}
+      src={'./img/Logo.png'}
       alt="shop"
     />
   </div>

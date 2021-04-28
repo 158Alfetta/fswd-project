@@ -10,7 +10,6 @@ const productInCartSchema = new Schema({
 
 const CartSchema = new Schema({
   product: {type:[productInCartSchema], required: true},
-  paymentdetail: {type: String, required: true},
   createdById : {type: String, required: true},
 })
 

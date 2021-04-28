@@ -18,7 +18,7 @@ export const SessionProvider = (props) => {
   const { children } = props
   const history = useHistory()
   const [user, setUser] = useState(null)
-  const [, setCookie, removeCookie] = useCookies(['token'])
+  const [cookie, setCookie, removeCookie] = useCookies(['token', 'user'])
   const [loadMe, { loading, data }] = useLazyQuery(ME_QUERY, {
     fetchPolicy: 'network-only',
   })
@@ -34,21 +34,37 @@ export const SessionProvider = (props) => {
         }
         const res = await login({ variables })
         if (res?.data?.login?.token) {
-          setCookie('token', res?.data?.login?.token, { maxAge: 86400 })
+          setCookie('token', res?.data?.login?.token, {
+            maxAge: 86400,
+            path: '/',
+          })
+          setCookie('user', res?.data?.login?.user, {
+            maxAge: 86400,
+            path: '/',
+          })
           setUser(res?.data?.login?.user)
           history.push('/')
         }
       } catch (err) {
         removeCookie('token', { maxAge: 86400 })
+        removeCookie('user', { maxAge: 86400 })
         throw new Error(`username or password is not correct!`)
       }
     },
     [login, removeCookie, setCookie, history]
   )
 
+  useEffect(() => {
+    if (cookie.user) {
+      setUser(cookie.user)
+    }
+    return () => {}
+  }, [cookie])
+
   const handleLogout = useCallback(() => {
     setUser(null)
     removeCookie('token', { maxAge: 86400 })
+    removeCookie('user', { maxAge: 86400 })
   }, [removeCookie])
 
   useEffect(() => {
@@ -56,16 +72,20 @@ export const SessionProvider = (props) => {
       try {
         await loadMe()
       } catch (err) {
+        console.log(err)
         removeCookie('token', { maxAge: 86400 })
+        removeCookie('user', { maxAge: 86400 })
       }
-      return removeCookie('token', { maxAge: 86400 })
     }
     loadData()
+
+    return () => {}
   }, [loadMe, removeCookie])
   useEffect(() => {
     if (data?.me) {
       setUser(data?.me)
     }
+    return () => {}
   }, [data])
 
   return (

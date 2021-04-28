@@ -5,6 +5,7 @@ export const CREATE_ADMIN_MUTATION = gql`
     createAdmin(record: $record) {
       recordId
       record {
+        _id
         companyName
       }
     }

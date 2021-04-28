@@ -1,5 +1,11 @@
+import Home from '../components/Home/Home'
+
 const HomePage = () => {
-  return <h4>HomePage</h4>
+  return(
+    <>
+    <Home />
+    </>
+  )
 }
 
 export default HomePage

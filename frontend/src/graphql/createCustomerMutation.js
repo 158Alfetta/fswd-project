@@ -5,6 +5,7 @@ export const CREATE_CUSTOMER_MUTATION = gql`
     createCustomer(record: $record) {
       recordId
       record {
+        _id
         username
         firstName
         lastName

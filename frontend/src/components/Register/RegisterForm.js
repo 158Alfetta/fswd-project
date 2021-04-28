@@ -4,10 +4,13 @@ import { useMutation } from '@apollo/client'
 
 import { CREATE_CUSTOMER_MUTATION } from '../../graphql/createCustomerMutation'
 import { CREATE_ADMIN_MUTATION } from '../../graphql/createAdminMutation'
+import { CREATE_CART } from '../../graphql/CartMutation'
 import { Link } from 'react-router-dom'
+import { useSession } from '../../contexts/SessionContext'
 
 const RegisterForm = () => {
   const history = useHistory()
+  const { login } = useSession()
   const [newUser, setNewUser] = useState({
     username: '',
     password: '',
@@ -23,6 +26,7 @@ const RegisterForm = () => {
     useMutation(CREATE_CUSTOMER_MUTATION),
     useMutation(CREATE_ADMIN_MUTATION),
   ]
+  const [createEmptyCart] = useMutation(CREATE_CART)
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target
     setNewUser((prev) => ({ ...prev, [name]: value }))
@@ -38,19 +42,34 @@ const RegisterForm = () => {
       e.preventDefault()
       try {
         console.log(JSON.stringify(newUser))
-        if (type === 'customer')
-          await createCustomer({ variables: { record: newUser } })
-        else
+        if (type === 'customer') {
+          let userData = await createCustomer({
+            variables: { record: newUser },
+          })
+          let newUserId = userData?.data?.createCustomer?.record?._id
+          // console.log(newUserId)
+          await createEmptyCart({ variables: { userId: newUserId } })
+        } else
           await createAdmin({ variables: { record: { ...newUser, ...admin } } })
-        serErr('')
+        await login(newUser.username, newUser.password)
         history.push('/')
       } catch (err) {
+        console.log(err)
         if (err.message.split(' ')[0] === 'E11000') {
           serErr('This username is already used!')
         } else serErr('Register failed!')
       }
     },
-    [createCustomer, createAdmin, history, newUser, admin, type]
+    [
+      createCustomer,
+      createAdmin,
+      createEmptyCart,
+      history,
+      newUser,
+      admin,
+      type,
+      login,
+    ]
   )
   let AdminForm =
     type === 'admin' ? (

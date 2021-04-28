@@ -6,6 +6,8 @@ import cors from 'cors'
 
 import './mongoose-connect'
 import schema from './graphql'
+import { convertSchemaToGraphQL } from 'graphql-compose-mongoose'
+import { CartTC } from './models'
 
 const path = '/graphql'
 const app = express()

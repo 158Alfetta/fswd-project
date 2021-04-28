@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const PRODUCT_QUERY = gql`
-query {
+  query {
     Products {
         _id
         type
@@ -9,5 +9,5 @@ query {
         price
         image
     }
-}
+  }
 `

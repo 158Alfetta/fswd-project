@@ -1,10 +1,10 @@
-import { react } from 'react'
+import Order from '../components/Order/Order'
 
 
 
 const OrderPage = () => {
-   return <h1>Hello World</h1>
-   
+   <h1>Order Page</h1>
+   return <Order />
 }
 
 export default OrderPage
