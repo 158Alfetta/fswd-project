@@ -10,7 +10,7 @@ export const authQueryMiddleware = async (
       ...args,
       filter: {
         ...args.filter,
-        createdById: context?.user._id,
+        userId: context?.user._id,
       },
     }
 
