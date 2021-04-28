@@ -24,13 +24,18 @@ const Checkout = () => {
 
     let dataCreateOrder = await createOrder({
       variables: {
+        userId: user?._id,
         statusOrder: "Waiting",
         payment: "unspecify",
         product: productInfo,
       },
     });
 
-    clearCart()
+    clearCart({
+      variables:{
+        userId: user?._id
+      }
+    })
 
     let orderId = dataCreateOrder?.data?.createOrder?.record?._id
     history.push('payment/' + orderId)
