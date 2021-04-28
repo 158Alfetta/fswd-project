@@ -18,7 +18,7 @@ const Product = (props) => {
     return (
         <div>
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <img class="w-full" src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png" alt="Sunset in the mountains" />
+                <img class="w-full" src={product?.image[0]} alt="Sunset in the mountains" />
                 <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">{product?.name}</div>
                 <p class="text-gray-700 text-base">

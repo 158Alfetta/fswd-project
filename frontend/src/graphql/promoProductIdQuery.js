@@ -7,6 +7,7 @@ query Product($id: MongoID!){
         name
         price
         discount
+        image
     }
 }
 `
