@@ -1,22 +1,26 @@
 import { react, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { CREATE_ORDER } from '../../graphql/createOrder'
-import { QUERY_CART, QUERY_CART_ORDER } from '../../graphql/CartQuery'
+import { QUERY_CART, QUERY_CART_ORDER} from "../../graphql/CartQuery";
 import { CLEAR_CART } from '../../graphql/CartMutation'
 import { useHistory } from 'react-router-dom'
 import { useSession } from '../../contexts/SessionContext'
 
 const Checkout = () => {
-  const { user } = useSession()
-  const { error, loading, data } = useQuery(QUERY_CART)
-  // const { data: dataOrder } = useQuery(QUERY_CART_ORDER)
+  const { user } = useSession();
+  const { error, loading, data } = useQuery(QUERY_CART, {
+    variables: { userId: user?._id },
+  });
+  const { data: dataOrder } = useQuery(QUERY_CART_ORDER, {
+    variables: { userId: user?._id },
+  });
 
-  const [createOrder] = useMutation(CREATE_ORDER)
-  const [clearCart] = useMutation(CLEAR_CART)
-  let history = useHistory()
+  const [createOrder] = useMutation(CREATE_ORDER);
+  const [clearCart] = useMutation(CLEAR_CART);
+  let history = useHistory();
 
   async function ProcessPaymentBtn() {
-    let dataOrderString = JSON.stringify(data)
+    let dataOrderString = JSON.stringify(dataOrder)
     let dataOrderJSON = JSON.parse(dataOrderString)
 
     let a = [...dataOrderJSON.cart[0].product]
@@ -24,11 +28,12 @@ const Checkout = () => {
 
     let dataCreateOrder = await createOrder({
       variables: {
-        statusOrder: 'waiting',
-        payment: 'unspecify',
+        userId: user?._id,
+        statusOrder: "waiting",
+        payment: "unspecify",
         product: a,
       },
-    })
+    });
 
     clearCart()
 
