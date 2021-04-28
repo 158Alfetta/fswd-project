@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import classes from './App.module.css'
 import Layout from './components/Layout/Layout'
+import PrivateRoute from './route/PrivateRoute'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const LoginPage = React.lazy(() => import('./pages/LoginPage'))
@@ -12,6 +13,7 @@ const ProductPage = React.lazy(() => import('./pages/ProductPage'))
 const AddProductPage = React.lazy(() => import('./pages/AddProductPage'))
 const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'))
 const CartPage = React.lazy(() => import('./pages/CartPage'))
+const AdminDahsboardPage = React.lazy(() => import('./pages/AdminDashboardPage'))
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
 const App = () => {
   return (
@@ -44,9 +46,9 @@ const App = () => {
             <Route path="/products">
               <ProductPage />
             </Route>
-            <Route path="/addProduct">
+            {/* <Route path="/addProduct">
               <AddProductPage />
-            </Route>
+            </Route> */}
             <Route path="/cart">
               <CartPage />
             </Route>
@@ -56,6 +58,8 @@ const App = () => {
             <Route path="/payment">
               <PaymentPage />
             </Route>
+            <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
+            <PrivateRoute component={AddProductPage} path="/addProduct" exact />
           </Switch>
         </Suspense>
       </div>
