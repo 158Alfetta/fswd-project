@@ -8,12 +8,8 @@ import { useSession } from '../../contexts/SessionContext'
 
 const Checkout = () => {
   const { user } = useSession();
-  const { error, loading, data } = useQuery(QUERY_CART, {
-    variables: { userId: user?._id },
-  });
-  const { data: dataOrder } = useQuery(QUERY_CART_ORDER, {
-    variables: { userId: user?._id },
-  });
+  const { error, loading, data } = useQuery(QUERY_CART)
+  const { data: dataOrder } = useQuery(QUERY_CART_ORDER)
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [clearCart] = useMutation(CLEAR_CART);
@@ -24,11 +20,10 @@ const Checkout = () => {
     let dataOrderJSON = JSON.parse(dataOrderString)
 
     let productInfo = [...dataOrderJSON.cart[0].product]
-    a.map((obj) => delete obj.__typename)
+    productInfo.map((obj) => delete obj.__typename)
 
     let dataCreateOrder = await createOrder({
       variables: {
-        userId: user?._id,
         statusOrder: "Waiting",
         payment: "unspecify",
         product: productInfo,
