@@ -6,7 +6,7 @@ import { useSession } from '../../contexts/SessionContext'
 
 const GetCart = () => {
   const { user } = useSession()
-  const { data } = useQuery(QUERY_CART)
+  const { data } = useQuery(QUERY_CART, {fetchPolicy:"no-cache"})
 
   const refetchQuery = {
     refetchQueries: [
