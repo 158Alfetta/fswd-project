@@ -28,6 +28,7 @@ const Checkout = () => {
         statusOrder: "Waiting",
         payment: "unspecify",
         product: productInfo,
+        address: "addressline1 addressline2 city state/province postcode telephone"
       },
     });
 

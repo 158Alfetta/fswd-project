@@ -30,6 +30,9 @@ const OrderCard = (props) => {
         <b>{"Payment: "}</b>
         {order?.paymentDetail}
         <br />
+        <b>{"Address: "}</b>
+        {order?.address}
+        <br />
         {/* {START A CREATION OF PRODUCT CART (1 ORDER HAVE MULTIPLE PRODUCTS)} */}
         {order?.product.map((product) => {
           //call this function for calculating a price.
