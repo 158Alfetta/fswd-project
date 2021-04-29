@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
@@ -7,18 +7,10 @@ import { useSession } from '../../contexts/SessionContext'
 const GetCart = () => {
 
     const { user } = useSession()
-    const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
-    // console.log(data)
-    const [CartData, setCartData] = useState({ "cart": [] })
+    const { data:CartData, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
 
-    useEffect(() => {
-        if (data?.cart) {
-            setCartData(data)
-        }
-    }, [data])
-
-    // console.log(CartData)
     refetch()
+    
     const refetchQuery = {
         refetchQueries: () => [
             {

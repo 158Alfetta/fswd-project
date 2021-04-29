@@ -1,4 +1,4 @@
-import React, { useMemo, Fragment, useState, useEffect } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useSession } from '../../../contexts/SessionContext'
