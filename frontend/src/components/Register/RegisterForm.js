@@ -53,6 +53,7 @@ const RegisterForm = () => {
           await createEmptyCart({ variables: { userId: newUserId } })
         } else
           await createAdmin({ variables: { record: { ...newUser, ...admin } } })
+          // await createEmptyCart({ variables: { userId: newUserId } })
         await login(newUser.username, newUser.password)
         history.push('/')
       } catch (err) {

@@ -29,6 +29,7 @@ const NavigationItems = (props) => {
           >
             {user?.username}
           </Link>
+          
         </Fragment>
       )
     }
@@ -70,9 +71,18 @@ const NavigationItems = (props) => {
       <NavigationItem link="/payment" clickedFromNav={props.clicked} exact>
         payment(test)
       </NavigationItem>
+      {user?.type === "Admin" ? <AdminDashboardButton /> : null} 
+      {/* {user?.type === "Admin" ? <AdminDashboardButton /> : console.log(user?.type)} */}
       {userBox}
     </ul>
   )
 }
-
+  const AdminDashboardButton = (props) => {
+    return (
+      <NavigationItem link="/dashboard" clickedFromNav={props.clicked} exact>
+        dashboard
+      </NavigationItem>
+    )
+    
+  }
 export default NavigationItems

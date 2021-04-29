@@ -55,12 +55,12 @@ const Product = (props) => {
   return (
     <div>
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        {product?.image?.[1]}
+        {/* {product?.image?.[0]} */}
         <img
           className="w-full"
           src={
-            product?.image?.[0] ||
-            'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+            product?.image?.[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+            // 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
           }
           alt="Sunset in the mountains"
         />
