@@ -10,15 +10,16 @@ const Product = (props) => {
   const { product } = props
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
   const { user } = useSession()
-  const { data } = useQuery(QUERY_CART, { variables: { userId: user?._id } })
+  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
   const refetchQuery = {
     refetchQueries: [
       {
-        query: QUERY_CART,
-        variables: { userId: user?._id },
+        query: QUERY_CART
       },
     ],
   }
+
+  refetch()
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
