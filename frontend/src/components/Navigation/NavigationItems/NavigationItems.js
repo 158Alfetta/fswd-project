@@ -15,13 +15,6 @@ const NavigationItem = React.lazy(() =>
 const NavigationItems = (props) => {
   const { loading, user } = useSession()
   const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
-  const [productAmout, setProductAmount] = useState(0)
-
-  useEffect(() => {
-    if (data?.cart[0]?.product?.length) {
-      setProductAmount(data?.cart[0]?.product?.length)
-    }
-  }, [data])
 
   refetch()
 
@@ -64,7 +57,7 @@ const NavigationItems = (props) => {
       <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
         <span className="relative inline-block">
           <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-            {productAmout}
+            {data?.cart[0]?.product?.length ?? 0}
           </span>
           Cart
           {/* <img src="https://www.flaticon.com/svg/vstatic/svg/1170/1170627.svg?token=exp=1618931046~hmac=c087b263d3990714eac48cd42396667f" height="25" width="25"/> */}

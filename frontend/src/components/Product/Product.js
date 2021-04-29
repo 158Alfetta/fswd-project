@@ -1,7 +1,7 @@
 import ProductCard from './ProductCard'
 
 import { DELETE_PRODUCT_MUTATION } from '../../graphql/deleteProductById'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
 import { useSession } from '../../contexts/SessionContext'
