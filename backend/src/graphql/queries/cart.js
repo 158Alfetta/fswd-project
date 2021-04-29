@@ -1,5 +1,15 @@
-import { CartTC, productInCartTC } from '../../models'
-import { authQueryMiddleware } from './middleware'
+import { schemaComposer } from 'graphql-compose'
+import { CartModel, CartTC, productInCartTC } from '../../models'
+import { authQueryMiddlewareWithFilter } from './middleware'
 
 export const productInCart = productInCartTC.getResolver('findMany')
-export const cart = CartTC.getResolver('findMany', [authQueryMiddleware])
+// export const cart = CartTC.getResolver('findMany', [authQueryMiddlewareWithFilter])
+
+export const cart = schemaComposer.createResolver({
+    name: 'cart',
+    type: [CartTC.getType()],
+    resolve: async ({ context }) => {
+        console.log(context.user)
+        return await CartModel.find({ createdById: context.user?._id })
+    }
+})
