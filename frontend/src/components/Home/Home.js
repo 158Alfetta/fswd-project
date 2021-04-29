@@ -106,7 +106,7 @@ const Home = () => {
           {/* Box 3 */}
 
           <div className="col-span-10 md:col-span-5">
-            <div className="w-full h-64 ">
+            <div className="w-full h-64">
               <div
                 className="h-full rounded-xl text-white bg-cover bg-center bg-opacity-50"
                 style={{ backgroundImage: `url('/img/homepage_lb_3.jpg')` }}
@@ -175,6 +175,13 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+        </div>
+
+                {/* Footer */}
+
+        <div className="col-span-10 h-36 w-full mt-16 bg-yellow-900 bg-opacity-50">
+          <p className="flex justify-center ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
         </div>
       </div>
     </>
