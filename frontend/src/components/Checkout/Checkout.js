@@ -1,6 +1,6 @@
 import { react, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { CREATE_ORDER } from '../../graphql/createOrder'
+import { CREATE_ORDER } from '../../graphql/OrderMutation'
 import { QUERY_CART, QUERY_CART_ORDER} from "../../graphql/CartQuery";
 import { CLEAR_CART } from '../../graphql/CartMutation'
 import { useHistory } from 'react-router-dom'

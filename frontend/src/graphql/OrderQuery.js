@@ -13,6 +13,7 @@ export const QUERY_ORDER = gql`
                 count
             }
             quantity
+            address
             }
             createdByUser{
             firstName
@@ -47,6 +48,7 @@ export const QUERY_ORDER_BY_ID = gql`
         paymentDetail
         timestamp
         status
+        address
         }
     }
 `

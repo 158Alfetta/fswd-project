@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useQuery } from "@apollo/client";
-import { QUERY_ORDER } from "../../graphql/queryOrder";
+import { QUERY_ORDER } from "../../graphql/OrderQuery";
 import { useSession } from "../../contexts/SessionContext";
 import OrderCard from "./OrderCard"
 
