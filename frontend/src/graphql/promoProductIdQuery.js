@@ -7,9 +7,10 @@ query Product($id: MongoID!){
         name
         price
         image
-        promotionDetail{
+        ... on PromotionProduct {promotionDetail{
             name
             discount
+        }
         }
     }
 }

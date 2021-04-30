@@ -1,5 +1,3 @@
-import ProductCard from './ProductCard'
-
 import { DELETE_PRODUCT_MUTATION } from '../../graphql/deleteProductById'
 import { useCallback, useState } from 'react'
 import { QUERY_CART } from '../../graphql/CartQuery'

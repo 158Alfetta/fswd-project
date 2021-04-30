@@ -43,7 +43,7 @@ const PromotionProduct = (props) => {
   if (error) {
     return 'Error'
   }
-  console.log(data?.PromotionProductId)
+  // console.log(data?.PromotionProductId)
   function addtoCart(productId) {
     var temp = JSON.stringify(dataCart.cart[0].product)
     var inCart = JSON.parse(temp)

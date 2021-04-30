@@ -59,15 +59,8 @@ const AddProductForm = (props) => {
   const handleTypeChange = useCallback((e) => {
     setType(e.target.value)
   }, [])
-
   const handlePromotionChange = useCallback((e) => {
     let { name, value } = e.target
-    // if (name === 'discount') {
-    //   value = parseFloat(value)
-    // }
-    // if (name === 'limit') {
-    //   value = parseInt(value)
-    // }
     console.log(name, value)
     setPromotionProduct((prev) => ({ ...prev, [name]: value }))
   }, [])
@@ -94,24 +87,6 @@ const AddProductForm = (props) => {
   let PromotionProductForm =
     type === 'PromotionProduct' ? (
       <>
-        {/* <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
-          type="number"
-          name="discount"
-          value={PromotionProduct.discount}
-          onChange={handlePromotionChange}
-          placeholder="Percent of discount"
-          autoComplete="off"
-        />
-        <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
-          type="number"
-          name="limit"
-          value={PromotionProduct.limit}
-          onChange={handlePromotionChange}
-          placeholder="Maximum item in one order"
-          autoComplete="off"
-        /> */}
         <label>
           <select name='promotionId' onChange={handlePromotionChange}>
             <option value="">--Select Promotion--</option>

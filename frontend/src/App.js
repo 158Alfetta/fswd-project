@@ -56,9 +56,9 @@ const App = () => {
             <Route path="/payment">
               <PaymentPage />
             </Route>
-            {/* <Route>
-
-            </Route> */}
+            <Route path="/product/:productId">
+              <ProductDetailPage />
+            </Route>
             <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
           </Switch>
