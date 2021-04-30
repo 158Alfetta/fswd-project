@@ -10,8 +10,7 @@ mutation createPromotionProduct($record: CreateOnePromotionProductInput!){
             price
             count
             createdByUser
-            discount
-            limit
+            promotionId
         }
     }
 }
