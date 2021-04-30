@@ -18,7 +18,7 @@ const OrderCard = (props) => {
     <>
     <div className="flex justify-between m-5">
       {/* START A CREATION OF ORDER CART (1 ORDER) */}
-      <div className="flex flex-col mx-auto p-3 bg-yellow-800 bg-opacity-50 w-full md:w-9/12 shadow-lg">
+      <div className="flex flex-col mx-auto p-4 bg-yellow-700 bg-opacity-50 w-full md:w-9/12 shadow-lg rounded-xl">
         
         <div className="grid grid-cols-5 text-center border-opacity-60 bg-gray-100 shadow-md text-blue-900">
           {/* Order Information */}
