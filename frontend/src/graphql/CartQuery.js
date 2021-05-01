@@ -8,6 +8,7 @@ export const QUERY_CART = gql`
         productInfo {
           name
           price
+          image
           timestamp
           count
         }

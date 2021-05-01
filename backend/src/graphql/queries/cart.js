@@ -6,10 +6,9 @@ export const productInCart = productInCartTC.getResolver('findMany')
 // export const cart = CartTC.getResolver('findMany', [authQueryMiddlewareWithFilter])
 
 export const cart = schemaComposer.createResolver({
-    name: 'cart',
-    type: [CartTC.getType()],
-    resolve: async ({ context }) => {
-        console.log(context.user)
-        return await CartModel.find({ createdById: context.user?._id })
-    }
+  name: 'cart',
+  type: [CartTC.getType()],
+  resolve: async ({ context }) => {
+    return await CartModel.find({ createdById: context.user?._id })
+  },
 })
