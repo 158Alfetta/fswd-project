@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { PRODUCT_QUERY } from '../../../graphql/productsQuery'
-import Product from './Product'
+import Product from './Card/Product'
+import PromotionProduct from './Card/PromotionProduct'
 import React from 'react'
 
 const ProductCard = () => {
@@ -11,16 +12,26 @@ const ProductCard = () => {
   if (error) {
     return 'Error'
   }
-  const Products = data?.Products?.map((product) => {
-    return (
-      <div key={product._id}>
-        <Product product={product} />
-      </div>
-    )
-  })
+  // console.log(data)
   return (
-    <div key={1} className="my-4 grid grid-cols-1 md:grid-cols-4">
-      {Products}
+    <div className="my-4 grid grid-cols-1 md:grid-cols-4">
+      {data?.Products?.map((product) => {
+        if (product?.type === 'PromotionProduct') {
+          return (
+            <PromotionProduct
+              className="m-2"
+              key={product?._id}
+              product={product}
+            />
+          )
+        }
+        if (product?.type === 'Product') {
+          return (
+            <Product className="m-2" key={product?._id} product={product} />
+          )
+        }
+        return null
+      })}
     </div>
   )
 }
