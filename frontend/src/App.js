@@ -16,6 +16,7 @@ const CartPage = React.lazy(() => import('./pages/CartPage'))
 const AdminDahsboardPage = React.lazy(() => import('./pages/AdminDashboardPage'))
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
 const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
+const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
 const App = () => {
   return (
     <Fragment>
@@ -61,6 +62,7 @@ const App = () => {
             </Route>
             <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
+            <PrivateRoute component={AddPromotionPage} path='/addPromotion'/>
           </Switch>
         </Suspense>
       </div>

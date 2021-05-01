@@ -1,7 +1,6 @@
 import { useParams } from "react-router"
 import { PRODUCT_ID_QUERY } from '../graphql/productIdQuery'
 import { useQuery } from "@apollo/client"
-import DetailProduct from '../components/Product/DetailProduct'
 import { useState } from 'react'
 
 const ProductDetail = () => {
@@ -28,12 +27,12 @@ const ProductDetail = () => {
                     <h2 className="text-4xl text-center">{product?.name}</h2>
                     <h2 className="text-2xl text-center">{product?.description}</h2>
                     <div className="border-t-2">
-                        {product?.type === "PromotionProduct" ? <h2 className="text-2xl text-center pt-10"><del className="pr-3">{product?.price}</del>{parseInt(product?.price) *
-                        (1 - parseFloat(product?.promotionDetail?.discount) / 100)} บาท</h2> 
+                        {product?.type === "PromotionProduct" ? <h2 className="text-2xl text-center pt-10"><del className="pr-3">{parseFloat(product?.price).toLocaleString()}</del>{parseFloat(parseInt(product?.price) *
+                        (1 - parseFloat(product?.promotionDetail?.discount) / 100)).toLocaleString()} บาท</h2> 
                         : <h2 className="text-2xl text-center pt-10">{product?.price}</h2>}
                     </div>
                     <div className="flex justify-center ">
-                        <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 0 ? itemCount - 1 : 0)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount + 1)}> + </button>
+                        <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 0 ? itemCount - 1 : 0)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount >= product?.count ? product?.count: itemCount + 1)}> + </button>
                         </span>
                         <div className="inline-block pl-10">
                             <span className="text-2xl pr-10">{product?.count} left</span>
