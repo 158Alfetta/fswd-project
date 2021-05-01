@@ -14,7 +14,9 @@ const NavigationItem = React.lazy(() =>
 
 const NavigationItems = (props) => {
   const { loading, user } = useSession()
-  const { data } = useQuery( QUERY_CART, {variables: {userId: user?._id}} )
+  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
+
+  refetch()
 
   const userBox = useMemo(() => {
     if (loading) {

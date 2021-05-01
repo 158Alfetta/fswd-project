@@ -1,9 +1,9 @@
 import { React } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_ORDER_BY_ID } from "../../graphql/queryOrder";
+import { QUERY_ORDER_BY_ID } from "../../graphql/OrderQuery";
 import { useParams } from "react-router-dom";
 import PaymentCard from "./PaymentCard"
-import { PROCEED_PAYMENT_MUTATION } from "../../graphql/paymentMutation";
+import { PROCEED_PAYMENT_MUTATION } from "../../graphql/OrderMutation";
 import { useHistory } from "react-router-dom";
 
 
@@ -27,7 +27,7 @@ const Payment = () => {
     });
 
     console.log(result)
-    history.push('order')
+    history.push('/order')
   }
 
   return(

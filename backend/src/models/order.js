@@ -11,9 +11,10 @@ const ProductInOrderSchema = new Schema({
 
 const OrderSchema = new Schema({
   status: {type: String, required: true},
-  createdById: {type: String, required: true},
+  createdById: {type: String},
   paymentDetail: {type: String, required: true},
-  product: {type: [ProductInOrderSchema], required: true}
+  product: {type: [ProductInOrderSchema], required: true},
+  address: {type: String},
 })
 
 

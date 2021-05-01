@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const QUERY_ORDER = gql`
     query {
-        orderByUser{
+        order{
             _id
             product{
             productId
@@ -21,6 +21,7 @@ export const QUERY_ORDER = gql`
         paymentDetail
         timestamp
         status
+        address
         }
     }
   
@@ -47,6 +48,7 @@ export const QUERY_ORDER_BY_ID = gql`
         paymentDetail
         timestamp
         status
+        address
         }
     }
 `
