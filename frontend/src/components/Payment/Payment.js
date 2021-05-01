@@ -27,16 +27,23 @@ const Payment = () => {
   console.log(pmChoice)
  
   async function proceedPaymentBtn(PaymentMethod){
-    let result = await proceedPayment({
-      variables: {
-        _id: orderId,
-        statusOrder: "success",
-        paymentDetail: PaymentMethod,
-      },
-    });
 
-    console.log(result)
-    history.push('/order')
+    if (PaymentMethod === "unspecify"){
+      alert("Please Specify Your Payment!")
+    }
+
+    else{
+      let result = await proceedPayment({
+        variables: {
+          _id: orderId,
+          statusOrder: "success",
+          paymentDetail: PaymentMethod,
+        },
+      });
+  
+      console.log(result)
+      history.push('/order')
+    }
   }
 
   return(
@@ -60,10 +67,18 @@ const Payment = () => {
             <p><input type="radio" value="Debit" name="paymentMethod" /> Debit</p>
             <p><input type="radio" value="Credit" name="paymentMethod" /> Credit</p>
             <p><input type="radio" value="Cash On Delivery" name="paymentMethod" /> Cash On Delivery</p>
-          </div>  
+          </div> 
+
+
         </div>
         <PaymentCard order={data}/>
-          <div className="col-span-2 flex justify-center m-3 mt-5">
+          <div className="col-span-2 flex justify-between m-3 mt-5">
+
+          <a href="/cart" class="flex font-semibold text-indigo-600 text-sm my-auto ">
+            <svg class="fill-current mr-2 mt-0.5 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
+            Back to Cart
+          </a>
+
             <button
               onClick={() => proceedPaymentBtn(pmChoice)}
               className="w-3/12 m-2 p-1 bg-indigo-500 rounded-lg text-lg font-semibold text-white shadow-md hover:shadow-xl hover:bg-indigo-800"

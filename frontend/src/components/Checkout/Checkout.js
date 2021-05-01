@@ -32,6 +32,7 @@ const Checkout = () => {
         product: productInfo,
         address:
           "addressline1 addressline2 city state/province postcode telephone",
+        userId: user?._id
       },
     });
 
@@ -71,8 +72,8 @@ const Checkout = () => {
           </h3>
           {data?.cart[0]?.product.map((product) => {
             const totalPrice =
-              parseInt(product?.quantity) *
-              parseInt(product?.productInfo?.price);
+              parseFloat(product?.quantity) *
+              parseFloat(product?.productInfo?.price);
             return (
               <>
                 <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2">
@@ -90,15 +91,15 @@ const Checkout = () => {
                   </p>
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
-                  <p className="text-center pt-10">{product?.quantity}</p>
+                  <p className="text-center pt-10">{parseFloat(product?.quantity).toLocaleString()}</p>
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
                   <p className="text-center pt-10">
-                    {product?.productInfo?.price}
+                    {parseFloat(product?.productInfo?.price).toLocaleString()}
                   </p>
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
-                  <p className="text-center pt-10">{totalPrice}</p>
+                  <p className="text-center pt-10">{totalPrice.toLocaleString()}</p>
                 </div>
               </>
             );
@@ -134,10 +135,16 @@ const Checkout = () => {
 
           {/* Checkout Button */}
 
-          <div className="mt-5 text-center col-span-2">
+          <div className="mt-5 text-center col-span-2 flex justify-between">
+
+            <a href="/cart" class="ml-5 flex font-semibold text-indigo-600 text-sm my-auto ">
+              <svg class="fill-current mr-2 mt-0.5 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
+              Back to Cart
+            </a>
+
             <button
               onClick={() => ProcessPaymentBtn()}
-              className="inline-flex justify-center py-2 px-4 w-3/12 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-green-600 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="text-center mr-5 mb-2 py-2 px-4 w-3/12 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-green-600 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Checkout
             </button>

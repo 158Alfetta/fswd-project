@@ -6,7 +6,11 @@ import OrderCard from "./OrderCard"
 
 const Order = () => {
   const { user } = useSession();
-  const { error, loading, data } = useQuery(QUERY_ORDER);
+  const { error, loading, data } = useQuery(QUERY_ORDER,{
+      variables:{
+        userId: user?._id
+      }}
+    );
 
   let numberOrder = 0;
     return(
