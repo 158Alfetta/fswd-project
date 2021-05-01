@@ -1,4 +1,11 @@
-export const authQueryMiddleware = async (
+export const adminPermission = async (resolve, source, args, context, info) => {
+  if (context?.user?.type === 'Admin') {
+    return resolve(source, args, context, info)
+  }
+  throw new Error('You must be authorized')
+}
+
+export const authQueryMiddlewareWithFilter = async (
   resolve,
   source,
   args,
@@ -19,7 +26,7 @@ export const authQueryMiddleware = async (
   throw new Error('You must be authorized')
 }
 
-export const authQueryMiddlewareOrder = async (
+export const authQueryMiddlewareWithFilterCreatedBy = async (
   resolve,
   source,
   args,
@@ -31,7 +38,28 @@ export const authQueryMiddlewareOrder = async (
       ...args,
       filter: {
         ...args.filter,
-        userId: context?.user._id,
+        createdByUser: context?.user._id,
+      },
+    }
+
+    return resolve(source, newArgs, context, info)
+  }
+  throw new Error('You must be authorized')
+}
+
+export const authQueryMiddlewareWithFilterOrderAdmin = async (
+  resolve,
+  source,
+  args,
+  context,
+  info
+) => {
+  if (context?.user) {
+    const newArgs = {
+      ...args,
+      filter: {
+        ...args.filter,
+        createdByUser: context?.user._id,
       },
     }
 

@@ -15,6 +15,8 @@ const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'))
 const CartPage = React.lazy(() => import('./pages/CartPage'))
 const AdminDahsboardPage = React.lazy(() => import('./pages/AdminDashboardPage'))
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
+const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
+const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
 const App = () => {
   return (
     <Fragment>
@@ -39,16 +41,13 @@ const App = () => {
             </Route>
             <Route path="/order">
               <OrderPage />
-            </Route>S
+            </Route>
             <Route path="/checkout">
               <CheckoutPage />
             </Route>
             <Route path="/products">
               <ProductPage />
             </Route>
-            {/* <Route path="/addProduct">
-              <AddProductPage />
-            </Route> */}
             <Route path="/cart">
               <CartPage />
             </Route>
@@ -58,8 +57,12 @@ const App = () => {
             <Route path="/payment">
               <PaymentPage />
             </Route>
+            <Route path="/product/:productId">
+              <ProductDetailPage />
+            </Route>
             <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
+            <PrivateRoute component={AddPromotionPage} path='/addPromotion'/>
           </Switch>
         </Suspense>
       </div>

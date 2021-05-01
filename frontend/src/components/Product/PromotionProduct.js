@@ -43,7 +43,7 @@ const PromotionProduct = (props) => {
   if (error) {
     return 'Error'
   }
-
+  // console.log(data?.PromotionProductId)
   function addtoCart(productId) {
     var temp = JSON.stringify(dataCart.cart[0].product)
     var inCart = JSON.parse(temp)
@@ -69,13 +69,13 @@ const PromotionProduct = (props) => {
 
   let finalPrice =
     parseInt(data?.PromotionProductId?.price) *
-    (1 - parseFloat(data?.PromotionProductId?.discount) / 100)
+    (1 - parseFloat(data?.PromotionProductId?.promotionDetail?.discount) / 100)
   return (
     <div>
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
           className="w-full"
-          src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
+          src={data?.PromotionProductId?.image?.[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}
           alt=""
         />
         <div className="px-6 py-4">
@@ -83,14 +83,14 @@ const PromotionProduct = (props) => {
             {data?.PromotionProductId?.name}
           </div>
           <p className="text-gray-700 text-base">
-            <del>{data?.PromotionProductId?.price} </del>
-            {finalPrice}
+            <del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()} </del>
+            {finalPrice.toLocaleString()}
           </p>
         </div>
       </div>
       <div className="px-6 pt-4 pb-2">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          {data?.PromotionProductId?.discount} % off
+          {(data?.PromotionProductId?.promotionDetail?.discount)} % off
         </span>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"

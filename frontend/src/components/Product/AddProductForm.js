@@ -1,17 +1,19 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { useSession } from '../../contexts/SessionContext'
 import { CREATE_PRODUCT_MUTATION } from '../../graphql/createProduct'
 import { CREATE_PROMOTION_PRODUCT_MUTATION } from '../../graphql/createPromotionProduct'
-import { parse } from 'graphql'
+import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
 import { PRODUCT_QUERY } from '../../graphql/productsQuery'
 
 import AddImage from './AddImage/AddImage'
+import PromotionOptions from './PromotionOptions'
 
 const AddProductForm = (props) => {
   const { user } = useSession()
   const history = useHistory()
+
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
@@ -57,15 +59,9 @@ const AddProductForm = (props) => {
   const handleTypeChange = useCallback((e) => {
     setType(e.target.value)
   }, [])
-
   const handlePromotionChange = useCallback((e) => {
     let { name, value } = e.target
-    if (name === 'discount') {
-      value = parseFloat(value)
-    }
-    if (name === 'limit') {
-      value = parseInt(value)
-    }
+    console.log(name, value)
     setPromotionProduct((prev) => ({ ...prev, [name]: value }))
   }, [])
   const handleAddProduct = useCallback(
@@ -86,27 +82,17 @@ const AddProductForm = (props) => {
     },
     [createProduct, createPromotionProduct, newProduct, PromotionProduct, type]
   )
+ 
+  
   let PromotionProductForm =
     type === 'PromotionProduct' ? (
       <>
-        <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
-          type="number"
-          name="discount"
-          value={PromotionProduct.discount}
-          onChange={handlePromotionChange}
-          placeholder="Percent of discount"
-          autoComplete="off"
-        />
-        <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
-          type="number"
-          name="limit"
-          value={PromotionProduct.limit}
-          onChange={handlePromotionChange}
-          placeholder="Maximum item in one order"
-          autoComplete="off"
-        />
+        <label>
+          <select name='promotionId' onChange={handlePromotionChange}>
+            <option value="">--Select Promotion--</option>
+            <PromotionOptions/>
+          </select>
+        </label>
       </>
     ) : null
   return (
@@ -169,7 +155,7 @@ const AddProductForm = (props) => {
           className="h-10 rounded border w-full px-3 focus:text-black focus:border-blue-100 mb-3"
           type="number"
           name="price"
-          value={newProduct.price}
+          value={newProduct.price == 0 ? null : newProduct?.price}
           onChange={handleInputChange}
           min="0"
           placeholder="Price of your product"
@@ -180,7 +166,7 @@ const AddProductForm = (props) => {
           className="h-10 rounded border w-full px-3 focus:text-black focus:border-blue-100 mb-3"
           type="number"
           name="count"
-          value={newProduct.count}
+          value={newProduct.count == 0 ? null : newProduct?.count}
           onChange={handleInputChange}
           min="0"
           placeholder="Your current product quantity"
