@@ -138,7 +138,7 @@ const GetCart = () => {
                             })}
 
                             <div className="flex justify-center">
-                                <div id="summary" class=" w-2/5 m-5 px-8 py-10 bg-opacity-10 bg-gray-500 rounded-xl" style={{float:"left"}}>
+                                <div id="summary" class="w-full md:w-3/5 m-5 px-8 py-10 bg-opacity-10 bg-gray-500 rounded-xl" style={{float:"left"}}>
                                     <h1 class="font-semibold text-2xl pb-8">Order Summary</h1>
                                     <div class="flex justify-between mt-10 mb-5">
                                         <span class="font-semibold text-sm uppercase">Item(s): {CartData?.cart[0]?.product?.length}</span>

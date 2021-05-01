@@ -26,7 +26,7 @@ const OrderCard = (props) => {
             {"Order Number"} <p className="text-xs md:text-xl">{numberOrder}</p>
           </div>
           <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Status"} <p className="text-xs md:text-xl">{order?.status}</p>
+            {"Status"} <p className="text-xs md:text-xl capitalize">{order?.status}</p>
           </div>
           <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
           {"Payment"} <p className="text-xs md:text-xl">{order?.paymentDetail}</p>
