@@ -7,6 +7,7 @@ import { PROCEED_PAYMENT_MUTATION } from "../../graphql/OrderMutation";
 import { useHistory } from "react-router-dom";
 
 
+
 const Payment = () => {
   let { orderId } = useParams();
   let history = useHistory();
@@ -21,7 +22,7 @@ const Payment = () => {
     let result = await proceedPayment({
       variables: {
         _id: orderId,
-        statusOrder: "Success/Paid",
+        statusOrder: "success",
         paymentDetail: PaymentMethod,
       },
     });

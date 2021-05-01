@@ -8,7 +8,6 @@ import { CREATE_CART } from '../../graphql/CartMutation'
 import { Link } from 'react-router-dom'
 import { useSession } from '../../contexts/SessionContext'
 
-import AddressForm from './AddressForm'
 
 const RegisterForm = () => {
   const history = useHistory()
@@ -162,8 +161,6 @@ const RegisterForm = () => {
           autoComplete="off"
           required
         />
-
-        <AddressForm />
 
         {AdminForm}
         <p className="text-center mt-3 text-red-600 text-xs">{err}</p>
