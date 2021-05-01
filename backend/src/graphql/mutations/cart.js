@@ -1,4 +1,5 @@
 import { CartTC, productInCartTC } from '../../models'
+import { authQueryMiddleware } from './middleware'
 
 export const updatePrice = CartTC.getResolver('updateById')
 export const createCart = CartTC.getResolver('createOne')

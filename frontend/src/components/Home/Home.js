@@ -1,7 +1,7 @@
 const Home = () => {
   return (
     <>
-      <div className="h-screen w-screen bg-gray-100">
+      <div className="h-screen w-screen">
         {/* Landing Section */}
 
         <div className="grid grid-cols-12 md:h-2/5 h-full pl-1">
@@ -180,8 +180,8 @@ const Home = () => {
 
                 {/* Footer */}
 
-        <div className="col-span-10 h-36 w-full mt-16 bg-yellow-900 bg-opacity-50">
-          <p className="flex justify-center ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
+        <div className="col-span-10 h-36 w-full mt-16 bg-yellow-800 bg-opacity-80 ">
+          <p className="flex justify-center text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
         </div>
       </div>
     </>

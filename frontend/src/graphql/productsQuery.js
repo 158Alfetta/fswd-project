@@ -16,12 +16,16 @@ export const PRODUCT_QUERY = gql`
 export const PRODUCT_QUERY_BY_USER = gql`
   query {
     ProductsByUser {
-      _id
-      type
-      name
-      price
-      count
-      image
+        _id
+        type
+        name
+        price
+        image
+        ... on PromotionProduct {promotionDetail{
+            name
+            discount
+          }
+        }
     }
   }
 `
