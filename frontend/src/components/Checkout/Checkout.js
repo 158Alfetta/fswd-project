@@ -77,7 +77,7 @@ const Checkout = () => {
             return (
               <>
                 <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2">
-                  <div className="">
+                  <div className="w-32">
                     <img
                       className="p-2"
                       src={

@@ -24,19 +24,19 @@ const ProductDetail = () => {
         return 'Error'
     }
     const product = data?.ProductId
+    var imageCount = product?.image?.length
+
     const addImageIndex = () => {
-        setImageIndex(imageIndex < product?.image.length - 1 ? imageIndex + 1 : 0)
-        console.log(product.image.length, imageIndex)
+        setImageIndex((imageIndex+1)%imageCount)
     }
     const decreseImageIndex = () => {
-        setImageIndex(imageIndex > 0 ? imageIndex - 1 : product.image.length - 1)
-        console.log(product.image.length, imageIndex)
+        setImageIndex((((imageIndex-1)%imageCount)+imageCount)%imageCount)
     }
     return (
         <div className="flex flex-row h-screen">
             <div className="flex flex-grow w-2/5 justify-center">
                 <div className="pt-10">
-                    <img className="object-contain h-4/5 w-4/5 rounded-xl" src={ product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}></img>
+                    <img className="object-contain h-4/5 w-96 rounded-xl" src={ product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}></img>
                     <div>
                         <button onClick={decreseImageIndex} type="button" className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">
                             back
@@ -53,14 +53,14 @@ const ProductDetail = () => {
                     <h2 className="text-2xl text-center">{product?.description}</h2>
                     <div className="border-t-2">
                         {product?.type === "PromotionProduct" ? <h2 className="text-2xl text-center pt-10"><del className="pr-3">{product?.price}</del>{parseInt(product?.price) *
-                        (1 - parseFloat(product?.promotionDetail?.discount) / 100)} บาท</h2> 
-                        : <h2 className="text-2xl text-center pt-10">{product?.price}</h2>}
+                        (1 - parseFloat(product?.promotionDetail?.discount) / 100)} THB</h2> 
+                        : <h2 className="text-2xl text-center pt-10">{product?.price} THB</h2>}
                     </div>
                     <div className="flex justify-center ">
                         <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 0 ? itemCount - 1 : 0)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount + 1)}> + </button>
                         </span>
                         <div className="pl-10">
-                            <span className="text-2xl pr-10">{product?.count} left</span>
+                            <span className="text-red-500 text-2xl pr-10">{product?.count} left</span>
                             <button type="button" className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">Add to cart</button>
                         </div>
                         <div className="text-3xl text-center">{product?.category}</div>
