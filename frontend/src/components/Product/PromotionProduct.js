@@ -6,7 +6,7 @@ import { Fragment, useCallback } from 'react'
 import { useSession } from '../../contexts/SessionContext'
 import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
-
+import {Link} from 'react-router-dom'
 const PromotionProduct = (props) => {
   const { product } = props
   const productId = product._id
@@ -72,9 +72,10 @@ const PromotionProduct = (props) => {
     (1 - parseFloat(data?.PromotionProductId?.promotionDetail?.discount) / 100)
   return (
     <div>
+      <Link to={"/product/" + data?.PromotionProductId?._id}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
-          className="w-full"
+          className="w-72 h-72"
           src={data?.PromotionProductId?.image?.[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}
           alt=""
         />
@@ -88,6 +89,7 @@ const PromotionProduct = (props) => {
           </p>
         </div>
       </div>
+      </Link>
       <div className="px-6 pt-4 pb-2">
         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           {(data?.PromotionProductId?.promotionDetail?.discount)} % off
