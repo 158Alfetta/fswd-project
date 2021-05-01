@@ -72,17 +72,29 @@ const GetCart = () => {
     }
     return (
         <>
-            <div className=" mx-8 my-5">
-                <div class="flex justify-between font-semibold text-2xl pt-10">
-                    <h1>{user?.username}'s Shopping Cart</h1>
-                    <h2>{CartData?.cart[0]?.product?.length} Item(s)</h2>
+            <div className="grid grid-cols-10 w-full h-20 mb-7">
+                <div className="col-span-3 border-b-2 border-green-800">
+                    <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">
+                    {user?.username}'s Shopping Cart
+                    </h2>
                 </div>
+
+                <div className="col-span-5"></div>
+
+                <div className="col-span-2 flex flex-col justify-around">
+                    <h2 className="font-semibold text-xl text-center">{CartData?.cart[0]?.product?.length} Item(s)</h2>
+                </div>
+
+            </div>
+
+            <div className=" mx-8 my-5">
+
 
                 <div class="flex mt-10 mb-5">
                     <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
-                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
-                    <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
+                    <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+                    <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+                    <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
                 </div>
             </div>
 
@@ -124,31 +136,29 @@ const GetCart = () => {
 
                                 )
                             })}
-                            <div id="summary" class="w-2/5 px-8 py-10" style={{float:"left"}}>
-                                <h1 class="font-semibold text-2xl pb-8">Order Summary</h1>
-                                <div class="flex justify-between mt-10 mb-5">
-                                    <span class="font-semibold text-sm uppercase">Item(s): {CartData?.cart[0]?.product?.length}</span>
-                                    <span class="font-semibold text-sm">{sum.toLocaleString()}</span>
-                                </div>
-                                <div>
-                                    <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
-                                    <select class="block p-2 text-gray-600 w-full text-sm">
-                                        <option>Standard shipping - 50.00 THB </option>
-                                    </select>
+
+                            <div className="flex justify-center">
+                                <div id="summary" class=" w-2/5 m-5 px-8 py-10 bg-opacity-10 bg-gray-500 rounded-xl" style={{float:"left"}}>
+                                    <h1 class="font-semibold text-2xl pb-8">Order Summary</h1>
+                                    <div class="flex justify-between mt-10 mb-5">
+                                        <span class="font-semibold text-sm uppercase">Item(s): {CartData?.cart[0]?.product?.length}</span>
+                                        <span class="font-semibold text-sm">{sum.toLocaleString()}</span>
+                                    </div>
+
+                                    <div class="border-t mt-8">
+                                        <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                                            <span>Total cost</span>
+                                            <span>{(sum + 50).toLocaleString()} Baht</span>
+                                        </div>
+                                        <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button></a>
+                                    </div>
+                                    
+                                    <a href="/products" class="flex font-semibold text-indigo-600 text-sm mt-10">
+                                        <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
+                                        Continue Shopping
+                                    </a>
                                 </div>
 
-                                <div class="border-t mt-8">
-                                    <div class="flex font-semibold justify-between py-6 text-sm uppercase">
-                                        <span>Total cost</span>
-                                        <span>{(sum + 50).toLocaleString()} Baht</span>
-                                    </div>
-                                    <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button></a>
-                                </div>
-                                
-                                <a href="/products" class="flex font-semibold text-indigo-600 text-sm mt-10">
-                                    <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
-                                    Continue Shopping
-                                </a>
                             </div>
 
                         </div>

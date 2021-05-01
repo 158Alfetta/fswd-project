@@ -45,10 +45,10 @@ const OrderCard = (props) => {
         <table className="table-auto border-2 border-gray-100 col-span-4">
             <thead>
             <tr>
-                <th className="border-2 border-gray-100">Name</th>
-                <th className="border-2 border-gray-100">Unit Price</th>
-                <th className="border-2 border-gray-100">Quantity</th>
-                <th className="border-2 border-gray-100">Price</th>
+                <th className="border-2 border-gray-100 border-opacity-50 font-semibold uppercase">Name</th>
+                <th className="border-2 border-gray-100 border-opacity-50 font-semibold uppercase">Unit Price</th>
+                <th className="border-2 border-gray-100 border-opacity-50 font-semibold uppercase">Quantity</th>
+                <th className="border-2 border-gray-100 border-opacity-50 font-semibold uppercase">Price</th>
             </tr>
             </thead>
             <tbody>
@@ -63,7 +63,7 @@ const OrderCard = (props) => {
         {/* END OF PRODUCT CREATION */}
         <div className="mt-2 flex flex-row col-span-2 justify-around self-center">
           <div className="font-semibold text-xl">{"Grand Total"}</div>
-          <p className="text-xl">{totalPrice}{" Baht"}</p>
+          <p className="text-xl font-semibold">{totalPrice}{" Baht"}</p>
         </div>
         {/* <button
           onClick={() => processPaymentBtn(order?._id)}
