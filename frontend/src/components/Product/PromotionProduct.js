@@ -75,7 +75,7 @@ const PromotionProduct = (props) => {
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
           className="w-full"
-          src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
+          src={data?.PromotionProductId?.image?.[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}
           alt=""
         />
         <div className="px-6 py-4">

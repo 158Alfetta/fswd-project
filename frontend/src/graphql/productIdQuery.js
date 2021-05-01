@@ -8,6 +8,7 @@ query ProductById($id: MongoID!){
         name
         price
         image
+        count
         description
         ... on PromotionProduct {promotionDetail{
             name
