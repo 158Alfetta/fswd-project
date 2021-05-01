@@ -17,7 +17,7 @@ const Product = (props) => {
     ],
   }
 
-  refetch()
+  // refetch()
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
@@ -74,12 +74,12 @@ const Product = (props) => {
           {' '}
           Add to cart
         </button>
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={handleButtonClick}
         >
           Remove Product
-        </button>
+        </button> */}
       </div>
     </div>
   )
