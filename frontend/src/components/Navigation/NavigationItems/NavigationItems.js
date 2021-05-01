@@ -53,24 +53,31 @@ const NavigationItems = (props) => {
       <NavigationItem link="/products" clickedFromNav={props.cliked} exact>
         Product
       </NavigationItem>
-      <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
-        <span className="relative inline-block">
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-            {data?.cart?.[0]?.product?.length ?? 0}
-          </span>
-          Cart
-          {/* <img src="https://www.flaticon.com/svg/vstatic/svg/1170/1170627.svg?token=exp=1618931046~hmac=c087b263d3990714eac48cd42396667f" height="25" width="25"/> */}
-        </span>
-      </NavigationItem>
-      <NavigationItem link="/order" clickedFromNav={props.clicked} exact>
-        Order
-      </NavigationItem>
-      <NavigationItem link="/checkout" clickedFromNav={props.clicked} exact>
-        checkout(test)
-      </NavigationItem>
-      <NavigationItem link="/payment" clickedFromNav={props.clicked} exact>
-        payment(test)
-      </NavigationItem>
+
+      { user?.type === "Admin" | user?.type === "Customer" ? 
+        <>
+          <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
+            <span className="relative inline-block">
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                {data?.cart?.[0]?.product?.length ?? 0}
+              </span>
+              Cart
+              {/* <img src="https://www.flaticon.com/svg/vstatic/svg/1170/1170627.svg?token=exp=1618931046~hmac=c087b263d3990714eac48cd42396667f" height="25" width="25"/> */}
+            </span>
+          </NavigationItem>
+          <NavigationItem link="/order" clickedFromNav={props.clicked} exact>
+            Order
+          </NavigationItem>
+          <NavigationItem link="/checkout" clickedFromNav={props.clicked} exact>
+            checkout(test)
+          </NavigationItem>
+          <NavigationItem link="/payment" clickedFromNav={props.clicked} exact>
+            payment(test)
+          </NavigationItem>
+        </>
+      : null}
+
+
       {user?.type === 'Admin' ? <AdminDashboardButton /> : null}
       {/* {user?.type === "Admin" ? <AdminDashboardButton /> : console.log(user?.type)} */}
       {userBox}

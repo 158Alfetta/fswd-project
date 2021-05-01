@@ -11,7 +11,6 @@ const PaymentBtn = (props) => {
 
     function handlePaymentBtn(orderId) {
         history.push("payment/" + orderId);
-        console.log(orderId, "OK")
     }
 
     function handleCancelBtn(orderId){
@@ -21,6 +20,7 @@ const PaymentBtn = (props) => {
             statusOrder: "cancel",
             }
         })
+        alert("Cancel Order Success")
     }
 
     if(status === "waiting"){

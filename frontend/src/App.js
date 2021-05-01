@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import classes from './App.module.css'
 import Layout from './components/Layout/Layout'
 import PrivateRoute from './route/PrivateRoute'
+import PrivateRouteAllUser from './route/PrivateRouteAllUser'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const LoginPage = React.lazy(() => import('./pages/LoginPage'))
@@ -39,16 +40,16 @@ const App = () => {
             <Route path="/register">
               <RegisterPage />
             </Route>
-            <Route path="/order">
+            {/* <Route path="/order">
               <OrderPage />
             </Route>
             <Route path="/checkout">
               <CheckoutPage />
-            </Route>
+            </Route> */}
             <Route path="/products">
               <ProductPage />
             </Route>
-            <Route path="/cart">
+            {/* <Route path="/cart">
               <CartPage />
             </Route>
             <Route path="/payment/:orderId">
@@ -56,10 +57,18 @@ const App = () => {
             </Route>
             <Route path="/payment">
               <PaymentPage />
-            </Route>
+            </Route> */}
             <Route path="/product/:productId">
               <ProductDetailPage />
             </Route>
+
+            <PrivateRouteAllUser component={OrderPage} path="/order" exact />
+            <PrivateRouteAllUser component={CheckoutPage} path="/checkout" exact />
+            <PrivateRouteAllUser component={CartPage} path="/cart" exact />
+            <PrivateRouteAllUser component={PaymentPage} path="/payment/:orderId" />
+            <PrivateRouteAllUser component={PaymentPage} path="/payment" exact/>
+
+
             <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
             <PrivateRoute component={AddPromotionPage} path='/addPromotion'/>
