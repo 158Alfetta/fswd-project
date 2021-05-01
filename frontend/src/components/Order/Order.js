@@ -12,10 +12,10 @@ const Order = () => {
     return(
       <>
       <div className="font-light h-screen w-screen">
-        <div className="grid grid-cols-10 w-full h-1/6 mb-5">
-          <div className="col-span-4 border-b-2 border-yellow-800">
-            <h2 className="font-sans text-left py-10 px-10 font-semibold text-4xl">Orders of {user?.username}</h2>
-        </div>
+        <div className="grid grid-cols-10 w-full h-20 mb-7">
+          <div className="col-span-3 border-b-2 border-yellow-800">
+            <h2 className="font-sans text-left py-6 px-10 font-semibold text-3xl">Orders of {user?.username}</h2>
+          </div>
         <div className="col-span-6 text-center py-auto">
             Select box for sucess, cancel, paid, waiting
         </div>
