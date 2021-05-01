@@ -20,6 +20,7 @@ const AddProductForm = (props) => {
     image: [],
     price: 0,
     count: 0,
+    category: "",
     createdByUser: user?._id,
   })
   const [type, setType] = useState('Product')
@@ -102,9 +103,7 @@ const AddProductForm = (props) => {
           Add Product
         </h1>
       </div>
-
       <AddImage urlsCallback={handleUrlsChange} />
-
       <form onSubmit={handleAddProduct}>
         <div className="mt-4">
           <span className="text-gray-700">Please select product type:</span>
@@ -175,6 +174,16 @@ const AddProductForm = (props) => {
         />
 
         {PromotionProductForm}
+        <label>
+          <select name='category' onChange={handleInputChange}>
+            <option value="">--Select Catagory--</option>
+            <option value="Plants">Plants</option>
+            <option value="Flowers">Flowers</option>
+            <option value="Gardening Equipment">Gardening Equipment</option>
+            <option value="Fertilizer">Fertilizer</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
         <p className="text-center mt-3 text-red-600 text-xs">{err}</p>
         <button
           className="uppercase h-10 mt-3 text-white w-full rounded bg-green-500 hover:bg-green-600"
