@@ -155,7 +155,7 @@ const AddProductForm = (props) => {
           className="h-10 rounded border w-full px-3 focus:text-black focus:border-blue-100 mb-3"
           type="number"
           name="price"
-          value={newProduct.price}
+          value={newProduct.price == 0 ? null : newProduct?.price}
           onChange={handleInputChange}
           min="0"
           placeholder="Price of your product"
@@ -166,7 +166,7 @@ const AddProductForm = (props) => {
           className="h-10 rounded border w-full px-3 focus:text-black focus:border-blue-100 mb-3"
           type="number"
           name="count"
-          value={newProduct.count}
+          value={newProduct.count == 0 ? null : newProduct?.count}
           onChange={handleInputChange}
           min="0"
           placeholder="Your current product quantity"

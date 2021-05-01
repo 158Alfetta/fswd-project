@@ -1,4 +1,6 @@
+import PaymentCard from "../Payment/PaymentCard"
 import OrderSubCard from "./OrderSubCard"
+import PaymentBtn from "./PaymentBtn"
 
 const OrderCard = (props) => {
 
@@ -18,7 +20,7 @@ const OrderCard = (props) => {
     <>
     <div className="flex justify-between m-5">
       {/* START A CREATION OF ORDER CART (1 ORDER) */}
-      <div className="flex flex-col mx-auto p-4 bg-yellow-700 bg-opacity-50 w-full md:w-9/12 shadow-lg rounded-xl">
+      <div className="flex flex-col mx-auto p-4 bg-yellow-700 bg-opacity-30 w-full md:w-9/12 shadow-lg rounded-xl">
         
         <div className="grid grid-cols-5 text-center border-opacity-60 bg-gray-100 shadow-md text-blue-900">
           {/* Order Information */}
@@ -63,7 +65,7 @@ const OrderCard = (props) => {
         {/* END OF PRODUCT CREATION */}
         <div className="mt-2 flex flex-row col-span-2 justify-around self-center">
           <div className="font-semibold text-xl">{"Grand Total"}</div>
-          <p className="text-xl font-semibold">{totalPrice}{" Baht"}</p>
+          <p className="text-xl font-semibold">{totalPrice.toLocaleString()}{" Baht"}</p>
         </div>
         {/* <button
           onClick={() => processPaymentBtn(order?._id)}
@@ -72,6 +74,11 @@ const OrderCard = (props) => {
           Process Payment
         </button> */}
         </div>
+
+        <div className="mt-2 w-full flex justify-end">
+          <PaymentBtn status={order?.status} orderId={order?._id} />
+        </div>
+
       </div>
     </div>
 
