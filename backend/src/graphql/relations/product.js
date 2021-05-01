@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { BaseProductTC, UserTC } from '../../models'
+import { BaseProductTC, UserTC, DiscountPromotionTC } from '../../models'
 // import mongoose from 'mongoose'
 BaseProductTC.addRelation(
     'createBy',{
@@ -10,6 +10,15 @@ BaseProductTC.addRelation(
         projection: { createdByUser: true},
     }
 )
+BaseProductTC.addRelation(
+    'promotionDetail',{
+        resolver: () => DiscountPromotionTC.getResolver('findById'),
+        prepareArgs:{
+            _id: (source) => source.promotionId,
+        },
+        projection: { promotionId: true},
+    }
+)                                                                                                                  
 BaseProductTC.addFields({
     timestamp:{
         type: "String",

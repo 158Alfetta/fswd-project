@@ -8,6 +8,11 @@ export const PRODUCT_QUERY = gql`
         name
         price
         image
+        ... on PromotionProduct {promotionDetail{
+            name
+            discount
+          }
+        }
     }
   }
 `
