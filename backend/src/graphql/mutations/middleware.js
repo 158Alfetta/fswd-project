@@ -26,8 +26,6 @@ export const authQueryMiddlewareWithFilter = async (
 ) => {
   if (context?.user) {
     const newArgs = {
-      ...args,
-      createdById: context?.user._id,
       filter: {
         ...args.filter,
         userId: context?.user._id,
