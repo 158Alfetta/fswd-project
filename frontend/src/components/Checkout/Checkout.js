@@ -1,4 +1,4 @@
-import { react, useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_ORDER } from "../../graphql/OrderMutation";
 import { QUERY_CART, QUERY_CART_ORDER } from "../../graphql/CartQuery";
@@ -11,12 +11,18 @@ const Checkout = () => {
   const { user } = useSession();
 
 
-  const { error, loading, data } = useQuery(QUERY_CART);
+  const { data } = useQuery(QUERY_CART);
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER);
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [clearCart] = useMutation(CLEAR_CART);
+  const [shippingCost, setShippingCost] = useState(50)
   let history = useHistory();
+  var summary = 0
+
+  function updateShippingCost(event) {
+    setShippingCost(parseInt(event.target.value))
+  }
 
   async function ProcessPaymentBtn() {
     let dataOrderString = JSON.stringify(dataOrder);
@@ -74,6 +80,7 @@ const Checkout = () => {
             const totalPrice =
               parseFloat(product?.quantity) *
               parseFloat(product?.productInfo?.price);
+            summary += parseFloat(totalPrice)
             return (
               <>
                 <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2">
@@ -123,10 +130,10 @@ const Checkout = () => {
                 <label class="block text-sm font-medium text-gray-700 uppercase pb-2">
                   Choose shipping method
                 </label>
-                <select class="block p-3 text-gray-600 w-full text-sm mb-2">
-                  <option>Standard shipping - 50.00 THB </option>
-                  <option>EMS - 90.00 THB </option>
-                  <option>Door to Door - 200.00 THB </option>
+                <select class="block p-3 text-gray-600 w-full text-sm mb-2" onChange={updateShippingCost}>
+                  <option value="50">Standard shipping - 50.00 THB </option>
+                  <option value="90">EMS - 90.00 THB </option>
+                  <option value="200">Door to Door - 200.00 THB </option>
                 </select>
               </div>
             </div>
@@ -135,13 +142,13 @@ const Checkout = () => {
 
           {/* Checkout Button */}
 
-          <div className="mt-5 text-center col-span-2 flex justify-between">
 
-            <a href="/cart" class="ml-5 flex font-semibold text-indigo-600 text-sm my-auto ">
-              <svg class="fill-current mr-2 mt-0.5 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
-              Back to Cart
-            </a>
 
+
+          <div className="mt-5 text-center col-span-2 flex justify-end">
+            <div className="py-1 px-4 font-extrabold">
+              Total: {(summary + shippingCost).toLocaleString()} THB <br /> <span className="font-light">TAX Included</span>
+            </div>
             <button
               onClick={() => ProcessPaymentBtn()}
               className="text-center mr-5 mb-2 py-2 px-4 w-3/12 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-green-600 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -149,6 +156,14 @@ const Checkout = () => {
               Checkout
             </button>
           </div>
+
+          <div className="py-4">
+            <a href="/cart" class="ml-5 flex font-semibold text-indigo-600 text-sm my-auto ">
+              <svg class="fill-current mr-2 mt-0.5 text-indigo-600 w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
+              Back to Cart
+            </a>
+          </div>
+
         </div>
 
 
