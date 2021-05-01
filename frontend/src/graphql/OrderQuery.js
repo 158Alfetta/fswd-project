@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client'
 
 export const QUERY_ORDER = gql`
-  query {
-    order {
-      _id
+query order($userId: String!){
+    order(filter:{
+      createdById: $userId
+    }){
+        _id
       product {
         productId
         productInfo {
@@ -18,12 +20,13 @@ export const QUERY_ORDER = gql`
         firstName
         lastName
       }
-      paymentDetail
-      timestamp
-      status
-      address
+    paymentDetail
+    timestamp
+    status
+    address
     }
-  }
+}
+  
 `
 
 export const QUERY_ORDER_BY_ID = gql`
