@@ -14,7 +14,7 @@ const Order = () => {
       <div className="font-light h-screen w-screen">
         <div className="grid grid-cols-10 w-full h-20 mb-7">
           <div className="col-span-3 border-b-2 border-yellow-800">
-            <h2 className="font-sans text-left py-6 px-10 font-semibold text-3xl">Orders of {user?.username}</h2>
+            <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">Orders of {user?.username}</h2>
           </div>
         <div className="col-span-6 text-center py-auto">
             Select box for sucess, cancel, paid, waiting

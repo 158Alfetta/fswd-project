@@ -9,6 +9,8 @@ import AddressForm from "./AddressForm";
 
 const Checkout = () => {
   const { user } = useSession();
+
+
   const { error, loading, data } = useQuery(QUERY_CART);
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER);
 
@@ -48,7 +50,7 @@ const Checkout = () => {
       <div className="h-screen w-screen">
         <div className="grid grid-cols-10 w-full h-20 mb-7">
           <div className="col-span-3 border-b-2 border-green-800">
-            <h2 className="font-sans text-left py-6 px-10 font-semibold text-3xl">
+            <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">
               Checkout
             </h2>
           </div>
@@ -107,6 +109,7 @@ const Checkout = () => {
 
         <div className="m-3 mb-10 p-2 bg-blue-200 bg-opacity-30 rounded-xl w-full md:w-8/12 mx-auto grid grid-cols-2">
           <div className="col-span-2">
+            <h2 className="text-2xl font-semibold text-center text-gray-600 p-3 mb-3 uppercase">Address</h2>
             <AddressForm />
           </div>
 
