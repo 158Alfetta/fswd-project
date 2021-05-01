@@ -1,13 +1,22 @@
 import { useParams } from "react-router"
 import { PRODUCT_ID_QUERY } from '../graphql/productIdQuery'
 import { useQuery } from "@apollo/client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const ProductDetail = () => {
     const { productId } = useParams()
     const [itemCount, setItemCount] = useState(1)
+    const [images, setImages] = useState([])
+    const [imageIndex, setImageIndex] = useState(0)
+
+
 
     const { loading, error, data } = useQuery(PRODUCT_ID_QUERY, { variables: { id: productId } })
+
+    useEffect(() => {
+        const imagesList = data?.ProductId?.image || []
+        setImages(imagesList)
+      }, []);
     if (loading) {
         return 'loading'
     }
@@ -15,11 +24,27 @@ const ProductDetail = () => {
         return 'Error'
     }
     const product = data?.ProductId
+    const addImageIndex = () => {
+        setImageIndex(imageIndex < product?.image.length - 1 ? imageIndex + 1 : 0)
+        console.log(product.image.length, imageIndex)
+    }
+    const decreseImageIndex = () => {
+        setImageIndex(imageIndex > 0 ? imageIndex - 1 : product.image.length - 1)
+        console.log(product.image.length, imageIndex)
+    }
     return (
         <div className="flex flex-row h-screen">
             <div className="flex flex-grow w-2/5 justify-center">
                 <div className="pt-10">
-                    <img className="object-contain h-4/5 w-4/5 rounded-xl" src={product?.image?.[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}></img>
+                    <img className="object-contain h-4/5 w-4/5 rounded-xl" src={ product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}></img>
+                    <div>
+                        <button onClick={decreseImageIndex} type="button" className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">
+                            back
+                        </button>
+                        <button onClick={addImageIndex} type="button" className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">
+                            Next
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="flex-grow flex-col w-2/5 justify-center ">
@@ -34,10 +59,11 @@ const ProductDetail = () => {
                     <div className="flex justify-center ">
                         <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 0 ? itemCount - 1 : 0)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount >= product?.count ? product?.count: itemCount + 1)}> + </button>
                         </span>
-                        <div className="inline-block pl-10">
+                        <div className="pl-10">
                             <span className="text-2xl pr-10">{product?.count} left</span>
-                            <button type="button" class="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">Add to cart</button>
+                            <button type="button" className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg">Add to cart</button>
                         </div>
+                        <div className="text-3xl text-center">{product?.category}</div>
                     </div>
                 </div>
             </div>
