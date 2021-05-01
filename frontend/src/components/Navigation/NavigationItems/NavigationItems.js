@@ -5,7 +5,6 @@ import { useSession } from '../../../contexts/SessionContext'
 import { QUERY_CART } from '../../../graphql/CartQuery'
 import { useQuery } from '@apollo/client'
 
-
 import classes from './NavigationItems.module.css'
 
 const NavigationItem = React.lazy(() =>
@@ -14,7 +13,7 @@ const NavigationItem = React.lazy(() =>
 
 const NavigationItems = (props) => {
   const { loading, user } = useSession()
-  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
+  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache' })
 
   refetch()
 
@@ -31,7 +30,6 @@ const NavigationItems = (props) => {
           >
             {user?.username}
           </Link>
-          
         </Fragment>
       )
     }
@@ -58,7 +56,7 @@ const NavigationItems = (props) => {
       <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
         <span className="relative inline-block">
           <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-            {data?.cart[0]?.product?.length ?? 0}
+            {data?.cart?.[0]?.product?.length ?? 0}
           </span>
           Cart
           {/* <img src="https://www.flaticon.com/svg/vstatic/svg/1170/1170627.svg?token=exp=1618931046~hmac=c087b263d3990714eac48cd42396667f" height="25" width="25"/> */}
@@ -73,18 +71,17 @@ const NavigationItems = (props) => {
       <NavigationItem link="/payment" clickedFromNav={props.clicked} exact>
         payment(test)
       </NavigationItem>
-      {user?.type === "Admin" ? <AdminDashboardButton /> : null} 
+      {user?.type === 'Admin' ? <AdminDashboardButton /> : null}
       {/* {user?.type === "Admin" ? <AdminDashboardButton /> : console.log(user?.type)} */}
       {userBox}
     </ul>
   )
 }
-  const AdminDashboardButton = (props) => {
-    return (
-      <NavigationItem link="/dashboard" clickedFromNav={props.clicked} exact>
-        dashboard
-      </NavigationItem>
-    )
-    
-  }
+const AdminDashboardButton = (props) => {
+  return (
+    <NavigationItem link="/dashboard" clickedFromNav={props.clicked} exact>
+      dashboard
+    </NavigationItem>
+  )
+}
 export default NavigationItems

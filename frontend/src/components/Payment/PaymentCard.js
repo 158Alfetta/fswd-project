@@ -12,65 +12,32 @@ const PaymentCard = (props) => {
   
     return (
       <>
-      <div className="flex">
+
         {/* START A CREATION OF ORDER CART (1 ORDER) */}
-        <div className="m-3 p-2 bg-purple-400 ">
-          <b>{"Order ID: "}</b>
-          {order?._id}
-          <br />
-          {order?.createdByUser?.firstName} {order?.createdByUser?.lastName}
-          <br />
-          <b>{"Status of Order: "}</b>
-          {order?.status}
-          <br />
-          <b>{"Payment: "}</b>
-          {order?.paymentDetail}
-          <br />
+        <div className="m-2 bg-purple-400 bg-opacity-20 grid grid-cols-2 rounded-xl ">
           {/* {START A CREATION OF PRODUCT CART (1 ORDER HAVE MULTIPLE PRODUCTS)} */}
+          
+          <h3 className="pl-4 font-semibold  uppercase pb-2 pt-4">Product</h3>
+          <h3 className="pr-4 font-semibold  text-right uppercase pb-2 pt-4">Quantity</h3>
+
           {order?.product.map((product) => {
             //call this function for calculating a price.
             handleTotalPrice(product?.productInfo?.price * product?.quantity);
-  
             return (
-              <div className="m-1 p-2 bg-yellow-200">
-                <ul>
-                  <li key="productID">
-                    <b>Productid</b>
-                    <br />
-                    {product?.productId}
-                  </li>
-                  <li>
-                    <b>name</b>
-                    <br />
-                    {product?.productInfo?.name}
-                  </li>
-                  <li>
-                    <b>Price</b>
-                    <br />
-                    {product?.productInfo?.price}
-                  </li>
-                  <li>
-                    <b>Stock</b>
-                    <br />
-                    {product?.productInfo?.count}
-                  </li>
-                  <li>
-                    <b>Quantity</b>
-                    <br />
-                    {product?.quantity}
-                  </li>
-                </ul>
+              <>
+              <div className="p-4 pb-2 border-b-2 border-gray-300">
+                {product?.productInfo?.name}
               </div>
+              <div className="p-4 pb-2 border-b-2 border-gray-300 text-right">
+                x{product?.quantity}
+              </div>
+              </>
             );
           })}
           {/* END OF PRODUCT CREATION */}
-          <div className="m-3 p-2 bg-green-200 border-gray-400 flex">
-            {"Grand Total: "}
-            {totalPrice}
-            {" Baht."}
-          </div>
+            <p className="p-3 mt-5 text-left text-lg font-semibold uppercase bg-purple-700 bg-opacity-30  rounded-bl-xl">{"Grand Total"}</p>
+            <p className="p-3 mt-5 text-right text-lg font-semibold uppercase bg-purple-700 bg-opacity-30 rounded-br-xl">{totalPrice}{" Baht"}</p>
         </div>
-      </div>
   
       </>
       
