@@ -58,3 +58,13 @@ export const CANCEL_ORDER = gql`
         }
     }
 `
+
+export const ORDER_STATUS_MUTATION = gql`
+  mutation UpdateOrderById($id: MongoID!, $record: UpdateByIdOrderInput!) {
+    updateOrderById(_id: $id, record: $record) {
+      record {
+        status
+      }
+    }
+  }
+`

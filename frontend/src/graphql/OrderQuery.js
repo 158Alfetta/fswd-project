@@ -6,20 +6,20 @@ query order($userId: String!){
       createdById: $userId
     }){
         _id
-        product{
+      product {
         productId
-        productInfo{
-            name
-            price
-            timestamp
-            count
+        productInfo {
+          name
+          price
+          timestamp
+          count
         }
         quantity
-        }
-        createdByUser{
+      }
+      createdByUser {
         firstName
         lastName
-        }
+      }
     paymentDetail
     timestamp
     status
