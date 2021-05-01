@@ -148,9 +148,11 @@ const GetCart = () => {
                                     <div class="border-t mt-8">
                                         <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                                             <span>Total cost</span>
-                                            <span>{(sum + 50).toLocaleString()} Baht</span>
+                                            <span>{sum.toLocaleString()} Baht</span>
                                         </div>
-                                        <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Checkout</button></a>
+                                        <div className="flex justify-center">
+                                        <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48">Go to Checkout</button></a>
+                                        </div>
                                     </div>
                                     
                                     <a href="/products" class="flex font-semibold text-indigo-600 text-sm mt-10">
