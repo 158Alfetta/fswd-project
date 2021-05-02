@@ -13,17 +13,11 @@ const NavigationItem = React.lazy(() =>
 
 const NavigationItems = (props) => {
   const { loading, user } = useSession()
-<<<<<<< Updated upstream
-  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache' })
-  
-  refetch()
-=======
-  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache', notifyOnNetworkStatusChange: true, })
+  const { data, refetch } = useQuery(QUERY_CART, {fetchPolicy: 'no-cache'})
 
   useEffect(() => {
     refetch()
   }, [data])
->>>>>>> Stashed changes
 
   const userBox = useMemo(() => {
     if (loading) {
