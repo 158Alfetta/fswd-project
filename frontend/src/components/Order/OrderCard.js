@@ -5,7 +5,7 @@ import PaymentBtn from "./PaymentBtn"
 const OrderCard = (props) => {
 
   const order = props?.order
-  const shipping = (order.shippingCost || 0)
+  const shipping = parseFloat(order.shippingCost || 0)
   const discount = 1-parseFloat(order?.product?.[0].productInfo?.promotionDetail?.discount)/100 || 1
   let numberOrder = props?.numberOrder
 
@@ -65,7 +65,7 @@ const OrderCard = (props) => {
             </thead>
             <tbody>
         {order?.product.map((product) => {
-          handleTotalPrice((product?.productInfo?.price*discount) * product?.quantity + shipping);
+          handleTotalPrice((product?.productInfo?.price*discount) * product?.quantity);
           return (
               <OrderSubCard product={product} />
           );
@@ -75,7 +75,7 @@ const OrderCard = (props) => {
         {/* END OF PRODUCT CREATION */}
         <div className="mt-2 flex flex-row col-span-2 justify-around self-center">
           <div className="font-semibold text-md md:text-lg">{"Grand Total"}</div>
-          <p className="text-md md:text-lg font-semibold">{totalPrice.toLocaleString()}{" Baht"}</p>
+          <p className="text-md md:text-lg font-semibold">{(parseFloat(totalPrice)+shipping).toLocaleString()}{" Baht"}</p>
         </div>
         {/* <button
           onClick={() => processPaymentBtn(order?._id)}
