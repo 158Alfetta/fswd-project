@@ -1,9 +1,13 @@
 import { useQuery } from '@apollo/client'
 import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
 import AdminPromotionCard from './AdminPromotionCard'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 const AdminPromotion = () => {
   const { loading, error, data, refetch } = useQuery(PROMOTION_QUERY)
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   const handleClickedRemove = useCallback(() => {
     refetch()
@@ -15,7 +19,7 @@ const AdminPromotion = () => {
   if (error) {
     console.log(JSON.stringify(error))
   }
-  console.log(data?.DiscountPromotions)
+
   return (
     <div className="my-4 grid grid-cols-1 md:grid-cols-4">
       {data?.DiscountPromotions?.map((promotion) => {
