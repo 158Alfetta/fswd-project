@@ -118,9 +118,7 @@ const Home = () => {
                   <p className="mt-2 text-lg">
                     Time to cultivate some happiness this summer. This range of
                     gardening products has all you need to decorate your living
-                    space with plant pots and plants, both inside and out. You
-                    can create your own little green sanctuary where you chill
-                    out and recharge your batteries.
+                    space with plant pots and plants, both inside and out.
                   </p>
                   <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
                     <span>Shop Now</span>

@@ -4,7 +4,7 @@ export const QUERY_ORDER = gql`
 query order($userId: String!){
     order(filter:{
       createdById: $userId
-    }){
+    }, sort:_ID_DESC){
         _id
       product {
         productId
