@@ -25,11 +25,11 @@ const OrderCard = (props) => {
         <div className="grid grid-cols-5 text-center border-opacity-60 bg-gray-100 shadow-md text-blue-900">
           {/* Order Information */}
           <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Timestamp"} <p className="text-xs md:text-xl">{order?.timestamp}</p>
+            {"Timestamp"} <p className="text-xs md:text-lg">{order?.timestamp}</p>
           </div>
           <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold ">
             <div className="pb-1">{"Status"}</div>
-            <p className={`self-center text-xs md:text-xl capitalize w-full md:w-1/2 text-gray-100 rounded-lg md:rounded-xl ${
+            <p className={`self-center text-xs md:text-lg capitalize w-full md:w-1/2 text-gray-100 rounded-lg md:rounded-xl ${
                 order?.status === 'waiting'
                   ? 'bg-yellow-400'
                   : order?.status === 'success'
@@ -39,7 +39,7 @@ const OrderCard = (props) => {
                   : ''}`}>{order?.status}</p>
           </div>
           <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
-          {"Payment"} <p className="text-xs md:text-xl">{order?.paymentDetail}</p>
+          {"Payment"} <p className="text-xs md:text-lg">{order?.paymentDetail}</p>
           </div>
           <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold col-span-2">
           {"Address "} <p className="text-xs font-normal p-2">{order?.address}</p>
@@ -72,8 +72,8 @@ const OrderCard = (props) => {
         </table>
         {/* END OF PRODUCT CREATION */}
         <div className="mt-2 flex flex-row col-span-2 justify-around self-center">
-          <div className="font-semibold text-xl">{"Grand Total"}</div>
-          <p className="text-xl font-semibold">{totalPrice.toLocaleString()}{" Baht"}</p>
+          <div className="font-semibold text-md md:text-lg">{"Grand Total"}</div>
+          <p className="text-md md:text-lg font-semibold">{totalPrice.toLocaleString()}{" Baht"}</p>
         </div>
         {/* <button
           onClick={() => processPaymentBtn(order?._id)}
