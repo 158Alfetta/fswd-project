@@ -31,7 +31,7 @@ const Pagination = (props) => {
           onClick={props.clickNext}
           className={`h-8 w-12 flex justify-center items-center rounded-full ${
             props.pageData.pageNum * props.pageData.limit >=
-            props.pageData.orders_count
+            props.pageData.items_count
               ? 'bg-white-100 '
               : 'bg-gray-200 cursor-pointer'
           }`}
