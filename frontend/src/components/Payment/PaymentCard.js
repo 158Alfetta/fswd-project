@@ -1,9 +1,6 @@
 const PaymentCard = (props) => {
 
-  // console.log(props)
-
   let order = props?.order?.findOrderbyId
-  console.log(order)
 
   
     let totalPrice = 0;
@@ -28,7 +25,7 @@ const PaymentCard = (props) => {
             return (
               <>
               <div className="p-4 pb-2 border-b-2 border-gray-300">
-                {product?.productInfo?.name}{" "}x{product?.quantity}
+                {product?.productInfo?.name}{" × "}{product?.quantity}
               </div>
               <div className="p-4 pb-2 border-b-2 border-gray-300 text-right">
                 {(parseFloat(product?.quantity)*parseFloat(product?.productInfo?.price*discount)).toLocaleString()}
