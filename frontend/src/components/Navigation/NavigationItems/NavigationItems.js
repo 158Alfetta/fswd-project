@@ -66,7 +66,7 @@ const NavigationItems = (props) => {
             Order
           </NavigationItem>
         </>
-      ) : null}
+       : null}
 
       {user?.type === 'Admin' ? <AdminDashboardButton /> : null}
       {/* {user?.type === "Admin" ? <AdminDashboardButton /> : console.log(user?.type)} */}
