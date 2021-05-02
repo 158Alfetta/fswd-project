@@ -11,6 +11,7 @@ const NavigationItem = React.lazy(() =>
 
 const NavigationItems = (props) => {
   const { loading, user, cartData: data } = useSession()
+  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache' })
 
   const userBox = useMemo(() => {
     if (loading) {
@@ -47,6 +48,9 @@ const NavigationItems = (props) => {
       </NavigationItem>
       <NavigationItem link="/products" clickedFromNav={props.cliked} exact>
         Product
+      </NavigationItem>
+      <NavigationItem link="/promotions" clickedFromNav={props.cliked} exact>
+        Promotion
       </NavigationItem>
 
       {user?.type === 'Admin' || user?.type === 'Customer' ? (

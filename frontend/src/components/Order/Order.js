@@ -9,7 +9,7 @@ const Order = () => {
   const { error, loading, data } = useQuery(QUERY_ORDER,{
       variables:{
         userId: user?._id
-      }}
+      }, notifyOnNetworkStatusChange: true,}
     );
 
   let numberOrder = 0;
