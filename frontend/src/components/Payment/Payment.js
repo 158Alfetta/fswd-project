@@ -1,10 +1,9 @@
 import { React, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ORDER_BY_ID } from "../../graphql/OrderQuery";
-import { useParams } from "react-router-dom";
 import PaymentCard from "./PaymentCard"
 import { PROCEED_PAYMENT_MUTATION } from "../../graphql/OrderMutation";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 
 
