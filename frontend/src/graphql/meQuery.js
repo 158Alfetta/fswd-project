@@ -6,6 +6,29 @@ export const ME_QUERY = gql`
       _id
       type
       username
+      firstName
+      lastName
     }
   }
+`
+export const CUSTOMER_QUERY = gql`
+query{
+  customerInfo{
+    username
+    firstName
+    lastName
+    address
+    telephone
+  }
+}
+`
+export const ADMIN_QUERY = gql`
+query{
+  adminInfo{
+    username
+    firstName
+    lastName
+    companyName
+  }
+}
 `
