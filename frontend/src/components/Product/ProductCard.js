@@ -99,20 +99,9 @@ const ProductCard = () => {
   }
 
   return (
-    <>
-      <div className="h-screen w-screen grid grid-cols-5 ">
-        <div className="col-span-2 border-b-2 border-yellow-800 mb-5">
-          <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">
-            N E T T Y's Products
-            {categorySelect}
-          </h2>
-        </div>
-
-        {/* Blank Space for other additional */}
-        <div className="col-span-3"></div>
-
-        {/* For menu bar */}
-        <div className="bg-yellow-800 bg-opacity-10 flex justify-center pt-5">
+    <div>
+      <div>
+        <div className="p-5">
           <label>
             <select name="category" onChange={handleFilterChange}>
               <option value="">--Select Catagory--</option>
@@ -149,14 +138,18 @@ const ProductCard = () => {
                 }
                 return null
               })}
-          <Pagination
-            clickBefore={handleBeforePage}
-            pageData={page}
-            clickNext={handleNextPage}
-          />
+        </div>
+        <div className="flex justify-center m-5 mb-6">
+          {page?.items_count > 0 ? (
+            <Pagination
+              clickBefore={handleBeforePage}
+              pageData={page}
+              clickNext={handleNextPage}
+            />
+          ) : null}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 export default ProductCard
