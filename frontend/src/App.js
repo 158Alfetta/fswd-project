@@ -14,12 +14,16 @@ const ProductPage = React.lazy(() => import('./pages/ProductPage'))
 const AddProductPage = React.lazy(() => import('./pages/AddProductPage'))
 const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'))
 const CartPage = React.lazy(() => import('./pages/CartPage'))
-const AdminDahsboardPage = React.lazy(() => import('./pages/AdminDashboardPage'))
+const AdminDahsboardPage = React.lazy(() =>
+  import('./pages/AdminDashboardPage')
+)
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
 const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
 const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
+const UpdateProductPage = React.lazy(() => import('./pages/UpdateProductPage'))
 const PromotionPage = React.lazy(() => import('./pages/PromotionPage'))
 const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'))
+
 const App = () => {
   return (
     <Fragment>
@@ -66,6 +70,15 @@ const App = () => {
             <Route path="/product/:productId">
               <ProductDetailPage />
             </Route>
+            <PrivateRoute
+              component={AdminDahsboardPage}
+              path="/dashboard"
+              exact
+            />
+            <PrivateRoute
+              component={UpdateProductPage}
+              path="/dashboard/update-product/:productId"
+            />
 {/* 
             <PrivateRouteAllUser component={OrderPage} path="/order" exact />
             <PrivateRouteAllUser component={CheckoutPage} path="/checkout" exact />
@@ -73,10 +86,8 @@ const App = () => {
             <PrivateRouteAllUser component={PaymentPage} path="/payment/:orderId" />
             <PrivateRouteAllUser component={PaymentPage} path="/payment" exact/> */}
 
-
-            <PrivateRoute component={AdminDahsboardPage} path="/dashboard" exact />
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
-            <PrivateRoute component={AddPromotionPage} path='/addPromotion'/>
+            <PrivateRoute component={AddPromotionPage} path="/addPromotion" />
           </Switch>
         </Suspense>
       </div>
