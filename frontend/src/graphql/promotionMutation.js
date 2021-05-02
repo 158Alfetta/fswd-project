@@ -13,3 +13,12 @@ export const UPDATE_PROMOTION_BY_ID = gql`
     }
   }
 `
+export const DELETE_PROMOTION = gql`
+    mutation RemoveDiscountPromotion($id: MongoID!){
+        removeDiscountPromotion(_id: $id){
+            record {
+                _id
+            }
+        }
+    }
+`

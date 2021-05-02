@@ -59,6 +59,8 @@ const ProductDetail = () => {
     const prevImage = () => {
         setImageIndex((((imageIndex - 1) % imageCount) + imageCount) % imageCount)
     }
+    let finalPrice = parseFloat(product?.price) *
+    (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()
     return (
         <div className="flex flex-row h-screen">
             <div className="flex flex-grow w-2/5 justify-center">
@@ -77,9 +79,14 @@ const ProductDetail = () => {
                     <h2 className="text-4xl text-center">{product?.name}</h2>
                     <h2 className="text-2xl text-center">{product?.description}</h2>
                     <div className="border-t-2">
-                        {product?.type === "PromotionProduct" ? <h2 className="text-2xl text-center pt-10"><del className="pr-3">{product?.price}</del>{parseFloat(product?.price) *
-                            (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()} THB</h2>
-                            : <h2 className="text-2xl text-center pt-10">{parseFloat(product?.price).toLocaleString()} THB</h2>}
+                        {
+                            product?.type === "PromotionProduct" ? 
+                            parseFloat(finalPrice) ?
+                            <span><h2 className="text-2xl text-center pt-10"><del className="pr-3">{product?.price}</del>
+                                  {finalPrice} THB</h2></span>
+                            : <h2 className="text-2xl text-center pt-10">{product?.price}</h2>
+                            : <h2 className="text-2xl text-center pt-10">{parseFloat(product?.price).toLocaleString()} THB</h2>
+                        }
                     </div>
                     <div className="flex justify-center ">
                         <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 1 ? itemCount - 1 : 1)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount + 1 <= product?.count ? itemCount + 1 : product?.count)}> + </button>

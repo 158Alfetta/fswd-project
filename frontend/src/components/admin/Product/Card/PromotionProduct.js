@@ -1,14 +1,25 @@
 import { PROMOTION_PRODUCT_QUERY } from '../../../../graphql/promoProductIdQuery'
-import { useQuery } from '@apollo/client'
+import { DELETE_PRODUCT_MUTATION } from '../../../../graphql/deleteProductById'
+import { useMutation, useQuery } from '@apollo/client'
+import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 const PromotionProduct = (props) => {
   const { product } = props
   const productId = product._id
-
+  const [deleteProduct] = useMutation(DELETE_PRODUCT_MUTATION)
   const { loading, error, data } = useQuery(PROMOTION_PRODUCT_QUERY, {
     variables: { id: productId },
   })
+
+  const handleButtonClick = useCallback((e) => {
+    try {
+      console.log(product?._id)
+      deleteProduct({ variables: { id: product?._id } })
+    } catch (err) {
+      console.log(JSON.stringify(err))
+    }
+  }, [])
 
   if (loading) {
     return 'Loading...'
@@ -47,6 +58,13 @@ const PromotionProduct = (props) => {
             }
           </p>
           <div className="whitespace-nowrap text-right text-sm font-medium">
+            <span
+              className="cursor-pointer text-indigo-600 hover:text-indigo-900"
+              onClick={handleButtonClick}
+            >
+              Remove
+            </span>
+            {" "}
             <Link
               to={'/dashboard/update-product/' + data?.PromotionProductId?._id}
             >

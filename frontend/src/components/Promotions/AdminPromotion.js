@@ -1,36 +1,21 @@
 import { useQuery } from '@apollo/client'
-import { useSession } from '../../contexts/SessionContext'
 import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
-import {Link} from 'react-router-dom'
+import AdminPromotionCard from './AdminPromotionCard'
+const AdminPromotion = () => {
+    const {loading, error, data, refetch} = useQuery(PROMOTION_QUERY)
 
-const AdminPromotionCard = () => {
-    const {user} = useSession()
-    const {loading, error, data} = useQuery(PROMOTION_QUERY)
     if (loading) { return ('loading...')}
     if (error) { console.log(JSON.stringify(error))}
     console.log(data?.DiscountPromotions)
     return(
-        <>
+        <div className="my-4 grid grid-cols-1 md:grid-cols-4">
             {data?.DiscountPromotions?.map((promotion) => { 
                 return (
-                    <div className="max-w-sm rounded overflow-hidden shadow-lg justify-center p-20 mt-10">
-                        <div className="px-6 py-4 ">
-                            <div className="font-bold text-xl mb-2">Promotion</div>
-                            <div className="text-xl mb-2">{promotion?.name}</div>
-                            <div className="text-xl mb-2">{promotion?.discount} percent off</div>
-                            {user?.type === "Admin" ? <Link
-                                to={'/dashboard/update-promotion/' + promotion?._id}
-                            >
-                                <span className="cursor-pointer	 text-indigo-600 hover:text-indigo-900">
-                                    Edit
-                                </span>
-                            </Link> : null}
-                        </div>
-                    </div>
+                        <AdminPromotionCard key={promotion?._id} promotion={promotion}/>
                     )
             })}
-        </>
+        </div>
     )
 }
 
-export default AdminPromotionCard
+export default AdminPromotion
