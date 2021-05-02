@@ -55,6 +55,7 @@ const UpdateProductForm = () => {
             price: modifiedData?.price,
             image: modifiedData?.image,
             count: modifiedData?.count,
+            category: modifiedData?.category,
             description: modifiedData?.description,
             promotionId: modifiedData?.promotionId,
           }
@@ -158,6 +159,54 @@ const UpdateProductForm = () => {
       />
 
       {PromotionProductForm}
+
+      <label className="ml-8">
+        <select
+          name="category"
+          defaultChecked={modifiedData?.category ?? ''}
+          onChange={handleInputChange}
+        >
+          <option
+            selected={modifiedData?.category === '' ? true : false}
+            value=""
+          >
+            --Select Catagory--
+          </option>
+          <option
+            selected={modifiedData?.category === 'Plants' ? true : false}
+            value="Plants"
+          >
+            Plants
+          </option>
+          <option
+            selected={modifiedData?.category === 'Flowers' ? true : false}
+            value="Flowers"
+          >
+            Flowers
+          </option>
+          <option
+            selected={
+              modifiedData?.category === 'Gardening Equipment' ? true : false
+            }
+            value="Gardening Equipment"
+          >
+            Gardening Equipment
+          </option>
+          <option
+            selected={modifiedData?.category === 'Fertilizer' ? true : false}
+            value="Fertilizer"
+          >
+            Fertilizer
+          </option>
+          <option
+            selected={modifiedData?.category === 'Other' ? true : false}
+            value="Other"
+          >
+            Other
+          </option>
+        </select>
+      </label>
+
       <p className="text-center mt-3 text-red-600 text-xs">{err}</p>
       <button
         className="uppercase h-10 mt-3 text-white w-full rounded bg-green-500 hover:bg-green-600"
