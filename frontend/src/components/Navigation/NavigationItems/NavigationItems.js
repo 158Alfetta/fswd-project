@@ -57,7 +57,7 @@ const NavigationItems = (props) => {
         Promotion
       </NavigationItem>
 
-      { user?.type === "Admin" || user?.type === "Customer" ? 
+      { user?.type === "Customer" ? 
         <>
           <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
             <span className="relative inline-block">
