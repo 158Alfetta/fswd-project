@@ -1,9 +1,7 @@
-import React, { useMemo, Fragment, useEffect } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useSession } from '../../../contexts/SessionContext'
-import { QUERY_CART } from '../../../graphql/CartQuery'
-import { useQuery } from '@apollo/client'
 
 import classes from './NavigationItems.module.css'
 
@@ -12,16 +10,11 @@ const NavigationItem = React.lazy(() =>
 )
 
 const NavigationItems = (props) => {
-  const { loading, user } = useSession()
-  const { data, refetch } = useQuery(QUERY_CART, {fetchPolicy: 'no-cache'})
-
-  useEffect(() => {
-    refetch()
-  }, [data])
+  const { loading, user, cartData: data } = useSession()
 
   const userBox = useMemo(() => {
     if (loading) {
-      return <span className="Navbar-user">Loading ...</span>
+      return <span className="-user">Loading ...</span>
     }
     if (user) {
       return (
@@ -55,8 +48,11 @@ const NavigationItems = (props) => {
       <NavigationItem link="/products" clickedFromNav={props.cliked} exact>
         Product
       </NavigationItem>
+      <NavigationItem link="/promotions" clickedFromNav={props.cliked} exact>
+        Promotion
+      </NavigationItem>
 
-      { user?.type === "Admin" || user?.type === "Customer" ? 
+      {user?.type === 'Admin' || user?.type === 'Customer' ? (
         <>
           <NavigationItem link="/cart" clickedFromNav={props.clicked} exact>
             <span className="relative inline-block">
@@ -71,8 +67,7 @@ const NavigationItems = (props) => {
             Order
           </NavigationItem>
         </>
-      : null}
-
+      ) : null}
 
       {user?.type === 'Admin' ? <AdminDashboardButton /> : null}
       {/* {user?.type === "Admin" ? <AdminDashboardButton /> : console.log(user?.type)} */}

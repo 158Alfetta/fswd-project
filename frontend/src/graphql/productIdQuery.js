@@ -1,24 +1,24 @@
 import { gql } from '@apollo/client'
 
 export const PRODUCT_ID_QUERY = gql`
-
-query ProductById($id: MongoID!){
-    ProductId (_id: $id) {
-        _id
-        type
-        name
-        price
-        image
-        count
-        category
-        description
-        ... on PromotionProduct {promotionDetail{
-            name
-            discount
-            }
+  query ProductById($id: MongoID!) {
+    ProductId(_id: $id) {
+      _id
+      type
+      name
+      price
+      image
+      count
+      category
+      description
+      ... on PromotionProduct {
+        promotionDetail {
+          name
+          discount
         }
       }
     }
+  }
 `
 
 export const PROMOTION_PRODUCT_ID_QUERY = gql`
@@ -29,6 +29,7 @@ export const PROMOTION_PRODUCT_ID_QUERY = gql`
       name
       price
       image
+      category
       count
       description
       promotionId
