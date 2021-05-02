@@ -18,6 +18,7 @@ const AdminDahsboardPage = React.lazy(() => import('./pages/AdminDashboardPage')
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
 const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
 const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
+const PromotionPage = React.lazy(() => import('./pages/PromotionPage'))
 const App = () => {
   return (
     <Fragment>
@@ -57,6 +58,9 @@ const App = () => {
             </Route>
             <Route path="/payment">
               <PaymentPage />
+            </Route>
+            <Route path="/promotions">
+              <PromotionPage />
             </Route>
             <Route path="/product/:productId">
               <ProductDetailPage />
