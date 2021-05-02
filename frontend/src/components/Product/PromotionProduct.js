@@ -8,6 +8,7 @@ import { UPDATE_CART } from '../../graphql/CartMutation'
 import { Link } from 'react-router-dom'
 const PromotionProduct = (props) => {
   const { product } = props
+  console.log(product)
   const productId = product._id
   const { user } = useSession()
   const { data: dataCart, refetch } = useQuery(QUERY_CART, {
@@ -34,6 +35,7 @@ const PromotionProduct = (props) => {
     variables: { id: productId },
   })
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
+  refetch()
   if (loading) {
     return 'Loading...'
   }
@@ -87,19 +89,39 @@ const PromotionProduct = (props) => {
               {data?.PromotionProductId?.name}
             </div>
             <p className="text-gray-700 text-right">
-              <del>
-                {parseFloat(data?.PromotionProductId?.price).toLocaleString()}
-              </del>{' '}
-              {finalPrice.toLocaleString()}
+              {parseFloat(finalPrice) ? (
+                <span>
+                  <del>
+                    {parseFloat(
+                      data?.PromotionProductId?.price
+                    ).toLocaleString()}
+                  </del>{' '}
+                  {finalPrice.toLocaleString()}
+                </span>
+              ) : (
+                <span>
+                  {parseFloat(data?.PromotionProductId?.price).toLocaleString()}
+                </span>
+              )}
+              {/* <del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</del>
+            {" "}{finalPrice.toLocaleString()} */}
             </p>
           </div>
         </Link>
 
         {/* Button and discount panel */}
         <div className="bg-yellow-500 bg-opacity-100 rounded-bl-lg rounded-br-lg flex justify-between">
-          <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
-            {data?.PromotionProductId?.promotionDetail?.discount} % off
-          </span>
+          {
+            // Check if promotion is available
+            data?.PromotionProductId?.promotionDetail?.discount ? (
+              <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
+                {data?.PromotionProductId?.promotionDetail?.discount} % off
+              </span>
+            ) : null
+          }
+          {/* <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
+            {(data?.PromotionProductId?.promotionDetail?.discount)} % off
+          </span> */}
 
           <button
             className="bg-green-600 hover:bg-green-800 text-white font-bold m-2 py-2 px-4 rounded-lg"

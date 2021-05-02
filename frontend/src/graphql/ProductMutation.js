@@ -12,6 +12,7 @@ export const UPDATE_PROMOTION_PRODUCT_BY_ID = gql`
         image
         price
         count
+        category
         createdByUser
         promotionId
       }
