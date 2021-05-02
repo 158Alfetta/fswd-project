@@ -24,7 +24,7 @@ const Order = () => {
             </h2>
           </div>
           <div className="col-span-6 text-center py-auto">
-            Select box for sucess, cancel, paid, waiting
+            {/* empty */}
           </div>
         </div>
         {data &&
