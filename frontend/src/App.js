@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import classes from './App.module.css'
 import Layout from './components/Layout/Layout'
+import { useSession } from './contexts/SessionContext'
 import PrivateRoute from './route/PrivateRoute'
 import PrivateRouteAllUser from './route/PrivateRouteAllUser'
 
@@ -26,6 +27,7 @@ const UpdatePromotionPage = React.lazy(() => import('./pages/UpdatePromotionPage
 const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'))
 
 const App = () => {
+  const { user } = useSession()
   return (
     <Fragment>
       <div>
@@ -74,14 +76,17 @@ const App = () => {
             <PrivateRoute
               component={AdminDahsboardPage}
               path="/dashboard"
+              user={user}
               exact
             />
             <PrivateRoute
               component={UpdateProductPage}
-              path="/dashboard/update-product/:productId"
+              user={user}
+              path="/dashboard/update-product/:productId"         
             />
             <PrivateRoute
               component={UpdatePromotionPage}
+              user={user}
               path="/dashboard/update-promotion/:promotionId"
             />
 {/* 
