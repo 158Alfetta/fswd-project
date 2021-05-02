@@ -10,7 +10,7 @@ const PaymentBtn = (props) => {
     let history = useHistory();
 
     function handlePaymentBtn(orderId) {
-        history.push("payment/" + orderId);
+        history.push("/payment/" + orderId);
     }
 
     function handleCancelBtn(orderId){
