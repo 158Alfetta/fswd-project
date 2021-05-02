@@ -6,7 +6,7 @@ import OrderCard from "./OrderCard";
 
 const Order = () => {
   const { user } = useSession();
-  const { error, loading, data } = useQuery(QUERY_ORDER, {
+  const { data } = useQuery(QUERY_ORDER, {
     variables: {
       userId: user?._id,
     },

@@ -1,4 +1,3 @@
-import PaymentCard from "../Payment/PaymentCard"
 import OrderSubCard from "./OrderSubCard"
 import PaymentBtn from "./PaymentBtn"
 
@@ -7,11 +6,6 @@ const OrderCard = (props) => {
   const order = props?.order
   const shipping = parseFloat(order.shippingCost || 0)
   const discount = 1-parseFloat(order?.product?.[0].productInfo?.promotionDetail?.discount)/100 || 1
-  let numberOrder = props?.numberOrder
-
-  function processPaymentBtn(log){
-      console.log(log)
-  }
 
   let totalPrice = 0;
   const handleTotalPrice = (price) => {

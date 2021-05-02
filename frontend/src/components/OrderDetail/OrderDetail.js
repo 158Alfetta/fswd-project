@@ -1,16 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { QUERY_ORDER_BY_ID } from "../../graphql/OrderQuery";
 import { useSession } from "../../contexts/SessionContext";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PaymentBtn from "./PaymentBtn";
 
 const OrderDetail = () => {
-  const { user } = useSession();
   let { orderId } = useParams();
-  let history = useHistory();
   let summary = 0;
 
-  const { error, loading, data } = useQuery(QUERY_ORDER_BY_ID, {
+  const { data } = useQuery(QUERY_ORDER_BY_ID, {
     variables: { _id: orderId },
   });
 
