@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const PRODUCT_QUERY = gql`
-  query Products($skip: Int!, $limit: Int!) {
+  query Products($skip: Int, $limit: Int) {
     Products(skip: $skip, limit: $limit) {
       _id
       type
