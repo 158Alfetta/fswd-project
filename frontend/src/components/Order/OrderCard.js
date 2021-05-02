@@ -5,6 +5,8 @@ import PaymentBtn from "./PaymentBtn"
 const OrderCard = (props) => {
 
   const order = props?.order
+  const shipping = (order.shippingCost || 0)
+  const discount = 1-parseFloat(order?.product?.[0].productInfo?.promotionDetail?.discount)/100 || 1
   let numberOrder = props?.numberOrder
 
   function processPaymentBtn(log){
@@ -63,7 +65,7 @@ const OrderCard = (props) => {
             </thead>
             <tbody>
         {order?.product.map((product) => {
-          handleTotalPrice(product?.productInfo?.price * product?.quantity);
+          handleTotalPrice((product?.productInfo?.price*discount) * product?.quantity + shipping);
           return (
               <OrderSubCard product={product} />
           );

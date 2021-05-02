@@ -18,7 +18,8 @@ const Product = (props) => {
     ],
   }
 
-  // refetch()
+  console.log(product)
+  refetch()
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {

@@ -41,7 +41,8 @@ const Checkout = () => {
         payment: "unspecify",
         product: productInfo,
         address: addressString,
-        userId: user?._id
+        userId: user?._id,
+        shippingCost: shippingCost
       },
     });
 
@@ -82,9 +83,11 @@ const Checkout = () => {
             Total
           </h3>
           {data?.cart[0]?.product.map((product) => {
+            const discount = 1-parseFloat(product?.productInfo?.promotionDetail?.discount)/100 || 1
+            console.log(discount)
             const totalPrice =
               parseFloat(product?.quantity) *
-              parseFloat(product?.productInfo?.price);
+              parseFloat(product?.productInfo?.price*discount)
             summary += parseFloat(totalPrice)
             return (
               <>
@@ -107,7 +110,7 @@ const Checkout = () => {
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
                   <p className="text-center pt-10">
-                    {parseFloat(product?.productInfo?.price).toLocaleString()}
+                    {parseFloat(product?.productInfo?.price*discount).toLocaleString()}
                   </p>
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">

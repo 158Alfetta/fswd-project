@@ -24,7 +24,7 @@ const Payment = () => {
     setPmChoice(e.target.value)
   }
 
-  console.log(pmChoice)
+  // console.log(pmChoice)
  
   async function proceedPaymentBtn(PaymentMethod){
 
@@ -41,7 +41,7 @@ const Payment = () => {
         },
       });
   
-      console.log(result)
+      // console.log(result)
       history.push('/order')
     }
   }

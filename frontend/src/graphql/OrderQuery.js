@@ -13,6 +13,11 @@ query order($userId: String!){
           price
           timestamp
           count
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
         quantity
       }
@@ -24,6 +29,7 @@ query order($userId: String!){
     timestamp
     status
     address
+    shippingCost
     }
 }
   
@@ -40,6 +46,11 @@ export const QUERY_ORDER_BY_ID = gql`
           price
           timestamp
           count
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
         quantity
       }
@@ -51,6 +62,7 @@ export const QUERY_ORDER_BY_ID = gql`
       timestamp
       status
       address
+      shippingCost
     }
   }
 `
@@ -72,6 +84,11 @@ export const ADMIN_QUERY_ORDER = gql`
         quantity
         productInfo {
           name
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
       }
     }

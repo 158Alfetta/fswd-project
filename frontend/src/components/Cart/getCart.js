@@ -8,7 +8,6 @@ const GetCart = () => {
 
     const { user } = useSession()
     const { data: CartData, refetch } = useQuery(QUERY_CART, { fetchPolicy: "no-cache" })
-    // console.log(CartData)
     refetch()
 
     const refetchQuery = {
@@ -103,6 +102,8 @@ const GetCart = () => {
                     return (
                         <div key={item}>
                             {item?.product?.map((product) => {
+                                const discount = 1-parseFloat(product?.productInfo?.promotionDetail?.discount)/100 || 1
+                                // console.log(discount)
                                 return (
                                     <div class="flex items-center hover:bg-gray-100 mx-8 px-6 py-5 border-b">
                                         <div class="flex w-2/5">
@@ -125,8 +126,8 @@ const GetCart = () => {
 
                                         </div>
 
-                                        <span class="text-center w-1/5 font-semibold text-sm">{parseFloat(product?.productInfo?.price).toLocaleString()}</span>
-                                        <span class="text-center w-1/5 font-semibold text-sm">{summary(product?.productInfo?.price, product?.quantity).toLocaleString()}</span>
+                                        <span class="text-center w-1/5 font-semibold text-sm">{(parseFloat(product?.productInfo?.price)*discount).toLocaleString()}</span>
+                                        <span class="text-center w-1/5 font-semibold text-sm">{summary(product?.productInfo?.price*discount, product?.quantity).toLocaleString()}</span>
 
 
 

@@ -27,8 +27,7 @@ const PromotionProduct = (props) => {
   const refetchQuery = {
     refetchQueries: [
       {
-        query: QUERY_CART,
-        variables: { userId: user?._id },
+        query: QUERY_CART
       },
     ],
   }
@@ -101,12 +100,12 @@ const PromotionProduct = (props) => {
           {' '}
           Add to cart
         </button>
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={handleButtonClick}
         >
           Remove Product
-        </button>
+        </button> */}
       </div>
     </div>
   )

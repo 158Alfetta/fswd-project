@@ -4,9 +4,10 @@ export const CREATE_ORDER = gql`
     mutation createOrder(
         $statusOrder: String!,
         $payment: String!,
-        $product: [OrderProductInput]!
+        $product: [OrderProductInput]!,
         $address: String,
         $userId: String!,
+        $shippingCost: Float!
     ){
         createOrder(record:{
         status: $statusOrder,
@@ -14,6 +15,7 @@ export const CREATE_ORDER = gql`
         product: $product,
         address: $address,
         createdById: $userId,
+        shippingCost: $shippingCost,
     }){
         record{
         _id
