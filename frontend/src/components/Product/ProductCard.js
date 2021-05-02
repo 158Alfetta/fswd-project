@@ -3,7 +3,6 @@ import { PRODUCT_QUERY } from '../../graphql/productsQuery'
 import { useSession } from '../../contexts/SessionContext'
 import React, { Fragment} from 'react'
 import Product from './Product'
-import {Link} from 'react-router-dom'
 import PromotionProduct from './PromotionProduct'
 
 const ProductCard = () => {
@@ -15,29 +14,47 @@ const ProductCard = () => {
     if (error) {
         return 'Error'
     }
-    // console.log(data)
+
+
     return (
-        <Fragment>
-            {data?.Products?.map((product) => {
-                if (product?.type === 'PromotionProduct') {
-                    return (
-                        <Link to={"/product/" + product?._id}>
-                            <PromotionProduct key={product?._id} product={product} />
-                        </Link>
-                    )
-                }
-                if (product?.type === 'Product') {
-                    return (
-                        <Link to={"/product/" + product?._id}>
-                            <Product key={product?._id} product={product} />
-                        </Link>
-                        
-                    )
-                }
-                return null
-            }
-            )}
-        </Fragment>
+        <>
+        <div className="h-screen w-screen grid grid-cols-5 ">
+
+            <div className="col-span-2 border-b-2 border-yellow-800 mb-5">
+              
+              <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">N E T T Y's Products</h2>
+
+            </div>
+
+            {/* Blank Space for other additional */}
+            <div className="col-span-3"></div>
+
+            {/* For menu bar */}
+            <div className="bg-yellow-800 bg-opacity-10 mr-10">
+                for Menuoption
+            </div>
+
+            <div className="m-5 px-auto py-auto md:m-2 col-span-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 ">
+
+                    {data?.Products?.map((product) => {
+                        if (product?.type === 'PromotionProduct') {
+                            return (
+                                <PromotionProduct key={product?._id} product={product} />
+                            )
+                        }
+                        if (product?.type === 'Product') {
+                            return (
+                                <Product key={product?._id} product={product} />
+                                
+                            )
+                        }
+                        return null
+                    }
+                    )}             
+            </div>
+        </div>
+  
+        </>
     )
 }
 export default ProductCard

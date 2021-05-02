@@ -4,6 +4,7 @@ import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
 import { useSession } from '../../contexts/SessionContext'
 import { useMutation, useQuery } from '@apollo/client'
+import {Link} from 'react-router-dom'
 const Product = (props) => {
   const { product } = props
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
@@ -17,7 +18,9 @@ const Product = (props) => {
     ],
   }
 
-  // refetch()
+  refetch()
+  console.log(product)
+  
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
@@ -52,39 +55,44 @@ const Product = (props) => {
   }
 
   return (
-    <div className="m-2">
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img
-          className="w-full"
-          src={
-            product?.image?.[0] ||
-            'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
-          }
-          alt="Sunset in the mountains"
-        />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{product?.name}</div>
-          <p className="text-gray-700 text-base">
-            {parseFloat(product?.price).toLocaleString()}
-          </p>
+    <>
+
+      <div className="bg-yellow-800 bg-opacity-10 rounded-lg shadow-lg h-full w-full">
+      <Link to={"/product/" + product?._id}>
+
+        {/* IMAGE PANEL */}
+        <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
+          <img
+            className="w-full h-full rounded-tl-lg rounded-tr-lg"
+            src={
+              product?.image?.[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+            }
+            alt="Sunset in the mountains"
+          />
         </div>
-      </div>
-      <div className="px-6 pt-4 pb-2">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={() => addtoCart(product?._id)}
-        >
-          {' '}
-          Add to cart
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={handleButtonClick}
-        >
-          Remove Product
-        </button>
-      </div>
+
+        {/* PRICEING AND NAME PANEL */}
+
+        <div className="grid grid-cols-2 p-3">
+          <div className="font-semibold text-lg">{product?.name}</div>
+          <p className="text-gray-700 text-right">{parseFloat(product?.price).toLocaleString()}</p>
+        </div>
+
+        </Link>
+
+        <div className="bg-yellow-800 bg-opacity-30 rounded-bl-lg rounded-br-lg flex justify-end">
+          <button
+              className="bg-yellow-700 hover:bg-yellow-900 text-white font-bold m-2 py-2 px-4 rounded-lg"
+              onClick={() => addtoCart(product?._id)}
+            >
+              {' '}
+              Add to cart
+            </button>
+        </div>
     </div>
+
+
+    </>
   )
 }
 export default Product

@@ -9,6 +9,7 @@ mutation createProduct($record: CreateOneProductInput!){
             image
             price
             count
+            category
             createdByUser
         }
     }

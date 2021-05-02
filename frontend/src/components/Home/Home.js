@@ -118,9 +118,7 @@ const Home = () => {
                   <p className="mt-2 text-lg">
                     Time to cultivate some happiness this summer. This range of
                     gardening products has all you need to decorate your living
-                    space with plant pots and plants, both inside and out. You
-                    can create your own little green sanctuary where you chill
-                    out and recharge your batteries.
+                    space with plant pots and plants, both inside and out.
                   </p>
                   <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
                     <span>Shop Now</span>
@@ -181,7 +179,7 @@ const Home = () => {
                 {/* Footer */}
 
         <div className="col-span-10 h-36 w-full mt-16 bg-yellow-800 bg-opacity-80 ">
-          <p className="flex justify-center text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
+          <p className="flex justify-center pt-20 text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
         </div>
       </div>
     </>

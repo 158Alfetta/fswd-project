@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import classes from './App.module.css'
 import Layout from './components/Layout/Layout'
 import PrivateRoute from './route/PrivateRoute'
+import PrivateRouteAllUser from './route/PrivateRouteAllUser'
 
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const LoginPage = React.lazy(() => import('./pages/LoginPage'))
@@ -19,8 +20,9 @@ const AdminDahsboardPage = React.lazy(() =>
 const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
 const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
 const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
-
 const UpdateProductPage = React.lazy(() => import('./pages/UpdateProductPage'))
+const PromotionPage = React.lazy(() => import('./pages/PromotionPage'))
+const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'))
 
 const App = () => {
   return (
@@ -44,6 +46,9 @@ const App = () => {
             <Route path="/register">
               <RegisterPage />
             </Route>
+            <Route path="/order/:orderId">
+              <OrderDetailPage />
+            </Route>
             <Route path="/order">
               <OrderPage />
             </Route>
@@ -59,8 +64,8 @@ const App = () => {
             <Route path="/payment/:orderId">
               <PaymentPage />
             </Route>
-            <Route path="/payment">
-              <PaymentPage />
+            <Route path="/promotions">
+              <PromotionPage />
             </Route>
             <Route path="/product/:productId">
               <ProductDetailPage />
@@ -74,6 +79,13 @@ const App = () => {
               component={UpdateProductPage}
               path="/dashboard/update-product/:productId"
             />
+{/* 
+            <PrivateRouteAllUser component={OrderPage} path="/order" exact />
+            <PrivateRouteAllUser component={CheckoutPage} path="/checkout" exact />
+            <PrivateRouteAllUser component={CartPage} path="/cart" exact />
+            <PrivateRouteAllUser component={PaymentPage} path="/payment/:orderId" />
+            <PrivateRouteAllUser component={PaymentPage} path="/payment" exact/> */}
+
             <PrivateRoute component={AddProductPage} path="/addProduct" exact />
             <PrivateRoute component={AddPromotionPage} path="/addPromotion" />
           </Switch>

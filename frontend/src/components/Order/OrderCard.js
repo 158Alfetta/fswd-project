@@ -1,8 +1,12 @@
+import PaymentCard from "../Payment/PaymentCard"
 import OrderSubCard from "./OrderSubCard"
+import PaymentBtn from "./PaymentBtn"
 
 const OrderCard = (props) => {
 
   const order = props?.order
+  const shipping = parseFloat(order.shippingCost || 0)
+  const discount = 1-parseFloat(order?.product?.[0].productInfo?.promotionDetail?.discount)/100 || 1
   let numberOrder = props?.numberOrder
 
   function processPaymentBtn(log){
@@ -18,20 +22,28 @@ const OrderCard = (props) => {
     <>
     <div className="flex justify-between m-5">
       {/* START A CREATION OF ORDER CART (1 ORDER) */}
-      <div className="flex flex-col mx-auto p-4 bg-yellow-700 bg-opacity-50 w-full md:w-9/12 shadow-lg rounded-xl">
+      <div className="flex flex-col mx-auto p-4 bg-yellow-700 bg-opacity-30 w-full md:w-9/12 shadow-lg rounded-xl">
         
         <div className="grid grid-cols-5 text-center border-opacity-60 bg-gray-100 shadow-md text-blue-900">
           {/* Order Information */}
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Order Number"} <p className="text-xs md:text-xl">{numberOrder}</p>
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
+            {"Timestamp"} <p className="text-xs md:text-lg">{order?.timestamp}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Status"} <p className="text-xs md:text-xl capitalize">{order?.status}</p>
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold ">
+            <div className="pb-1">{"Status"}</div>
+            <p className={`self-center text-xs md:text-lg capitalize w-full md:w-1/2 text-gray-100 rounded-lg md:rounded-xl ${
+                order?.status === 'waiting'
+                  ? 'bg-yellow-400'
+                  : order?.status === 'success'
+                  ? 'bg-green-400'
+                  : order?.status === 'cancel'
+                  ? 'bg-red-400'
+                  : ''}`}>{order?.status}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-          {"Payment"} <p className="text-xs md:text-xl">{order?.paymentDetail}</p>
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
+          {"Payment"} <p className="text-xs md:text-lg">{order?.paymentDetail}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold col-span-2">
+          <div className="flex flex-col justify-center p-3border-grey-800 font-bold col-span-2">
           {"Address "} <p className="text-xs font-normal p-2">{order?.address}</p>
           </div>
         </div>
@@ -53,7 +65,7 @@ const OrderCard = (props) => {
             </thead>
             <tbody>
         {order?.product.map((product) => {
-          handleTotalPrice(product?.productInfo?.price * product?.quantity);
+          handleTotalPrice((product?.productInfo?.price*discount) * product?.quantity);
           return (
               <OrderSubCard product={product} />
           );
@@ -62,8 +74,8 @@ const OrderCard = (props) => {
         </table>
         {/* END OF PRODUCT CREATION */}
         <div className="mt-2 flex flex-row col-span-2 justify-around self-center">
-          <div className="font-semibold text-xl">{"Grand Total"}</div>
-          <p className="text-xl font-semibold">{totalPrice}{" Baht"}</p>
+          <div className="font-semibold text-md md:text-lg">{"Grand Total"}</div>
+          <p className="text-md md:text-lg font-semibold">{(parseFloat(totalPrice)+shipping).toLocaleString()}{" Baht"}</p>
         </div>
         {/* <button
           onClick={() => processPaymentBtn(order?._id)}
@@ -72,6 +84,11 @@ const OrderCard = (props) => {
           Process Payment
         </button> */}
         </div>
+
+        <div className="mt-2 w-full flex justify-end">
+          <PaymentBtn status={order?.status} orderId={order?._id} />
+        </div>
+
       </div>
     </div>
 

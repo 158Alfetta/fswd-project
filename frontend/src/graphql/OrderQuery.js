@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client'
 
 export const QUERY_ORDER = gql`
-  query {
-    order {
-      _id
+query order($userId: String!){
+    order(filter:{
+      createdById: $userId
+    }, sort:_ID_DESC){
+        _id
       product {
         productId
         productInfo {
@@ -11,6 +13,11 @@ export const QUERY_ORDER = gql`
           price
           timestamp
           count
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
         quantity
       }
@@ -18,12 +25,14 @@ export const QUERY_ORDER = gql`
         firstName
         lastName
       }
-      paymentDetail
-      timestamp
-      status
-      address
+    paymentDetail
+    timestamp
+    status
+    address
+    shippingCost
     }
-  }
+}
+  
 `
 
 export const QUERY_ORDER_BY_ID = gql`
@@ -37,6 +46,12 @@ export const QUERY_ORDER_BY_ID = gql`
           price
           timestamp
           count
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
+          image
         }
         quantity
       }
@@ -48,6 +63,7 @@ export const QUERY_ORDER_BY_ID = gql`
       timestamp
       status
       address
+      shippingCost
     }
   }
 `
@@ -69,6 +85,11 @@ export const ADMIN_QUERY_ORDER = gql`
         quantity
         productInfo {
           name
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
       }
     }
