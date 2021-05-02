@@ -78,7 +78,7 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="pt-3 flex justify-center h-3/4 ">
-                        <div className="h-3/4 w-3/4" style={{backgroundSize: "cover", backgroundImage: `url(${product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"})` }}>
+                        <div className="h-3/4 w-3/4" style={{backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundImage: `url(${product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"})` }}>
                         </div>
                        
                     </div>
