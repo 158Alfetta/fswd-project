@@ -3,7 +3,6 @@ import { PRODUCT_QUERY } from '../../graphql/productsQuery'
 import { useSession } from '../../contexts/SessionContext'
 import React, { Fragment} from 'react'
 import Product from './Product'
-import {Link} from 'react-router-dom'
 import PromotionProduct from './PromotionProduct'
 
 const ProductCard = () => {
@@ -15,22 +14,17 @@ const ProductCard = () => {
     if (error) {
         return 'Error'
     }
-    // console.log(data)
     return (
         <Fragment>
             {data?.Products?.map((product) => {
                 if (product?.type === 'PromotionProduct') {
                     return (
-                        <Link to={"/product/" + product?._id}>
-                            <PromotionProduct key={product?._id} product={product} />
-                        </Link>
+                        <PromotionProduct key={product?._id} product={product} />
                     )
                 }
                 if (product?.type === 'Product') {
                     return (
-                        <Link to={"/product/" + product?._id}>
-                            <Product key={product?._id} product={product} />
-                        </Link>
+                        <Product key={product?._id} product={product} />
                         
                     )
                 }

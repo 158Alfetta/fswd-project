@@ -15,8 +15,17 @@ const OrderSchema = new Schema({
   paymentDetail: {type: String, required: true},
   product: {type: [ProductInOrderSchema], required: true},
   address: {type: String},
+  timestamp:{type: Date, default: Date.now} 
 })
 
+
+const discriminatorOptions = { 
+  inputType: {
+      removeFields:['timestamp'],
+  }
+}
+
+OrderSchema.set('discriminatorKey', discriminatorKey)
 
 
 export const OrderModel = mongoose.model('Order', OrderSchema)

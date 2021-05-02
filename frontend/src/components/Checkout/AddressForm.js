@@ -1,48 +1,48 @@
-import {useState} from 'react'
 
-const AddressForm = () => {
+const AddressForm = (props) => {
 
-  const [address, setAddress] = useState({name:'', telephone:'', street:'', district:'', postal:'',})
+  const address = props.address
+  const setAddress = props.setAddress
 
 
   function handleChangeOnName(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       name: event.target.value
     })
   }
 
   function handleChangeOnTelephone(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       telephone: event.target.value
     })
   }
 
   function handleChangeOnStreet(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       street: event.target.value
     })
   }
 
   function handleChangeOnDistrict(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       district: event.target.value
     })
   }
 
   function handleChangeOnProvince(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       province: event.target.value
     })
   }
   
   function handleChangeOnPostal(event) {
     event.preventDefault()
-    setAddress({
+    setAddress({...address,
       postal: event.target.value
     })
   }
@@ -50,6 +50,7 @@ const AddressForm = () => {
 
 
     return(
+      <>
         <div className="mt-10 sm:mt-0">
         <div className="mt-5 md:mt-0 md:col-span-2">
           <form>
@@ -59,7 +60,7 @@ const AddressForm = () => {
 
                   <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                        Name
+                        Recipient Name
                       </label>
                       <input
                         type="text"
@@ -147,18 +148,19 @@ const AddressForm = () => {
                 </div>
               </div>
 
-              <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
+              {/* <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
                 <button
                   type="Submit"
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Save
                 </button>
-              </div>
+              </div> */}
             </div>
           </form>
         </div>
       </div>
+      </>
     )
 }
 
