@@ -3,13 +3,15 @@ const AddressForm = (props) => {
 
   const address = props?.address
   const setAddress = props?.setAddress
-
+  
 
   function handleChangeOnName(event) {
     event.preventDefault()
     setAddress({...address,
       name: event.target.value
     })
+
+    console.log(address)
   }
 
   function handleChangeOnTelephone(event) {
@@ -45,6 +47,11 @@ const AddressForm = (props) => {
     setAddress({...address,
       postal: event.target.value
     })
+  }
+
+  function handleSubmitAddress(event) {
+    event.preventDefault()
+    console.log(address)
   }
 
 
@@ -148,14 +155,14 @@ const AddressForm = (props) => {
                 </div>
               </div>
 
-              <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
-                {/* <button
+              <div className="px-4 py-3 bg-white text-center sm:px-6">
+                <button
                   type="Submit"
-                  onSubmit={handleSubmitAddress}
+                  onClick={handleSubmitAddress}
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Save
-                </button> */}
+                </button>
               </div>
             </div>
           </form>
