@@ -72,14 +72,11 @@ const OrderDetail = () => {
             return (
               <>
                 <div className="col-span-4 h-34 border-gray-300 border-b grid grid-cols-2">
-                  <div className="w-32">
-                    <img
-                      className="p-2 h-34 w-34"
-                      src={
-                        product?.productInfo?.image[0] ||
-                        "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
-                      }
-                    />
+                <div className="">
+
+                  <div className="w-full h-32 m-2" style={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundImage: `url(${product?.productInfo?.image[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"})` }}>
+                  </div>
+
                   </div>
                   <p className="text-center pt-10 text-lg">
                     {product?.productInfo?.name}

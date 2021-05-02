@@ -1,14 +1,15 @@
 import { gql } from '@apollo/client'
 
 export const PRODUCT_QUERY = gql`
-  query {
-    Products {
+  query Products($skip: Int!, $limit: Int!) {
+    Products(skip: $skip, limit: $limit) {
       _id
       type
       name
       price
       count
       image
+      product_count
       ... on PromotionProduct {
         promotionDetail {
           name

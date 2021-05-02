@@ -59,27 +59,31 @@ const ProductDetail = () => {
     const prevImage = () => {
         setImageIndex((((imageIndex - 1) % imageCount) + imageCount) % imageCount)
     }
+    let finalPrice = parseFloat(product?.price) *
+    (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()
     return (
 
         <>
 
         <div className="w-screen h-screen grid grid-cols-10">
 
-            <div className="col-span-4 flex-col justify-between">
+            <div className="col-span-10 md:col-span-4 flex-col justify-between">
 
 
-                <div className="m-10 bg-yellow-800 bg-opacity-20 shadow-lg mx-auto rounded-xl h-3/4">
+                <div className="m-10 bg-yellow-800 bg-opacity-20 shadow-lg rounded-xl h-3/4 ">
 
                     <div className="w-full bg-yellow-800 bg-opacity-30 h-16 rounded-tr-xl rounded-tl-xl">
                         <h2 className="text-2xl font-bold text-center p-3 py-4">
                         Images</h2>
                     </div>
 
-                    <div className="pt-3 flex justify-center ">
-                        <img className="object-contain h-96 w-96" src={product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"}></img>
+                    <div className="pt-3 flex justify-center h-3/4 ">
+                        <div className="h-3/4 w-3/4" style={{backgroundRepeat: "no-repeat", backgroundSize: "contain", backgroundImage: `url(${product?.image?.[imageIndex] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"})` }}>
+                        </div>
+                       
                     </div>
 
-                    <div className="pt-4 flex justify-center">
+                    <div className="pt-0 flex justify-center">
                     <button onClick={prevImage} class="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
                         Prev
                     </button>
@@ -92,8 +96,8 @@ const ProductDetail = () => {
                 
             </div>
 
-            <div className="col-span-6 flex-col justify-between ">
-                <div className="m-10 mr-0 bg-gray-100 shadow-lg rounded-xl h-3/4">
+            <div className="col-span-10 md:col-span-6 flex-col justify-between ">
+                <div className="m-10 bg-gray-100 shadow-lg rounded-xl h-3/4">
                     <div className="w-full bg-gray-200 h-16 rounded-tr-xl rounded-tl-xl">
                         <h2 className="text-2xl font-bold p-3 pl-6 py-4 ">{product?.name}</h2>
                     </div>
@@ -139,7 +143,7 @@ const ProductDetail = () => {
                             <div className="pl-10">
                                 <button type="button" className="focus:outline-none text-white text-sm font-bold py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg" onClick={() => addtoCart(product?._id)} >Add to cart</button>
                             </div>
-                            <div className="text-3xl text-center">{product?.category}</div>
+
                     </div>
 
                 </div>

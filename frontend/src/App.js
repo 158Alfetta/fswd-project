@@ -22,6 +22,7 @@ const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
 const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
 const UpdateProductPage = React.lazy(() => import('./pages/UpdateProductPage'))
 const PromotionPage = React.lazy(() => import('./pages/PromotionPage'))
+const UpdatePromotionPage = React.lazy(() => import('./pages/UpdatePromotionPage'))
 const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'))
 
 const App = () => {
@@ -78,6 +79,10 @@ const App = () => {
             <PrivateRoute
               component={UpdateProductPage}
               path="/dashboard/update-product/:productId"
+            />
+            <PrivateRoute
+              component={UpdatePromotionPage}
+              path="/dashboard/update-promotion/:promotionId"
             />
 {/* 
             <PrivateRouteAllUser component={OrderPage} path="/order" exact />
