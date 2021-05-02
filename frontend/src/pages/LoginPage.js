@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo, useState, useEffect } from "react";
 
 import LoginForm from "../components/Login/LoginForm";
 import AddressForm from "../components/Login/AddressForm";
@@ -8,7 +8,7 @@ import { CUSTOMER_QUERY } from "../graphql/meQuery";
 
 const LoginPage = () => {
   const { loading, user, logout: handleLogout } = useSession();
-  const { data: CustomerData } = useQuery(CUSTOMER_QUERY);
+  const { data: CustomerData } = useQuery(CUSTOMER_QUERY)
 
   const [address, setAddress] = useState({
     name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
@@ -18,6 +18,17 @@ const LoginPage = () => {
     postal: CustomerData?.customerInfo?.postal,
     province: CustomerData?.customerInfo?.postal,
   });
+
+  useEffect(() => {
+    setAddress({
+      name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
+      telephone: CustomerData?.customerInfo?.telephone,
+      street: CustomerData?.customerInfo?.streetAddr,
+      district: CustomerData?.customerInfo?.district,
+      postal: CustomerData?.customerInfo?.postal,
+      province: CustomerData?.customerInfo?.postal,
+    })
+  }, [CustomerData])
 
   const userBox = useMemo(() => {
     if (loading) {

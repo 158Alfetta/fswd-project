@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_ORDER } from "../../graphql/OrderMutation";
 import { QUERY_CART, QUERY_CART_ORDER } from "../../graphql/CartQuery";
@@ -13,6 +13,7 @@ const Checkout = () => {
   const { data } = useQuery(QUERY_CART);
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER);
   const { data: CustomerData } = useQuery(CUSTOMER_QUERY);
+
   const [address, setAddress] = useState({
     name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
     telephone: CustomerData?.customerInfo?.telephone,
@@ -21,6 +22,17 @@ const Checkout = () => {
     postal: CustomerData?.customerInfo?.postal,
     province: CustomerData?.customerInfo?.postal,
   })
+
+  useEffect(() => {
+    setAddress({
+      name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
+      telephone: CustomerData?.customerInfo?.telephone,
+      street: CustomerData?.customerInfo?.streetAddr,
+      district: CustomerData?.customerInfo?.district,
+      postal: CustomerData?.customerInfo?.postal,
+      province: CustomerData?.customerInfo?.postal,
+    })
+  }, [CustomerData])
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [clearCart] = useMutation(CLEAR_CART);
