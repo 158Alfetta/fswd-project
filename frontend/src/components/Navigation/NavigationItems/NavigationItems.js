@@ -14,7 +14,7 @@ const NavigationItems = (props) => {
 
   const userBox = useMemo(() => {
     if (loading) {
-      return <span className="Navbar-user">Loading ...</span>
+      return <span className="-user">Loading ...</span>
     }
     if (user) {
       return (
@@ -43,7 +43,7 @@ const NavigationItems = (props) => {
   return (
     <ul className={classes.NavigationItems}>
       <NavigationItem link="/" clickedFromNav={props.clicked} exact>
-        Home {JSON.stringify(data?.cart?.[0]?.product?.length)}
+        Home
       </NavigationItem>
       <NavigationItem link="/products" clickedFromNav={props.cliked} exact>
         Product
