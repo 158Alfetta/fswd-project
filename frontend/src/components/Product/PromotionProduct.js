@@ -11,7 +11,7 @@ const PromotionProduct = (props) => {
   console.log(product)
   const productId = product._id
   const { user } = useSession()
-  const { data: dataCart, refetch } = useQuery(QUERY_CART, {
+  const { data: dataCart } = useQuery(QUERY_CART, {
     variables: { userId: user?._id },
   })
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
@@ -35,7 +35,6 @@ const PromotionProduct = (props) => {
     variables: { id: productId },
   })
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
-  refetch()
   if (loading) {
     return 'Loading...'
   }
