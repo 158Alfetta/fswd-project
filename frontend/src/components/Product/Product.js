@@ -60,7 +60,7 @@ const Product = (props) => {
           {/* IMAGE PANEL */}
           <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
             <img
-              className="w-full h-full rounded-tl-lg rounded-tr-lg"
+              className=" w-72 h-64 rounded-tl-lg rounded-tr-lg"
               src={
                 product?.image?.[0] ||
                 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'

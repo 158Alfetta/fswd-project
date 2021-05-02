@@ -75,7 +75,7 @@ const PromotionProduct = (props) => {
         <Link to={'/product/' + data?.PromotionProductId?._id}>
           <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
             <img
-              className="w-full h-full rounded-tl-lg rounded-tr-lg"
+              className="w-72 h-64 rounded-tl-lg rounded-tr-lg"
               src={
                 product?.image?.[0] ||
                 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
@@ -110,14 +110,16 @@ const PromotionProduct = (props) => {
         </Link>
 
         {/* Button and discount panel */}
-        <div className="bg-yellow-500 bg-opacity-100 rounded-bl-lg rounded-br-lg flex justify-between">
+        
+        <div className={`
+          ${ data?.PromotionProductId?.promotionDetail?.discount ? "bg-yellow-500": "bg-yellow-800 bg-opacity-30"} rounded-bl-lg rounded-br-lg flex justify-between`}>
           {
             // Check if promotion is available
             data?.PromotionProductId?.promotionDetail?.discount ? (
               <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
                 {data?.PromotionProductId?.promotionDetail?.discount} % off
               </span>
-            ) : null
+            ) : <span></span>
           }
           {/* <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
             {(data?.PromotionProductId?.promotionDetail?.discount)} % off

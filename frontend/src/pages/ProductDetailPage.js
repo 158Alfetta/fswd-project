@@ -68,7 +68,7 @@ const ProductDetail = () => {
             <div className="col-span-4 flex-col justify-between">
 
 
-                <div className="m-10 bg-yellow-800 bg-opacity-20 shadow-lg mx-auto rounded-xl h-3/4">
+                <div className="m-10 bg-yellow-800 bg-opacity-20 shadow-lg rounded-xl h-3/4 ">
 
                     <div className="w-full bg-yellow-800 bg-opacity-30 h-16 rounded-tr-xl rounded-tl-xl">
                         <h2 className="text-2xl font-bold text-center p-3 py-4">
@@ -93,7 +93,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="col-span-6 flex-col justify-between ">
-                <div className="m-10 mr-0 bg-gray-100 shadow-lg rounded-xl h-3/4">
+                <div className="m-10 bg-gray-100 shadow-lg rounded-xl h-3/4">
                     <div className="w-full bg-gray-200 h-16 rounded-tr-xl rounded-tl-xl">
                         <h2 className="text-2xl font-bold p-3 pl-6 py-4 ">{product?.name}</h2>
                     </div>
