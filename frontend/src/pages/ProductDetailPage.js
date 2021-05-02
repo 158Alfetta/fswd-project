@@ -111,9 +111,29 @@ const ProductDetail = () => {
                         <div className="p-4 grid grid-cols-2 sm:grid-cols-4">
                             <h4 className="text-xl font-semibold"><i>Price:</i></h4>
                             <div className="text-xl">
-                            {product?.type === "PromotionProduct" ? <h2><del>{product?.price}</del>{" "}{parseFloat(product?.price) *
+                            {
+                                product?.type === "PromotionProduct" ? 
+                                parseFloat(finalPrice) ? 
+                                <h2><del>{product?.price}</del>{parseFloat(product?.price) *
                                 (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()} Baht</h2>
-                                : <h2>{parseFloat(product?.price).toLocaleString()} Baht</h2>}
+                                : <h2>{parseFloat(product?.price)}</h2>
+                                : <h2>{parseFloat(product?.price)}</h2>
+                            }
+                            
+                            {/* {parseFloat(finalPrice) ? (
+                                <span>
+                                    <del>
+                                        {parseFloat(
+                                            data?.PromotionProductId?.price
+                                        ).toLocaleString()}
+                                    </del>{' '}
+                                    {finalPrice.toLocaleString()}
+                                </span>
+                            ) : (
+                                <span>
+                                    {parseFloat(data?.PromotionProductId?.price).toLocaleString()}
+                                </span>
+                            )} */}
                             </div>
                         </div>
                     </div>
