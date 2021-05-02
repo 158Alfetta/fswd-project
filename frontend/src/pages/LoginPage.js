@@ -4,11 +4,12 @@ import { Fragment, useMemo, useState, useEffect } from "react";
 import LoginForm from "../components/Login/LoginForm";
 import AddressForm from "../components/Login/AddressForm";
 import { useSession } from "../contexts/SessionContext";
-import { CUSTOMER_QUERY } from "../graphql/meQuery";
+import { CUSTOMER_QUERY, ME_QUERY } from "../graphql/meQuery";
 
 const LoginPage = () => {
   const { loading, user, logout: handleLogout } = useSession();
   const { data: CustomerData } = useQuery(CUSTOMER_QUERY)
+  const { data:userData } = useQuery(ME_QUERY)
 
   const [address, setAddress] = useState({
     name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
@@ -46,15 +47,15 @@ const LoginPage = () => {
                 />
                 <div class="flex justify-center -mt-8">
                   <img
-                    src="https://www.linkmansioncm.com/wp-content/uploads/2019/06/user-icon.jpg"
+                    src="https://firebasestorage.googleapis.com/v0/b/fswd-2021.appspot.com/o/images%2F67b5e946-8ed2-48a5-bcfd-eaf92d93f032?alt=media&token=dce5641f-79cc-48a9-a920-7924fc2e189f"
                     className="w-20 rounded-full border-solid border-white border-2 -mt-3"
                   />
                 </div>
                 <div class="text-center px-3 pb-6 pt-2">
                   <h3 class="text-black text-sm bold font-sans">
-                    {CustomerData?.customerInfo?.firstName +
+                    {userData?.me?.firstName +
                       " " +
-                      CustomerData?.customerInfo?.lastName}
+                      userData?.me?.lastName}
                   </h3>
                   <p class="mt-2 font-sans font-light text-grey-dark">
                     {user?.type}
@@ -71,10 +72,11 @@ const LoginPage = () => {
                 </div>
               </div>
             </div>
-
+            { user?.type === "Customer" ?
             <div className="col-span-3 p-3">
-              <AddressForm address={address} setAddress={setAddress} />
-            </div>
+            <AddressForm address={address} setAddress={setAddress} />
+          </div>
+        : null}
         </Fragment>
       );
     }
