@@ -8,10 +8,9 @@ import { UPDATE_CART } from '../../graphql/CartMutation'
 import { Link } from 'react-router-dom'
 const PromotionProduct = (props) => {
   const { product } = props
-  console.log(product)
   const productId = product._id
   const { user } = useSession()
-  const { data: dataCart, refetch } = useQuery(QUERY_CART, {
+  const { data: dataCart } = useQuery(QUERY_CART, {
     variables: { userId: user?._id },
   })
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
@@ -34,8 +33,8 @@ const PromotionProduct = (props) => {
   const { loading, error, data } = useQuery(PROMOTION_PRODUCT_QUERY, {
     variables: { id: productId },
   })
+
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
-  refetch()
   if (loading) {
     return 'Loading...'
   }
@@ -73,9 +72,9 @@ const PromotionProduct = (props) => {
     <>
       <div className="bg-yellow-800 bg-opacity-10 rounded-lg shadow-lg h-full w-full">
         <Link to={'/product/' + data?.PromotionProductId?._id}>
-          <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
+          <div className="rounded-tl-lg rounded-tr-lg m-4">
             <img
-              className="w-72 h-64 rounded-tl-lg rounded-tr-lg"
+              className="w-full h-64 rounded-lg"
               src={
                 product?.image?.[0] ||
                 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
@@ -110,16 +109,24 @@ const PromotionProduct = (props) => {
         </Link>
 
         {/* Button and discount panel */}
-        
-        <div className={`
-          ${ data?.PromotionProductId?.promotionDetail?.discount ? "bg-yellow-500": "bg-yellow-800 bg-opacity-30"} rounded-bl-lg rounded-br-lg flex justify-between`}>
+
+        <div
+          className={`
+          ${
+            data?.PromotionProductId?.promotionDetail?.discount
+              ? 'bg-yellow-500'
+              : 'bg-yellow-800 bg-opacity-30'
+          } rounded-bl-lg rounded-br-lg flex justify-between`}
+        >
           {
             // Check if promotion is available
             data?.PromotionProductId?.promotionDetail?.discount ? (
               <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
                 {data?.PromotionProductId?.promotionDetail?.discount} % off
               </span>
-            ) : <span></span>
+            ) : (
+              <span></span>
+            )
           }
           {/* <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
             {(data?.PromotionProductId?.promotionDetail?.discount)} % off

@@ -14,7 +14,7 @@ const ProductCard = () => {
     pageNum: 1,
     skip: 0,
     limit: 5,
-    orders_count: 0,
+    items_count: 0,
   })
 
   useEffect(() => {
@@ -58,13 +58,13 @@ const ProductCard = () => {
 
       setPage((prev) => ({
         ...prev,
-        orders_count: data.orderByAdmin[0].orders_count,
+        items_count: data.orderByAdmin[0].orders_count,
       }))
     }
   }, [data])
 
   const handleNextPage = useCallback(() => {
-    if (page.pageNum * page.limit >= page.orders_count) {
+    if (page.pageNum * page.limit >= page.items_count) {
     } else {
       setPage((prev) => ({
         ...prev,
@@ -79,7 +79,7 @@ const ProductCard = () => {
     } else {
       setPage((prev) => ({
         ...prev,
-        skip: prev.pageNum - 2 * prev.limit,
+        skip: (prev.pageNum - 2) * prev.limit,
         pageNum: prev.pageNum - 1,
       }))
     }

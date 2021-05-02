@@ -1,33 +1,35 @@
-import React, { Fragment, Suspense } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React, { Fragment, Suspense } from "react";
+import { Switch, Route } from "react-router-dom";
 
-import classes from './App.module.css'
-import Layout from './components/Layout/Layout'
-import { useSession } from './contexts/SessionContext'
-import PrivateRoute from './route/PrivateRoute'
-import PrivateRouteAllUser from './route/PrivateRouteAllUser'
+import classes from "./App.module.css";
+import Layout from "./components/Layout/Layout";
+import { useSession } from "./contexts/SessionContext";
+import PrivateRoute from "./route/PrivateRoute";
+import PrivateRouteAllUser from "./route/PrivateRouteAllUser";
 
-const HomePage = React.lazy(() => import('./pages/HomePage'))
-const LoginPage = React.lazy(() => import('./pages/LoginPage'))
-const RegisterPage = React.lazy(() => import('./pages/RegisterPage'))
-const OrderPage = React.lazy(() => import('./pages/OrderPage'))
-const ProductPage = React.lazy(() => import('./pages/ProductPage'))
-const AddProductPage = React.lazy(() => import('./pages/AddProductPage'))
-const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'))
-const CartPage = React.lazy(() => import('./pages/CartPage'))
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const LoginPage = React.lazy(() => import("./pages/LoginPage"));
+const RegisterPage = React.lazy(() => import("./pages/RegisterPage"));
+const OrderPage = React.lazy(() => import("./pages/OrderPage"));
+const ProductPage = React.lazy(() => import("./pages/ProductPage"));
+const AddProductPage = React.lazy(() => import("./pages/AddProductPage"));
+const CheckoutPage = React.lazy(() => import("./pages/CheckoutPage"));
+const CartPage = React.lazy(() => import("./pages/CartPage"));
 const AdminDahsboardPage = React.lazy(() =>
-  import('./pages/AdminDashboardPage')
-)
-const PaymentPage = React.lazy(() => import('./pages/PaymentPage'))
-const ProductDetailPage = React.lazy(() => import('./pages/ProductDetailPage'))
-const AddPromotionPage = React.lazy(() => import('./pages/AddPromotionPage'))
-const UpdateProductPage = React.lazy(() => import('./pages/UpdateProductPage'))
-const PromotionPage = React.lazy(() => import('./pages/PromotionPage'))
-const UpdatePromotionPage = React.lazy(() => import('./pages/UpdatePromotionPage'))
-const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'))
+  import("./pages/AdminDashboardPage")
+);
+const PaymentPage = React.lazy(() => import("./pages/PaymentPage"));
+const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
+const AddPromotionPage = React.lazy(() => import("./pages/AddPromotionPage"));
+const UpdateProductPage = React.lazy(() => import("./pages/UpdateProductPage"));
+const PromotionPage = React.lazy(() => import("./pages/PromotionPage"));
+const UpdatePromotionPage = React.lazy(() =>
+  import("./pages/UpdatePromotionPage")
+);
+const OrderDetailPage = React.lazy(() => import("./pages/OrderDetailPage"));
 
 const App = () => {
-  const { user } = useSession()
+  const { user } = useSession();
   return (
     <Fragment>
       <div>
@@ -35,7 +37,7 @@ const App = () => {
         <Suspense
           fallback={
             <div className={`${classes.fullPageLoader} ${classes.Logo}`}>
-              <img width="50" src={'/shop.png'} alt="shop" />
+              <img width="50" src={"/shop.png"} alt="shop" />
             </div>
           }
         >
@@ -49,7 +51,7 @@ const App = () => {
             <Route path="/register">
               <RegisterPage />
             </Route>
-            <Route path="/order/:orderId">
+            {/* <Route path="/order/:orderId">
               <OrderDetailPage />
             </Route>
             <Route path="/order">
@@ -57,16 +59,16 @@ const App = () => {
             </Route>
             <Route path="/checkout">
               <CheckoutPage />
-            </Route>
+            </Route> */}
             <Route path="/products">
               <ProductPage />
             </Route>
-            <Route path="/cart">
+            {/* <Route path="/cart">
               <CartPage />
-            </Route>
-            <Route path="/payment/:orderId">
+            </Route> */}
+            {/* <Route path="/payment/:orderId">
               <PaymentPage />
-            </Route>
+            </Route> */}
             <Route path="/promotions">
               <PromotionPage />
             </Route>
@@ -82,19 +84,52 @@ const App = () => {
             <PrivateRoute
               component={UpdateProductPage}
               user={user}
-              path="/dashboard/update-product/:productId"         
+              path="/dashboard/update-product/:productId"
             />
             <PrivateRoute
               component={UpdatePromotionPage}
               user={user}
               path="/dashboard/update-promotion/:promotionId"
             />
-{/* 
-            <PrivateRouteAllUser component={OrderPage} path="/order" exact />
-            <PrivateRouteAllUser component={CheckoutPage} path="/checkout" exact />
-            <PrivateRouteAllUser component={CartPage} path="/cart" exact />
-            <PrivateRouteAllUser component={PaymentPage} path="/payment/:orderId" />
-            <PrivateRouteAllUser component={PaymentPage} path="/payment" exact/> */}
+
+            <PrivateRouteAllUser
+              user={user}
+              component={CheckoutPage}
+              path="/checkout"
+              exact
+            />
+            <PrivateRouteAllUser
+              user={user}
+              component={CartPage}
+              path="/cart"
+            />
+
+            <PrivateRouteAllUser
+              user={user}
+              component={PaymentPage}
+              path="/payment/:orderId"
+            />
+
+            <PrivateRouteAllUser
+              user={user}
+              component={PaymentPage}
+              path="/payment"
+              exact
+            />
+
+            <PrivateRouteAllUser
+              user={user}
+              component={OrderDetailPage}
+              path="/order/:orderId"
+              exact
+            />
+
+            <PrivateRouteAllUser
+              user={user}
+              component={OrderPage}
+              path="/order"
+              exact
+            />
 
             <PrivateRoute user={user} component={AddProductPage} path="/addProduct" exact />
             <PrivateRoute user={user} component={AddPromotionPage} path="/addPromotion" />
@@ -102,7 +137,7 @@ const App = () => {
         </Suspense>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default App
+export default App;

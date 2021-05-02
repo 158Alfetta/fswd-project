@@ -9,6 +9,7 @@ export const PROMOTION_PRODUCT_QUERY = gql`
       price
       image
       count
+      product_count
       description
       promotionId
       ... on PromotionProduct {
