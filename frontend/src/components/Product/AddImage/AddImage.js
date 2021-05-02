@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { v4 as uuidv4 } from 'uuid'
-import { storage } from '../../../firebase/firebase'
+import { storage } from '../../../firebase'
 import LoadingComponent from '../../UI/Loading/Loading'
 
 import addImg from '../../../img/addImg.png'
