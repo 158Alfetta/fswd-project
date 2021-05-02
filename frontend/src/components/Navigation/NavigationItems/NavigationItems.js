@@ -68,12 +68,6 @@ const NavigationItems = (props) => {
           <NavigationItem link="/order" clickedFromNav={props.clicked} exact>
             Order
           </NavigationItem>
-          <NavigationItem link="/checkout" clickedFromNav={props.clicked} exact>
-            checkout(test)
-          </NavigationItem>
-          <NavigationItem link="/payment" clickedFromNav={props.clicked} exact>
-            payment(test)
-          </NavigationItem>
         </>
       : null}
 
