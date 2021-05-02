@@ -198,7 +198,7 @@ const GetCart = () => {
                   </div>
                   <div className="flex justify-center">
                     <a href="checkout">
-                      <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48">
+                      <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48 rounded-lg">
                         Proceed to Checkout
                       </button>
                     </a>
