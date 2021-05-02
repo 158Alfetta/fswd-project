@@ -47,15 +47,18 @@ const PromotionProduct = (props) => {
             {data?.PromotionProductId?.name}
           </div>
           <p className="text-gray-700 text-base">
-            {
-              (parseFloat(finalPrice)) ?
-                <span>
-                  <del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</del>
-                  {" "}
-                  {finalPrice.toLocaleString()}
-                </span> :
-                <span>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</span>
-            }
+            {parseFloat(finalPrice) ? (
+              <span>
+                <del>
+                  {parseFloat(data?.PromotionProductId?.price).toLocaleString()}
+                </del>{' '}
+                {finalPrice.toLocaleString()}
+              </span>
+            ) : (
+              <span>
+                {parseFloat(data?.PromotionProductId?.price).toLocaleString()}
+              </span>
+            )}
           </p>
           <div className="whitespace-nowrap text-right text-sm font-medium">
             <span

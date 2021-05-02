@@ -3,13 +3,12 @@ import { useCallback } from 'react'
 import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
 import { useSession } from '../../contexts/SessionContext'
-import { useMutation, useQuery } from '@apollo/client'
-import {Link} from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { Link } from 'react-router-dom'
 const Product = (props) => {
   const { product } = props
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
-  const { user } = useSession()
-  const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache' })
+  const { loading, user, cartData: data, refetchCart } = useSession()
   const refetchQuery = {
     refetchQueries: [
       {
@@ -18,9 +17,8 @@ const Product = (props) => {
     ],
   }
 
-  refetch()
   console.log(product)
-  
+
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
@@ -31,7 +29,7 @@ const Product = (props) => {
     }
   }, [])
 
-  function addtoCart(productId) {
+  async function addtoCart(productId) {
     var temp = JSON.stringify(data?.cart[0]?.product)
     var inCart = JSON.parse(temp)
 
@@ -51,47 +49,46 @@ const Product = (props) => {
     }
     inCart.map((obj) => delete obj.productInfo)
     inCart.map((obj) => delete obj.__typename)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
+    await updateCart({ variables: { userId: user?._id, product: inCart } })
+    refetchCart()
   }
 
   return (
     <>
-
       <div className="bg-yellow-800 bg-opacity-10 rounded-lg shadow-lg h-full w-full">
-      <Link to={"/product/" + product?._id}>
+        <Link to={'/product/' + product?._id}>
+          {/* IMAGE PANEL */}
+          <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
+            <img
+              className=" w-72 h-64 rounded-tl-lg rounded-tr-lg"
+              src={
+                product?.image?.[0] ||
+                'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+              }
+              alt="Sunset in the mountains"
+            />
+          </div>
 
-        {/* IMAGE PANEL */}
-        <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
-          <img
-            className="w-full h-full rounded-tl-lg rounded-tr-lg"
-            src={
-              product?.image?.[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
-            }
-            alt="Sunset in the mountains"
-          />
-        </div>
+          {/* PRICEING AND NAME PANEL */}
 
-        {/* PRICEING AND NAME PANEL */}
-
-        <div className="grid grid-cols-2 p-3">
-          <div className="font-semibold text-lg">{product?.name}</div>
-          <p className="text-gray-700 text-right">{parseFloat(product?.price).toLocaleString()}</p>
-        </div>
-
+          <div className="grid grid-cols-2 p-3">
+            <div className="font-semibold text-lg">{product?.name}</div>
+            <p className="text-gray-700 text-right">
+              {parseFloat(product?.price).toLocaleString()}
+            </p>
+          </div>
         </Link>
 
         <div className="bg-yellow-800 bg-opacity-30 rounded-bl-lg rounded-br-lg flex justify-end">
           <button
-              className="bg-yellow-700 hover:bg-yellow-900 text-white font-bold m-2 py-2 px-4 rounded-lg"
-              onClick={() => addtoCart(product?._id)}
-            >
-              {' '}
-              Add to cart
-            </button>
+            className="bg-yellow-700 hover:bg-yellow-900 text-white font-bold m-2 py-2 px-4 rounded-lg"
+            onClick={() => addtoCart(product?._id)}
+          >
+            {' '}
+            Add to cart
+          </button>
         </div>
-    </div>
-
-
+      </div>
     </>
   )
 }
