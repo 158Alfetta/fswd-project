@@ -104,11 +104,10 @@ const GetCart = () => {
                         <div key={item}>
                             {item?.product?.map((product) => {
                                 return (
-
                                     <div class="flex items-center hover:bg-gray-100 mx-8 px-6 py-5 border-b">
                                         <div class="flex w-2/5">
                                             <div class="w-20">
-                                                <img style={{ width: '10vw' }} class="h-24" src={product?.productInfo?.image[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'} />
+                                                <a href={"/product/" + product?.productId}><img style={{ width: '10vw' }} class="h-24" src={product?.productInfo?.image[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'} /></a>
                                             </div>
                                             <div class="flex flex-col justify-between ml-4 flex-grow">
                                                 <span class="font-bold text-sm">{product?.productInfo?.name}</span>
@@ -151,7 +150,7 @@ const GetCart = () => {
                                             <span>{sum.toLocaleString()} Baht</span>
                                         </div>
                                         <div className="flex justify-center">
-                                        <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48">Go to Checkout</button></a>
+                                        <a href="checkout"><button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48">Proceed to Checkout</button></a>
                                         </div>
                                     </div>
                                     
