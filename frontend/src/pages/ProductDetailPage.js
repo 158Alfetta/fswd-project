@@ -59,6 +59,8 @@ const ProductDetail = () => {
     const prevImage = () => {
         setImageIndex((((imageIndex - 1) % imageCount) + imageCount) % imageCount)
     }
+    let finalPrice = parseFloat(product?.price) *
+    (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()
     return (
 
         <>

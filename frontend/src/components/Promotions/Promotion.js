@@ -1,7 +1,10 @@
 import { useQuery } from '@apollo/client'
+import { useSession } from '../../contexts/SessionContext'
 import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
+import {Link} from 'react-router-dom'
 
 const PromotionCard = () => {
+    const {user} = useSession()
     const {loading, error, data} = useQuery(PROMOTION_QUERY)
     if (loading) { return ('loading...')}
     if (error) { console.log(JSON.stringify(error))}

@@ -9,3 +9,12 @@ export const PROMOTION_QUERY = gql`
     }
   }
 `
+export const PROMOTION_ID_QUERY = gql`
+  query DiscountPromotionById($id: MongoID!){
+    DiscountPromotionById (_id:$id) {
+      _id
+      name
+      discount
+    }
+  }
+`
