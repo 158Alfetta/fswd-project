@@ -25,8 +25,6 @@ const Payment = () => {
     setPmChoice(e.target.value)
   }
 
-  // console.log(pmChoice)
- 
   async function proceedPaymentBtn(PaymentMethod){
 
     if (PaymentMethod === "unspecify"){
