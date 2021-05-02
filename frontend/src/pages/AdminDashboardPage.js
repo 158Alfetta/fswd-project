@@ -11,15 +11,16 @@ const AdminDashboard = () => {
       <AdminProductCard />
       <h2 className="mt-10">My Promotion</h2>
       <AdminPromotionCard />
+      <div className="mt-12"></div>
       <Link to="addProduct">
-        <button className="mt-4 ml-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+        <button className="mt-4 ml-2 mr-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold  py-2 px-4 border border-gray-400 rounded shadow">
           Add Product
         </button>
       </Link>
       <Link to="addPromotion">
         <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Add Promotion
-                </button>
+        </button>
       </Link>
     </div>
   )
