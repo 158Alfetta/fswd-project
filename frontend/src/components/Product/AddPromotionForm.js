@@ -43,7 +43,7 @@ const AddPromotionForm = (props) => {
       try {
         await createDiscountPromotion({ variables: { record: newPromotion } })
         setErr('')
-        history.push('/')
+        history.push('/dashboard')
       } catch (err) {
         console.log(JSON.stringify(err))
       }
