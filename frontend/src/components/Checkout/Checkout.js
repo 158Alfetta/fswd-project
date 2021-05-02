@@ -89,15 +89,12 @@ const Checkout = () => {
             summary += parseFloat(totalPrice)
             return (
               <>
-                <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2">
-                  <div className="w-32">
-                    <img
-                      className="p-2"
-                      src={
-                        product?.productInfo?.image[0] ||
-                        "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
-                      }
-                    />
+                <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2 ">
+                  <div className="">
+
+                    <div className="w-full h-full" style={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundImage: `url(${product?.productInfo?.image[0] || "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"})` }}>
+                    </div>
+
                   </div>
                   <p className="text-center pt-10">
                     {product?.productInfo?.name}
