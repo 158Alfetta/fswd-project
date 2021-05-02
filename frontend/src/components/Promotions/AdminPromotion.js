@@ -3,7 +3,7 @@ import { useSession } from '../../contexts/SessionContext'
 import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
 import {Link} from 'react-router-dom'
 
-const PromotionCard = () => {
+const AdminPromotionCard = () => {
     const {user} = useSession()
     const {loading, error, data} = useQuery(PROMOTION_QUERY)
     if (loading) { return ('loading...')}
@@ -18,6 +18,13 @@ const PromotionCard = () => {
                             <div className="font-bold text-xl mb-2">Promotion</div>
                             <div className="text-xl mb-2">{promotion?.name}</div>
                             <div className="text-xl mb-2">{promotion?.discount} percent off</div>
+                            {user?.type === "Admin" ? <Link
+                                to={'/dashboard/update-promotion/' + promotion?._id}
+                            >
+                                <span className="cursor-pointer	 text-indigo-600 hover:text-indigo-900">
+                                    Edit
+                                </span>
+                            </Link> : null}
                         </div>
                     </div>
                     )
@@ -26,4 +33,4 @@ const PromotionCard = () => {
     )
 }
 
-export default PromotionCard
+export default AdminPromotionCard
