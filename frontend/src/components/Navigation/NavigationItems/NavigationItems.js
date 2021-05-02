@@ -61,6 +61,9 @@ const NavigationItems = (props) => {
       <NavigationItem link="/products" clickedFromNav={props.cliked} exact>
         Product
       </NavigationItem>
+      <NavigationItem link="/promotions" clickedFromNav={props.cliked} exact>
+        Promotion
+      </NavigationItem>
 
       { user?.type === "Admin" || user?.type === "Customer" ? 
         <>
