@@ -1,4 +1,4 @@
-import ProductCard from './ProductCard'
+
 import { PROMOTION_PRODUCT_QUERY } from '../../graphql/promoProductIdQuery'
 import { DELETE_PRODUCT_MUTATION } from '../../graphql/deleteProductById'
 import { useQuery, useMutation } from '@apollo/client'
