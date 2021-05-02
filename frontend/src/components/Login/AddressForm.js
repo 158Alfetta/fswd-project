@@ -1,8 +1,13 @@
+import { useMutation } from "@apollo/client";
+import { useSession } from "../../contexts/SessionContext";
+import { UPDATE_PROFILE } from "../../graphql/userMutation";
 
 const AddressForm = (props) => {
 
   const address = props?.address
   const setAddress = props?.setAddress
+  const { user } = useSession();
+  const [updateUser] = useMutation(UPDATE_PROFILE)
   
 
   function handleChangeOnName(event) {
@@ -51,7 +56,8 @@ const AddressForm = (props) => {
 
   function handleSubmitAddress(event) {
     event.preventDefault()
-    console.log(address)
+    const {telephone, street, district, province, postal} = address
+    updateUser({ variables: { id: user?._id, telephone: telephone, street:street, district:district, province:province, postal:postal } })
   }
 
 
@@ -118,7 +124,7 @@ const AddressForm = (props) => {
                       type="text"
                       name="disctrict"
                       id="disctrict"
-                      value={address.District}
+                      value={address.district}
                       onChange={handleChangeOnDistrict}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />

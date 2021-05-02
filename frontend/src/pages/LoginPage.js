@@ -11,12 +11,12 @@ const LoginPage = () => {
   const { data: CustomerData } = useQuery(CUSTOMER_QUERY);
 
   const [address, setAddress] = useState({
-    name: "",
-    telephone: "",
-    street: "",
-    district: "",
-    postal: "",
-    province: "",
+    name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
+    telephone: CustomerData?.customerInfo?.telephone,
+    street: CustomerData?.customerInfo?.streetAddr,
+    district: CustomerData?.customerInfo?.district,
+    postal: CustomerData?.customerInfo?.postal,
+    province: CustomerData?.customerInfo?.postal,
   });
 
   const userBox = useMemo(() => {
