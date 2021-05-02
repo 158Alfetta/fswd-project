@@ -1,7 +1,5 @@
 const PaymentCard = (props) => {
 
-  console.log(props)
-
   let order = props?.order?.findOrderbyId
 
   
@@ -22,21 +20,22 @@ const PaymentCard = (props) => {
 
           {order?.product.map((product) => {
             //call this function for calculating a price.
-            handleTotalPrice(product?.productInfo?.price * product?.quantity);
+            const discount = 1-parseFloat(product?.productInfo?.promotionDetail?.discount)/100 || 1
+            handleTotalPrice((product?.productInfo?.price*discount) * product?.quantity);
             return (
               <>
               <div className="p-4 pb-2 border-b-2 border-gray-300">
-                {product?.productInfo?.name}{" "}x{product?.quantity}
+                {product?.productInfo?.name}{" × "}{product?.quantity}
               </div>
               <div className="p-4 pb-2 border-b-2 border-gray-300 text-right">
-                {(parseFloat(product?.quantity)*parseFloat(product?.productInfo?.price)).toLocaleString()}
+                {(parseFloat(product?.quantity)*parseFloat(product?.productInfo?.price*discount)).toLocaleString()}
               </div>
               </>
             );
           })}
           {/* END OF PRODUCT CREATION */}
             <p className="p-3 mt-5 text-left text-lg font-semibold uppercase bg-purple-700 bg-opacity-30  rounded-bl-xl">{"Grand Total"}</p>
-            <p className="p-3 mt-5 text-right text-lg font-semibold uppercase bg-purple-700 bg-opacity-30 rounded-br-xl">{totalPrice.toLocaleString()}{" Baht"}</p>
+            <p className="p-3 mt-5 text-right text-lg font-semibold uppercase bg-purple-700 bg-opacity-30 rounded-br-xl">{(totalPrice+order?.shippingCost).toLocaleString()}{" Baht"}</p>
         </div>
   
       </>

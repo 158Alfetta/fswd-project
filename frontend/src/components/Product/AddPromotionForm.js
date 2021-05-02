@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useSession } from '../../contexts/SessionContext'
 
-import { PROMOTION_QUERY } from '../../graphql/PromotionQuery'
 import { PRODUCT_QUERY } from '../../graphql/productsQuery'
 
 import { CREATE_PROMOTION_MUTATION } from '../../graphql/createPromotion'
@@ -14,12 +13,7 @@ const AddPromotionForm = (props) => {
 
   const [newPromotion, setNewPromotion] = useState({
     name: '',
-    discount: 0
-  })
-
-  const [PromotionProduct, setPromotionProduct] = useState({
     discount: 0,
-    limit: 0,
   })
 
   const refetchQuery = {
@@ -37,7 +31,9 @@ const AddPromotionForm = (props) => {
 
   const handleInputChange = useCallback((e) => {
     let { name, value } = e.target
-    if (name === "discount") { value = parseFloat(value)}
+    if (name === 'discount') {
+      value = parseFloat(value)
+    }
     setNewPromotion((prev) => ({ ...prev, [name]: value }))
   }, [])
 
@@ -54,7 +50,7 @@ const AddPromotionForm = (props) => {
     },
     [createDiscountPromotion, newPromotion]
   )
- 
+
   return (
     <div className="p-8 mt-20 bg-white rounded-lg max-w-md pb-10 m-4">
       <div className="text-center">

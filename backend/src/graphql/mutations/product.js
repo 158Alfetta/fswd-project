@@ -7,3 +7,4 @@ export const createPromotionProduct = PromotionProductTC.getResolver('createOne'
 export const updatePromotionProductById = PromotionProductTC.getResolver('updateById')
 
 export const removeProductById = BaseProductTC.getResolver('removeById')
+export const updateBaseproductById = BaseProductTC.getResolver('updateById')

@@ -4,6 +4,7 @@ import { QUERY_ORDER_BY_ID } from "../../graphql/OrderQuery";
 import PaymentCard from "./PaymentCard"
 import { PROCEED_PAYMENT_MUTATION } from "../../graphql/OrderMutation";
 import { useHistory, useParams } from "react-router-dom";
+import { UPDATE_STOCK_BY_ID } from "../../graphql/ProductMutation"
 
 
 
@@ -16,6 +17,7 @@ const Payment = () => {
   });
 
   const [proceedPayment] = useMutation(PROCEED_PAYMENT_MUTATION);
+  const [updateStock] = useMutation(UPDATE_STOCK_BY_ID)
 
   const [pmChoice, setPmChoice] = useState('unspecify')
 
@@ -23,7 +25,7 @@ const Payment = () => {
     setPmChoice(e.target.value)
   }
 
-  console.log(pmChoice)
+  // console.log(pmChoice)
  
   async function proceedPaymentBtn(PaymentMethod){
 
@@ -32,6 +34,14 @@ const Payment = () => {
     }
 
     else{
+      var productDetail = data?.findOrderbyId?.product
+      for (var index=0; index < productDetail.length ;index++){
+        var productId = (productDetail?.[index]?.productId)
+        var productStock = (productDetail?.[index]?.productInfo?.count)
+        var buy = (productDetail?.[index]?.quantity)
+        var newStock = productStock-buy
+        await updateStock({ variables: { id: productId, stock: newStock } })
+      }
       let result = await proceedPayment({
         variables: {
           _id: orderId,
@@ -39,8 +49,6 @@ const Payment = () => {
           paymentDetail: PaymentMethod,
         },
       });
-  
-      console.log(result)
       history.push('/order')
     }
   }

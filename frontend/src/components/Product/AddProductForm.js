@@ -23,7 +23,7 @@ const AddProductForm = (props) => {
     category: "",
     createdByUser: user?._id,
   })
-  const [type, setType] = useState('Product')
+  const [type, setType] = useState('PromotionProduct')
   const [PromotionProduct, setPromotionProduct] = useState({
     discount: 0,
     limit: 0,
@@ -57,9 +57,6 @@ const AddProductForm = (props) => {
     setNewProduct((prev) => ({ ...prev, [name]: value }))
   }, [])
 
-  const handleTypeChange = useCallback((e) => {
-    setType(e.target.value)
-  }, [])
   const handlePromotionChange = useCallback((e) => {
     let { name, value } = e.target
     console.log(name, value)
@@ -69,9 +66,9 @@ const AddProductForm = (props) => {
     async (e) => {
       e.preventDefault()
       try {
-        if (type === 'Product')
-          await createProduct({ variables: { record: newProduct } })
-        else
+        // if (type === 'Product')
+        //   await createProduct({ variables: { record: newProduct } })
+        // else
           await createPromotionProduct({
             variables: { record: { ...newProduct, ...PromotionProduct } },
           })
@@ -83,19 +80,17 @@ const AddProductForm = (props) => {
     },
     [createProduct, createPromotionProduct, newProduct, PromotionProduct, type]
   )
- 
-  
+
   let PromotionProductForm =
-    type === 'PromotionProduct' ? (
       <>
         <label>
-          <select name='promotionId' onChange={handlePromotionChange}>
+          <select name="promotionId" onChange={handlePromotionChange}>
             <option value="">--Select Promotion--</option>
-            <PromotionOptions/>
+            <PromotionOptions />
           </select>
         </label>
       </>
-    ) : null
+    
   return (
     <div className="p-8 mt-20 bg-white rounded-lg max-w-md pb-10 m-4">
       <div className="text-center">
@@ -105,7 +100,7 @@ const AddProductForm = (props) => {
       </div>
       <AddImage urlsCallback={handleUrlsChange} />
       <form onSubmit={handleAddProduct}>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <span className="text-gray-700">Please select product type:</span>
           <div className="mt-1 mb-3">
             <label className="inline-flex items-center mr-4">
@@ -129,10 +124,11 @@ const AddProductForm = (props) => {
               <span className="ml-1">Promotion Product</span>
             </label>
           </div>
-        </div>
+        </div> */}
+
 
         <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
+          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 my-3"
           type="text"
           name="name"
           value={newProduct.name}

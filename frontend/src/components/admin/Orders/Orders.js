@@ -95,31 +95,19 @@ const ProductCard = () => {
   return (
     <div className="my-4">
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full table-fixed">
           <thead className="bg-gray-50">
             <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="w-2/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Address
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 status
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
+              <th className="w-1/5 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Bought Products
               </th>
             </tr>
@@ -128,7 +116,7 @@ const ProductCard = () => {
             {modifiedData?.map((order) => {
               return (
                 <tr key={order?._id} className="">
-                  <td valign="top" className="px-6 py-4 whitespace-nowrap">
+                  <td valign="top" className="px-6 py-4">
                     <div className="">
                       <div className="">
                         {order.createdByUser?.firstName || 'FirstName'}{' '}
@@ -136,14 +124,15 @@ const ProductCard = () => {
                       </div>
                     </div>
                   </td>
-                  <td valign="top" className="p-6 py-4 whitespace-nowrap">
+                  <td valign="top" className="p-6 py-4">
                     <div>
                       <div className="text-sm text-gray-500">
+                        {/* {order.address || 'default address'} */}
                         {order.address || 'default address'}
                       </div>
                     </div>
                   </td>
-                  <td valign="top" className="pl-5 py-4 whitespace-nowrap">
+                  <td className="pl-5 py-4">
                     <div className="">
                       <div className="relative inline-flex">
                         <svg
@@ -181,10 +170,7 @@ const ProductCard = () => {
                       </div>
                     </div>
                   </td>
-                  <td
-                    valign="top"
-                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                  >
+                  <td valign="top" className="px-6 py-4 text-sm text-gray-500">
                     <div>
                       {order?.product?.map((product) => (
                         <div>
