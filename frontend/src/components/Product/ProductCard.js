@@ -87,11 +87,17 @@ const ProductCard = () => {
             }
             return null
           })}
-          <Pagination
-            clickBefore={handleBeforePage}
-            pageData={page}
-            clickNext={handleNextPage}
-          />
+
+          <div className="col-span-4 flex justify-center">
+
+            <div className="">
+              <Pagination
+                clickBefore={handleBeforePage}
+                pageData={page}
+                clickNext={handleNextPage}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>
