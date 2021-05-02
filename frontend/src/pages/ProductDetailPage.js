@@ -59,6 +59,8 @@ const ProductDetail = () => {
     const prevImage = () => {
         setImageIndex((((imageIndex - 1) % imageCount) + imageCount) % imageCount)
     }
+    let finalPrice = parseFloat(product?.price) *
+    (1 - parseFloat(product?.promotionDetail?.discount) / 100).toLocaleString()
     return (
 
         <>
@@ -91,11 +93,19 @@ const ProductDetail = () => {
                 </div>
                 
             </div>
-
-            <div className="col-span-6 flex-col justify-between ">
-                <div className="m-10 bg-gray-100 shadow-lg rounded-xl h-3/4">
-                    <div className="w-full bg-gray-200 h-16 rounded-tr-xl rounded-tl-xl">
-                        <h2 className="text-2xl font-bold p-3 pl-6 py-4 ">{product?.name}</h2>
+            <div className="flex-grow flex-col w-2/5 justify-center ">
+                <div className="grid grid-rows-2 gap-20 pt-60 ">
+                    <h2 className="text-4xl text-center">{product?.name}</h2>
+                    <h2 className="text-2xl text-center">{product?.description}</h2>
+                    <div className="border-t-2">
+                        {
+                            product?.type === "PromotionProduct" ? 
+                            parseFloat(finalPrice) ?
+                            <span><h2 className="text-2xl text-center pt-10"><del className="pr-3">{product?.price}</del>
+                                  {finalPrice} THB</h2></span>
+                            : <h2 className="text-2xl text-center pt-10">{product?.price}</h2>
+                            : <h2 className="text-2xl text-center pt-10">{parseFloat(product?.price).toLocaleString()} THB</h2>
+                        }
                     </div>
 
                     <div className="w-full h-44 border-b-2 border-gray-200">
