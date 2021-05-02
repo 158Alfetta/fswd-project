@@ -96,8 +96,8 @@ const App = () => {
             <PrivateRouteAllUser component={PaymentPage} path="/payment/:orderId" />
             <PrivateRouteAllUser component={PaymentPage} path="/payment" exact/> */}
 
-            <PrivateRoute component={AddProductPage} path="/addProduct" exact />
-            <PrivateRoute component={AddPromotionPage} path="/addPromotion" />
+            <PrivateRoute user={user} component={AddProductPage} path="/addProduct" exact />
+            <PrivateRoute user={user} component={AddPromotionPage} path="/addPromotion" />
           </Switch>
         </Suspense>
       </div>
