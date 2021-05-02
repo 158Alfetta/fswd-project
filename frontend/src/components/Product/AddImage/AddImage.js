@@ -19,6 +19,10 @@ const AddImage = (props) => {
     return () => {}
   }, [imagesFromUpdate])
 
+  useEffect(() => {
+    props.urlsCallback(urls)
+  }, [urls])
+
   const handleImgChange = (e) => {
     if (e.target.files[0]) {
       handleUpload(e.target.files[0])
@@ -29,7 +33,6 @@ const AddImage = (props) => {
 
   const handleUrlsChange = (data) => {
     setUrls(data)
-    props.urlsCallback(data)
   }
 
   const handleUpload = (imageUpload) => {
@@ -59,15 +62,7 @@ const AddImage = (props) => {
 
   const deleteImg = (url) => {
     if (url) {
-      storage
-        .refFromURL(url)
-        .delete()
-        .then(() => {
-          handleUrlsChange((oldUrls) => oldUrls.filter((item) => item !== url))
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      handleUrlsChange((oldUrls) => oldUrls.filter((item) => item !== url))
     } else {
       console.log('No url')
     }

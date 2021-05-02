@@ -22,7 +22,7 @@ const AddProductForm = (props) => {
     count: 0,
     createdByUser: user?._id,
   })
-  const [type, setType] = useState('Product')
+  const [type, setType] = useState('PromotionProduct')
   const [PromotionProduct, setPromotionProduct] = useState({
     discount: 0,
     limit: 0,
@@ -56,9 +56,6 @@ const AddProductForm = (props) => {
     setNewProduct((prev) => ({ ...prev, [name]: value }))
   }, [])
 
-  const handleTypeChange = useCallback((e) => {
-    setType(e.target.value)
-  }, [])
   const handlePromotionChange = useCallback((e) => {
     let { name, value } = e.target
     console.log(name, value)
@@ -82,15 +79,14 @@ const AddProductForm = (props) => {
     },
     [createProduct, createPromotionProduct, newProduct, PromotionProduct, type]
   )
- 
-  
+
   let PromotionProductForm =
     type === 'PromotionProduct' ? (
       <>
         <label>
-          <select name='promotionId' onChange={handlePromotionChange}>
+          <select name="promotionId" onChange={handlePromotionChange}>
             <option value="">--Select Promotion--</option>
-            <PromotionOptions/>
+            <PromotionOptions />
           </select>
         </label>
       </>
@@ -106,34 +102,8 @@ const AddProductForm = (props) => {
       <AddImage urlsCallback={handleUrlsChange} />
 
       <form onSubmit={handleAddProduct}>
-        <div className="mt-4">
-          <span className="text-gray-700">Please select product type:</span>
-          <div className="mt-1 mb-3">
-            <label className="inline-flex items-center mr-4">
-              <input
-                type="radio"
-                name="type"
-                value="Product"
-                onChange={handleTypeChange}
-                checked={type === 'Product'}
-              />
-              <span className="ml-1">Product</span>
-            </label>
-            <label className="inline-flex items-center">
-              <input
-                type="radio"
-                name="type"
-                value="PromotionProduct"
-                onChange={handleTypeChange}
-                checked={type === 'PromotionProduct'}
-              />
-              <span className="ml-1">Promotion Product</span>
-            </label>
-          </div>
-        </div>
-
         <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
+          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 my-3"
           type="text"
           name="name"
           value={newProduct.name}

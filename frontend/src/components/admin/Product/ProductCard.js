@@ -2,10 +2,15 @@ import { useQuery } from '@apollo/client'
 import { PRODUCT_QUERY } from '../../../graphql/productsQuery'
 import Product from './Card/Product'
 import PromotionProduct from './Card/PromotionProduct'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const ProductCard = () => {
-  const { loading, error, data } = useQuery(PRODUCT_QUERY)
+  const { loading, error, data, refetch } = useQuery(PRODUCT_QUERY)
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
   if (loading) {
     return 'loading'
   }
@@ -23,11 +28,6 @@ const ProductCard = () => {
               key={product?._id}
               product={product}
             />
-          )
-        }
-        if (product?.type === 'Product') {
-          return (
-            <Product className="m-2" key={product?._id} product={product} />
           )
         }
         return null
