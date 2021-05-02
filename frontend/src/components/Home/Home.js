@@ -179,7 +179,7 @@ const Home = () => {
                 {/* Footer */}
 
         <div className="col-span-10 h-36 w-full mt-16 bg-yellow-800 bg-opacity-80 ">
-          <p className="flex justify-center text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
+          <p className="flex justify-center pt-20 text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
         </div>
       </div>
     </>

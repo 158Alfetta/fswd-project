@@ -1,10 +1,9 @@
 import { React, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ORDER_BY_ID } from "../../graphql/OrderQuery";
-import { useParams } from "react-router-dom";
 import PaymentCard from "./PaymentCard"
 import { PROCEED_PAYMENT_MUTATION } from "../../graphql/OrderMutation";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 
 
@@ -24,7 +23,7 @@ const Payment = () => {
     setPmChoice(e.target.value)
   }
 
-  console.log(pmChoice)
+  // console.log(pmChoice)
  
   async function proceedPaymentBtn(PaymentMethod){
 
@@ -41,7 +40,7 @@ const Payment = () => {
         },
       });
   
-      console.log(result)
+      // console.log(result)
       history.push('/order')
     }
   }

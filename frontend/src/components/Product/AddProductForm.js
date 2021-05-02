@@ -23,7 +23,7 @@ const AddProductForm = (props) => {
     category: "",
     createdByUser: user?._id,
   })
-  const [type, setType] = useState('Product')
+  const [type, setType] = useState('PromotionProduct')
   const [PromotionProduct, setPromotionProduct] = useState({
     discount: 0,
     limit: 0,
@@ -57,9 +57,6 @@ const AddProductForm = (props) => {
     setNewProduct((prev) => ({ ...prev, [name]: value }))
   }, [])
 
-  const handleTypeChange = useCallback((e) => {
-    setType(e.target.value)
-  }, [])
   const handlePromotionChange = useCallback((e) => {
     let { name, value } = e.target
     console.log(name, value)
@@ -83,13 +80,13 @@ const AddProductForm = (props) => {
     },
     [createProduct, createPromotionProduct, newProduct, PromotionProduct, type]
   )
-  
+
   let PromotionProductForm =
       <>
         <label>
-          <select name='promotionId' onChange={handlePromotionChange}>
+          <select name="promotionId" onChange={handlePromotionChange}>
             <option value="">--Select Promotion--</option>
-            <PromotionOptions/>
+            <PromotionOptions />
           </select>
         </label>
       </>
@@ -129,8 +126,9 @@ const AddProductForm = (props) => {
           </div>
         </div> */}
 
+
         <input
-          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 mb-3"
+          className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 my-3"
           type="text"
           name="name"
           value={newProduct.name}
