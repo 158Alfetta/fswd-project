@@ -21,7 +21,7 @@ const BaseProductSchema = new Schema({
     image:{ type: [ String ] , required: true},
     price:{ type: mongoose.Decimal128, required: true},
     count:{ type: Number, required: true},
-    category:{ type: [ String ]},
+    category:{ type: String },
     createdByUser:{
         type: String,
         required: false,

@@ -4,6 +4,7 @@ import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
 import { useSession } from '../../contexts/SessionContext'
 import { useMutation, useQuery } from '@apollo/client'
+import {Link} from 'react-router-dom'
 const Product = (props) => {
   const { product } = props
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
@@ -17,7 +18,7 @@ const Product = (props) => {
     ],
   }
 
-  refetch()
+  // refetch()
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
@@ -53,19 +54,21 @@ const Product = (props) => {
 
   return (
     <div>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
+      <Link to={"/product/" + product?._id}>
+      <div className="max-w-sm rounded overflow-hidden shadow-lg justify-center">
         <img
-          className="w-full"
+          className="w-72 h-72"
           src={
             product?.image?.[0] || 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
           }
           alt="Sunset in the mountains"
         />
-        <div className="px-6 py-4">
+        <div className="px-6 py-4 ">
           <div className="font-bold text-xl mb-2">{product?.name}</div>
           <p className="text-gray-700 text-base">{parseFloat(product?.price).toLocaleString()}</p>
         </div>
       </div>
+      </Link>
       <div className="px-6 pt-4 pb-2">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -74,12 +77,12 @@ const Product = (props) => {
           {' '}
           Add to cart
         </button>
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           onClick={handleButtonClick}
         >
           Remove Product
-        </button>
+        </button> */}
       </div>
     </div>
   )
