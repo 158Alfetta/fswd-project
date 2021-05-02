@@ -23,6 +23,13 @@ const ProductCard = () => {
     })
   }, [page, refetch])
 
+  const handleClickedRemove = useCallback(() => {
+    refetch({
+      skip: page.skip,
+      limit: page.limit,
+    })
+  }, [])
+
   const handleNextPage = useCallback(() => {
     if (page.pageNum * page.limit >= page.items_count) {
     } else {
@@ -49,7 +56,7 @@ const ProductCard = () => {
     if (data) {
       setPage((prev) => ({
         ...prev,
-        items_count: data?.Products[0].product_count,
+        items_count: data?.Products[0]?.product_count,
       }))
     }
   }, [data])
@@ -61,24 +68,29 @@ const ProductCard = () => {
     return 'Error'
   }
   return (
-    <div className="my-4 grid grid-cols-1 md:grid-cols-4">
-      {data?.Products?.map((product) => {
-        if (product?.type === 'PromotionProduct') {
-          return (
-            <PromotionProduct
-              className="m-2"
-              key={product?._id}
-              product={product}
-            />
-          )
-        }
-        return null
-      })}
-      <Pagination
-        clickBefore={handleBeforePage}
-        pageData={page}
-        clickNext={handleNextPage}
-      />
+    <div>
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-4">
+        {data?.Products?.map((product) => {
+          if (product?.type === 'PromotionProduct') {
+            return (
+              <PromotionProduct
+                clicked={handleClickedRemove}
+                className="m-2"
+                key={product?._id}
+                product={product}
+              />
+            )
+          }
+          return null
+        })}
+      </div>
+      <div className="flex justify-end">
+        <Pagination
+          clickBefore={handleBeforePage}
+          pageData={page}
+          clickNext={handleNextPage}
+        />
+      </div>
     </div>
   )
 }
