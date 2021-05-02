@@ -40,6 +40,7 @@ export const QUERY_ORDER_BY_ID = gql`
           price
           timestamp
           count
+          image
         }
         quantity
       }

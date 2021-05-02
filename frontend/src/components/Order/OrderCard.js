@@ -41,7 +41,7 @@ const OrderCard = (props) => {
           <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
           {"Payment"} <p className="text-xs md:text-lg">{order?.paymentDetail}</p>
           </div>
-          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold col-span-2">
+          <div className="flex flex-col justify-center p-3border-grey-800 font-bold col-span-2">
           {"Address "} <p className="text-xs font-normal p-2">{order?.address}</p>
           </div>
         </div>

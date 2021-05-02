@@ -9,8 +9,6 @@ import AddressForm from "./AddressForm";
 
 const Checkout = () => {
   const { user } = useSession();
-
-
   const { data } = useQuery(QUERY_CART);
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER);
 
