@@ -8,14 +8,16 @@ import Pagination from '../../UI/Pagination/Pagination'
 
 const ProductCard = () => {
   const [modifiedData, setModifiedData] = useState()
-  const { loading, error, data, refetch } = useQuery(ADMIN_QUERY_ORDER)
-  const [updateOrderStatus] = useMutation(ORDER_STATUS_MUTATION)
   const [page, setPage] = useState({
     pageNum: 1,
     skip: 0,
     limit: 5,
     items_count: 0,
   })
+  const { loading, error, data, refetch } = useQuery(ADMIN_QUERY_ORDER, {
+    variables: { skip: page.skip, limit: page.limit },
+  })
+  const [updateOrderStatus] = useMutation(ORDER_STATUS_MUTATION)
 
   useEffect(() => {
     refetch({
