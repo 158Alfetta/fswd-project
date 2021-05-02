@@ -72,9 +72,9 @@ const PromotionProduct = (props) => {
     <>
       <div className="bg-yellow-800 bg-opacity-10 rounded-lg shadow-lg h-full w-full">
         <Link to={'/product/' + data?.PromotionProductId?._id}>
-          <div className="rounded-tl-lg rounded-tr-lg w-50 h-64">
+          <div className="rounded-tl-lg rounded-tr-lg m-4">
             <img
-              className="w-72 h-64 rounded-tl-lg rounded-tr-lg"
+              className="w-full h-64 rounded-lg"
               src={
                 product?.image?.[0] ||
                 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
