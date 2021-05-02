@@ -1,30 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_ORDER } from "../../graphql/OrderMutation";
 import { QUERY_CART, QUERY_CART_ORDER } from "../../graphql/CartQuery";
 import { CLEAR_CART } from "../../graphql/CartMutation";
 import { useHistory } from "react-router-dom";
 import { useSession } from "../../contexts/SessionContext";
+import { CUSTOMER_QUERY } from '../../graphql/meQuery';
 import AddressForm from "./AddressForm";
 
 const Checkout = () => {
   const { user } = useSession();
   const { data } = useQuery(QUERY_CART);
   const { data: dataOrder } = useQuery(QUERY_CART_ORDER);
+  const { data: CustomerData } = useQuery(CUSTOMER_QUERY);
+
+  const [address, setAddress] = useState({
+    name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
+    telephone: CustomerData?.customerInfo?.telephone,
+    street: CustomerData?.customerInfo?.streetAddr,
+    district: CustomerData?.customerInfo?.district,
+    postal: CustomerData?.customerInfo?.postal,
+    province: CustomerData?.customerInfo?.postal,
+  })
+
+  useEffect(() => {
+    setAddress({
+      name: CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName,
+      telephone: CustomerData?.customerInfo?.telephone,
+      street: CustomerData?.customerInfo?.streetAddr,
+      district: CustomerData?.customerInfo?.district,
+      postal: CustomerData?.customerInfo?.postal,
+      province: CustomerData?.customerInfo?.postal,
+    })
+  }, [CustomerData])
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [clearCart] = useMutation(CLEAR_CART);
   const [shippingCost, setShippingCost] = useState(50);
   let history = useHistory();
-  const [address, setAddress] = useState({
-    name: "",
-    telephone: "",
-    street: "",
-    district: "",
-    postal: "",
-    province: "",
-  });
-  var summary = 0;
+  var summary = 0
 
   function updateShippingCost(event) {
     setShippingCost(parseInt(event.target.value));
@@ -37,18 +51,8 @@ const Checkout = () => {
     let productInfo = [...dataOrderJSON.cart[0].product];
     productInfo.map((obj) => delete obj.__typename);
 
-    const addressString =
-      address?.name +
-      " Tel " +
-      address?.telephone +
-      " " +
-      address?.street +
-      " " +
-      address?.district +
-      " " +
-      address?.province +
-      " " +
-      address?.postal;
+    const addressString = address?.name + " Tel " + address?.telephone + " " + address?.street + " " + address?.district + " " + address?.province + " " + address?.postal;
+
 
     let dataCreateOrder = await createOrder({
       variables: {
@@ -60,6 +64,8 @@ const Checkout = () => {
         shippingCost: shippingCost,
       },
     });
+
+
 
     clearCart({
       variables: {
@@ -96,15 +102,12 @@ const Checkout = () => {
             Total
           </h3>
           {data?.cart[0]?.product.map((product) => {
-            const discount =
-              1 -
-                parseFloat(product?.productInfo?.promotionDetail?.discount) /
-                  100 || 1;
-            console.log(discount);
+            const discount = 1 - parseFloat(product?.productInfo?.promotionDetail?.discount) / 100 || 1
+            console.log(discount)
             const totalPrice =
               parseFloat(product?.quantity) *
-              parseFloat(product?.productInfo?.price * discount);
-            summary += parseFloat(totalPrice);
+              parseFloat(product?.productInfo?.price * discount)
+            summary += parseFloat(totalPrice)
             return (
               <>
                 <div className="col-span-4 h-36 border-gray-300 border-b grid grid-cols-2 ">
@@ -133,9 +136,7 @@ const Checkout = () => {
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
                   <p className="text-center pt-10">
-                    {parseFloat(
-                      product?.productInfo?.price * discount
-                    ).toLocaleString()}
+                    {parseFloat(product?.productInfo?.price * discount).toLocaleString()}
                   </p>
                 </div>
                 <div className="col-span-2 h-36 border-gray-300 border-b">
@@ -152,9 +153,7 @@ const Checkout = () => {
 
         <div className="m-3 mb-10 p-2 bg-blue-200 bg-opacity-30 rounded-xl w-full md:w-8/12 mx-auto grid grid-cols-2">
           <div className="col-span-2">
-            <h2 className="text-2xl font-semibold text-center text-gray-600 p-3 mb-3 uppercase">
-              Address
-            </h2>
+            <h2 className="text-2xl font-semibold text-center text-gray-600 p-3 mb-3 uppercase">Address</h2>
             <AddressForm address={address} setAddress={setAddress} />
           </div>
 
@@ -192,6 +191,7 @@ const Checkout = () => {
             >
               Checkout
             </button>
+
           </div>
 
           <div className="py-4">

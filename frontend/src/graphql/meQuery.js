@@ -14,11 +14,15 @@ export const ME_QUERY = gql`
 export const CUSTOMER_QUERY = gql`
 query{
   customerInfo{
+    _id
     username
     firstName
     lastName
-    address
     telephone
+    streetAddr
+    district
+    province
+    postal
   }
 }
 `

@@ -26,8 +26,11 @@ const AdminUserSchema = new Schema({
   companyName: { type: String, required: true },
 })
 const CustomerUserSchema = new Schema({
-  address: { type: String },
   telephone: { type: String },
+  streetAddr: { type: String },
+  district: {type: String},
+  province: {type: String},
+  postal: {type: String},
 })
 
 UserSchema.set('discriminatorKey', DKey)
