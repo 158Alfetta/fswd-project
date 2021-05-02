@@ -18,16 +18,6 @@ const OrderSchema = new Schema({
   timestamp:{type: Date, default: Date.now} 
 })
 
-
-const discriminatorOptions = { 
-  inputType: {
-      removeFields:['timestamp'],
-  }
-}
-
-OrderSchema.set('discriminatorKey', discriminatorKey)
-
-
 export const OrderModel = mongoose.model('Order', OrderSchema)
 export const OrderTC = composeWithMongoose(OrderModel)
 
