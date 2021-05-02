@@ -66,9 +66,9 @@ const AddProductForm = (props) => {
     async (e) => {
       e.preventDefault()
       try {
-        if (type === 'Product')
-          await createProduct({ variables: { record: newProduct } })
-        else
+        // if (type === 'Product')
+        //   await createProduct({ variables: { record: newProduct } })
+        // else
           await createPromotionProduct({
             variables: { record: { ...newProduct, ...PromotionProduct } },
           })
@@ -82,7 +82,6 @@ const AddProductForm = (props) => {
   )
 
   let PromotionProductForm =
-    type === 'PromotionProduct' ? (
       <>
         <label>
           <select name="promotionId" onChange={handlePromotionChange}>
@@ -91,7 +90,7 @@ const AddProductForm = (props) => {
           </select>
         </label>
       </>
-    ) : null
+    
   return (
     <div className="p-8 mt-20 bg-white rounded-lg max-w-md pb-10 m-4">
       <div className="text-center">
@@ -101,6 +100,33 @@ const AddProductForm = (props) => {
       </div>
       <AddImage urlsCallback={handleUrlsChange} />
       <form onSubmit={handleAddProduct}>
+        {/* <div className="mt-4">
+          <span className="text-gray-700">Please select product type:</span>
+          <div className="mt-1 mb-3">
+            <label className="inline-flex items-center mr-4">
+              <input
+                type="radio"
+                name="type"
+                value="Product"
+                onChange={handleTypeChange}
+                checked={type === 'Product'}
+              />
+              <span className="ml-1">Product</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="type"
+                value="PromotionProduct"
+                onChange={handleTypeChange}
+                checked={type === 'PromotionProduct'}
+              />
+              <span className="ml-1">Promotion Product</span>
+            </label>
+          </div>
+        </div> */}
+
+
         <input
           className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 my-3"
           type="text"

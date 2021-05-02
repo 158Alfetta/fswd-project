@@ -88,16 +88,34 @@ const PromotionProduct = (props) => {
 
       <div className="grid grid-cols-2 p-3">
           <div className="font-semibold text-lg">{data?.PromotionProductId?.name}</div>
-          <p className="text-gray-700 text-right"><del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</del>
-          {" "}{finalPrice.toLocaleString()}</p>
+          <p className="text-gray-700 text-right">
+            {
+              (parseFloat(finalPrice)) ? 
+              <span>
+                <del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</del>
+                {" "}
+                {finalPrice.toLocaleString()}
+              </span> : 
+              <span>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</span>
+            }
+            {/* <del>{parseFloat(data?.PromotionProductId?.price).toLocaleString()}</del>
+            {" "}{finalPrice.toLocaleString()} */}
+          </p>
         </div>
       </Link>
 
       {/* Button and discount panel */}
       <div className="bg-yellow-500 bg-opacity-100 rounded-bl-lg rounded-br-lg flex justify-between">
-          <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
+          {
+            // Check if promotion is available
+          (data?.PromotionProductId?.promotionDetail?.discount) ? 
+            <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full"> 
+              {(data?.PromotionProductId?.promotionDetail?.discount)} % off
+            </span> : null
+          }
+          {/* <span className="bg-purple-600 animate-pulse text-white font-extrabold m-2 py-2 px-4 rounded-full">
             {(data?.PromotionProductId?.promotionDetail?.discount)} % off
-          </span>
+          </span> */}
 
           <button
               className="bg-green-600 hover:bg-green-800 text-white font-bold m-2 py-2 px-4 rounded-lg"
