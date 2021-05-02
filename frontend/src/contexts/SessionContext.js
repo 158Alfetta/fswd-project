@@ -99,7 +99,7 @@ export const SessionProvider = (props) => {
     <SessionContext.Provider
       value={{
         loading,
-        user,
+        user:cookie.user,
         login: handleLogin,
         logout: handleLogout,
         cartData,

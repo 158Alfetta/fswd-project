@@ -1,63 +1,63 @@
-import { React } from 'react'
-import { useMutation } from '@apollo/client'
-import { UPDATE_CART } from '../../graphql/CartMutation'
-import { useSession } from '../../contexts/SessionContext'
+import { React } from "react";
+import { useMutation } from "@apollo/client";
+import { UPDATE_CART } from "../../graphql/CartMutation";
+import { useSession } from "../../contexts/SessionContext";
 
 const GetCart = () => {
-  const { user, cartData, refetchCart } = useSession()
+  const { user, cartData, refetchCart } = useSession();
 
-  const [updateCart] = useMutation(UPDATE_CART)
-  var sum = 0
+  const [updateCart] = useMutation(UPDATE_CART);
+  var sum = 0;
 
   async function removeProduct(productId) {
-    var temp = JSON.stringify(cartData?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
 
-    inCart.splice(productIndex, 1)
-    inCart.map((obj) => delete obj.__typename)
-    inCart.map((obj) => delete obj.productInfo)
-    await updateCart({ variables: { userId: user?._id, product: inCart } })
-    refetchCart()
+    inCart.splice(productIndex, 1);
+    inCart.map((obj) => delete obj.__typename);
+    inCart.map((obj) => delete obj.productInfo);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
   async function Increase(productId) {
-    var temp = JSON.stringify(cartData?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
 
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
     inCart[productIndex].quantity = Math.min(
       inCart[productIndex].quantity + 1,
       inCart[productIndex].productInfo.count
-    )
-    inCart.map((obj) => delete obj.__typename)
-    inCart.map((obj) => delete obj.productInfo)
-    await updateCart({ variables: { userId: user?._id, product: inCart } })
-    refetchCart()
+    );
+    inCart.map((obj) => delete obj.__typename);
+    inCart.map((obj) => delete obj.productInfo);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
   async function Decrease(productId) {
-    var temp = JSON.stringify(cartData?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
 
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
     if (inCart[productIndex].quantity === 1) {
-      inCart.splice(productIndex, 1)
+      inCart.splice(productIndex, 1);
     } else {
       inCart[productIndex].quantity = Math.max(
         inCart[productIndex].quantity - 1,
         1
-      )
+      );
     }
-    inCart.map((obj) => delete obj.productInfo)
-    inCart.map((obj) => delete obj.__typename)
-    await updateCart({ variables: { userId: user?._id, product: inCart } })
-    refetchCart()
+    inCart.map((obj) => delete obj.productInfo);
+    inCart.map((obj) => delete obj.__typename);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
   function summary(a, b) {
-    sum += a * b
-    return a * b
+    sum += a * b;
+    return a * b;
   }
   return (
     <>
@@ -101,19 +101,19 @@ const GetCart = () => {
               const discount =
                 1 -
                   parseFloat(product?.productInfo?.promotionDetail?.discount) /
-                    100 || 1
+                    100 || 1;
               // console.log(discount)
               return (
                 <div class="flex items-center hover:bg-gray-100 mx-8 px-6 py-5 border-b">
                   <div class="flex w-2/5">
                     <div class="w-20">
-                      <a href={'/product/' + product?.productId}>
+                      <a href={"/product/" + product?.productId}>
                         <img
-                          style={{ width: '10vw' }}
+                          style={{ width: "10vw" }}
                           class="h-24"
                           src={
                             product?.productInfo?.image[0] ||
-                            'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+                            "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
                           }
                         />
                       </a>
@@ -129,12 +129,12 @@ const GetCart = () => {
                         href="#"
                         class="font-semibold hover:text-red-500 text-gray-500 text-xs"
                       >
-                        {' '}
+                        {" "}
                         <button
                           onClick={() => removeProduct(product?.productId)}
                         >
-                          {' '}
-                          Remove{' '}
+                          {" "}
+                          Remove{" "}
                         </button>
                       </a>
                     </div>
@@ -172,14 +172,14 @@ const GetCart = () => {
                     ).toLocaleString()}
                   </span>
                 </div>
-              )
+              );
             })}
 
             <div className="flex justify-center">
               <div
                 id="summary"
                 class="w-full md:w-3/5 m-5 px-8 py-10 bg-opacity-10 bg-gray-500 rounded-xl"
-                style={{ float: 'left' }}
+                style={{ float: "left" }}
               >
                 <h1 class="font-semibold text-2xl pb-8">Order Summary</h1>
                 <div class="flex justify-between mt-10 mb-5">
@@ -220,10 +220,10 @@ const GetCart = () => {
               </div>
             </div>
           </div>
-        )
+        );
       })}
     </>
-  )
-}
+  );
+};
 
-export default GetCart
+export default GetCart;

@@ -1,10 +1,13 @@
+import { useQuery } from '@apollo/client'
 import { Fragment, useMemo } from 'react'
 
 import LoginForm from '../components/Login/LoginForm'
 import { useSession } from '../contexts/SessionContext'
+import { CUSTOMER_QUERY } from '../graphql/meQuery'
 
 const LoginPage = () => {
   const { loading, user, logout: handleLogout } = useSession()
+  const { data: CustomerData } = useQuery(CUSTOMER_QUERY)
 
   const userBox = useMemo(() => {
     if (loading) {
@@ -13,26 +16,45 @@ const LoginPage = () => {
     if (user) {
       return (
         <Fragment>
-          <span className="Navbar-user">
-            username : {user?.username} type: {user?.type}
-          </span>
+          <div className="grid grid-cols-1">
+        <div class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3">
+          <img src="https://treerevolution.in/wp-content/uploads/2019/06/oak-tree-sunset-iStock-477164218.jpg" class="w-56" />
+          <div class="flex justify-center -mt-8">
+            <img src="https://www.linkmansioncm.com/wp-content/uploads/2019/06/user-icon.jpg" className="w-20 rounded-full border-solid border-white border-2 -mt-3"/>		
+    </div>
+            <div class="text-center px-3 pb-6 pt-2">
+              <h3 class="text-black text-sm bold font-sans">{CustomerData?.customerInfo?.firstName + " " + CustomerData?.customerInfo?.lastName}</h3>
+              <p class="mt-2 font-sans font-light text-grey-dark">{user?.type}</p>
+            </div>
+            <div class="flex justify-center pb-3 text-grey-dark">
+              <div class="text-center mr-3 border-r pr-3">
+                <h2>{CustomerData?.customerInfo?.address || "-"}</h2>
+                <span>Address</span>
+              </div>
+              <div class="text-center">
+                <h2>{CustomerData?.customerInfo?.telephone || "-"}</h2>
+                <span>Telephone</span>
+              </div>
+            </div>
+          </div>
           <button
-            className="bg-white hover:bg-gray-100 text-gray-800 py-1 px-4 border border-gray-400 rounded-full ml-5"
-            type="button"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </Fragment>
+          className="mx-auto bg-red-500 hover:bg-red-700 text-gray-50 py-1 px-4 border border-gray-400 rounded-full"
+          type="button"
+          onClick={handleLogout}
+        >
+          Logout
+      </button>
+      </div>
+      </Fragment>
       )
     }
     return <LoginForm />
   }, [handleLogout, loading, user])
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="flex justify-center items-center p-4">{userBox}</div>
-    </div>
+          <div className="min-h-screen bg-gray-100">
+            <div className="flex justify-center items-center p-4">{userBox}</div>
+          </div>
   )
 }
 

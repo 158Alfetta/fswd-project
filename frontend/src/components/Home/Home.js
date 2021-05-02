@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <>
@@ -18,16 +20,21 @@ const Home = () => {
                 this out!
               </p>
               <div className="mt-3">
-                <button className="inline-flex items-center px-6 py-2 font-semibold text-white transition duration-500 ease-in-out transform bg-yellow-900 border rounded-lg shadow-xl hover:border-gray-600 hover:bg-gray-600 hover:text-white focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">EXPLORE SHOP</button>
+                <Link to={"/products/"}>
+                  <button className="inline-flex items-center px-6 py-2 font-semibold text-white transition duration-500 ease-in-out transform bg-yellow-900 border rounded-lg shadow-xl hover:border-gray-600 hover:bg-gray-600 hover:text-white focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
+                    EXPLORE SHOP
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
           <div className="col-span-12 md:col-span-7">
             <div
               className="h-full bg-cover bg-center"
-              style={{ backgroundImage: `url('/img/homepage_promotion_1.jpg')` }}
-            >
-            </div>
+              style={{
+                backgroundImage: `url('/img/homepage_promotion_1.jpg')`,
+              }}
+            ></div>
           </div>
         </div>
 
@@ -50,20 +57,22 @@ const Home = () => {
                     photosynthesis by primary chloroplasts that are derived from
                     endosymbiosis with cyanobacteria.
                   </p>
-                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
-                    <span>Shop Now</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
+                  <Link to={"/products/"}>
+                    <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
+                      <span>Shop Now</span>
+                      <svg
+                        className="h-5 w-5 mx-2"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -84,20 +93,22 @@ const Home = () => {
                     A flower, sometimes known as a bloom or blossom, is the
                     reproductive structure found in flowering plants.
                   </p>
-                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
-                    <span>Shop Now</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
+                  <Link to={"/products/"}>
+                    <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
+                      <span>Shop Now</span>
+                      <svg
+                        className="h-5 w-5 mx-2"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -120,20 +131,22 @@ const Home = () => {
                     gardening products has all you need to decorate your living
                     space with plant pots and plants, both inside and out.
                   </p>
-                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
-                    <span>Shop Now</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
+                  <Link to={"/products/"}>
+                    <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
+                      <span>Shop Now</span>
+                      <svg
+                        className="h-5 w-5 mx-2"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -155,31 +168,34 @@ const Home = () => {
                     Material of natural or synthetic origin that is applied to
                     soil or to plant tissues to supply yours plant nutrients.
                   </p>
-                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
-                    <span>Shop Now</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
+                  <Link to={"/products/"}>
+                    <button className="flex items-center mt-4 text-white text-sm uppercase font-medium p-2 pl-0 hover:underline focus:outline-none">
+                      <span>Shop Now</span>
+                      <svg
+                        className="h-5 w-5 mx-2"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
-                {/* Footer */}
+        {/* Footer */}
 
         <div className="col-span-10 h-36 w-full mt-16 bg-yellow-800 bg-opacity-80 ">
-          <p className="flex justify-center pt-20 text-white ">2021 Netty's TM, Project on Full-Stack Web Developer Content</p>
+          <p className="flex justify-center pt-20 text-white ">
+            2021 Netty's TM, Project on Full-Stack Web Developer Content
+          </p>
         </div>
       </div>
     </>
