@@ -24,16 +24,24 @@ const OrderCard = (props) => {
         
         <div className="grid grid-cols-5 text-center border-opacity-60 bg-gray-100 shadow-md text-blue-900">
           {/* Order Information */}
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Order Number"} <p className="text-xs md:text-xl">{numberOrder}</p>
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
+            {"Timestamp"} <p className="text-xs md:text-xl">{order?.timestamp}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
-            {"Status"} <p className="text-xs md:text-xl capitalize">{order?.status}</p>
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold ">
+            <div className="pb-1">{"Status"}</div>
+            <p className={`self-center text-xs md:text-xl capitalize w-full md:w-1/2 text-gray-100 rounded-lg md:rounded-xl ${
+                order?.status === 'waiting'
+                  ? 'bg-yellow-400'
+                  : order?.status === 'success'
+                  ? 'bg-green-400'
+                  : order?.status === 'cancel'
+                  ? 'bg-red-400'
+                  : ''}`}>{order?.status}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold">
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold">
           {"Payment"} <p className="text-xs md:text-xl">{order?.paymentDetail}</p>
           </div>
-          <div className="text-center p-3 border-r-2 border-grey-800 font-bold col-span-2">
+          <div className="flex flex-col justify-center p-3 border-r-2 border-grey-800 font-bold col-span-2">
           {"Address "} <p className="text-xs font-normal p-2">{order?.address}</p>
           </div>
         </div>

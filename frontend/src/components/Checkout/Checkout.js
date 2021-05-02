@@ -18,6 +18,7 @@ const Checkout = () => {
   const [clearCart] = useMutation(CLEAR_CART);
   const [shippingCost, setShippingCost] = useState(50)
   let history = useHistory();
+  const [address, setAddress] = useState({name:'', telephone:'', street:'', district:'', postal:'', province:''})
   var summary = 0
 
   function updateShippingCost(event) {
@@ -31,16 +32,20 @@ const Checkout = () => {
     let productInfo = [...dataOrderJSON.cart[0].product];
     productInfo.map((obj) => delete obj.__typename);
 
+    const addressString = address?.name+" Tel "+address?.telephone+" "+address?.street+" "+address?.district+" "+address?.province+" "+address?.postal;
+    
+
     let dataCreateOrder = await createOrder({
       variables: {
         statusOrder: "waiting",
         payment: "unspecify",
         product: productInfo,
-        address:
-          "addressline1 addressline2 city state/province postcode telephone",
+        address: addressString,
         userId: user?._id
       },
     });
+
+  
 
     clearCart({
       variables: {
@@ -118,7 +123,7 @@ const Checkout = () => {
         <div className="m-3 mb-10 p-2 bg-blue-200 bg-opacity-30 rounded-xl w-full md:w-8/12 mx-auto grid grid-cols-2">
           <div className="col-span-2">
             <h2 className="text-2xl font-semibold text-center text-gray-600 p-3 mb-3 uppercase">Address</h2>
-            <AddressForm />
+            <AddressForm address={address} setAddress={setAddress}/>
           </div>
 
           <div className="mt-3 p-2 rounded-xl shadow-md col-span-2 bg-yellow-100 bg-opacity-70 grid grid-cols-2">
@@ -155,6 +160,7 @@ const Checkout = () => {
             >
               Checkout
             </button>
+            
           </div>
 
           <div className="py-4">
