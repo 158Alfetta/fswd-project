@@ -112,6 +112,7 @@ const Checkout = () => {
                     <div
                       className="w-full h-full"
                       style={{
+                        backgroundPosition: "center",
                         backgroundSize: "contain",
                         backgroundRepeat: "no-repeat",
                         backgroundImage: `url(${

@@ -90,6 +90,7 @@ const OrderDetail = () => {
                     <div
                       className="w-full h-32 m-2"
                       style={{
+                        backgroundPosition: "center",
                         backgroundSize: "contain",
                         backgroundRepeat: "no-repeat",
                         backgroundImage: `url(${
