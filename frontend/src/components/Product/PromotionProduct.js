@@ -9,6 +9,7 @@ import { UPDATE_CART } from '../../graphql/CartMutation'
 import {Link} from 'react-router-dom'
 const PromotionProduct = (props) => {
   const { product } = props
+  console.log(product)
   const productId = product._id
   const { user } = useSession()
   const { data: dataCart } = useQuery(QUERY_CART, {
@@ -44,7 +45,7 @@ const PromotionProduct = (props) => {
   }
   // console.log(data?.PromotionProductId)
   function addtoCart(productId) {
-    var temp = JSON.stringify(dataCart.cart[0].product)
+    var temp = JSON.stringify(dataCart?.cart[0]?.product)
     var inCart = JSON.parse(temp)
 
     var newProduct = {
