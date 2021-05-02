@@ -60,7 +60,7 @@ const ProductCard = () => {
 
       setPage((prev) => ({
         ...prev,
-        items_count: data.orderByAdmin[0].orders_count,
+        items_count: data.orderByAdmin[0]?.orders_count,
       }))
     }
   }, [data])
