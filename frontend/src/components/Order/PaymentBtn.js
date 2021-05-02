@@ -23,9 +23,19 @@ const PaymentBtn = (props) => {
         alert("Cancel Order Success")
     }
 
+    function handleSeeMoreBtn(orderId){
+        history.push("order/" + orderId);
+    }
+
     if(status === "waiting"){
         return(
             <>
+            <button
+                onClick={() => handleSeeMoreBtn(orderId)}
+                className="inline-flex justify-center py-2 px-3 m-1 w-1/12 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-700 hover:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+                See more
+            </button>
             <button
                 onClick={() => handlePaymentBtn(orderId)}
                 className="inline-flex justify-center py-2 px-3 m-1 w-1/12 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -43,6 +53,12 @@ const PaymentBtn = (props) => {
     }else{
         return(
             <>
+            <button
+                onClick={() => handleSeeMoreBtn(orderId)}
+                className="inline-flex justify-center py-2 px-3 m-1 w-1/12 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-700 hover:bg-yellow-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+                See more
+            </button>
             </>
         )
     }

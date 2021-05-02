@@ -1,4 +1,4 @@
-import React, { useMemo, Fragment } from 'react'
+import React, { useMemo, Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useSession } from '../../../contexts/SessionContext'
@@ -15,7 +15,9 @@ const NavigationItems = (props) => {
   const { loading, user } = useSession()
   const { data, refetch } = useQuery(QUERY_CART, { fetchPolicy: 'no-cache' })
 
-  refetch()
+  useEffect(() => {
+    refetch()
+  }, [data])
 
   const userBox = useMemo(() => {
     if (loading) {

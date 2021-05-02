@@ -46,11 +46,15 @@ export const QUERY_ORDER_BY_ID = gql`
           price
           timestamp
           count
+<<<<<<< HEAD
           ... on PromotionProduct {promotionDetail{
             name
             discount
             }
         }
+=======
+          image
+>>>>>>> 6823003c82bee43b59671577deecb23681b7e672
         }
         quantity
       }
