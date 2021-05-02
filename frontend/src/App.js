@@ -131,8 +131,8 @@ const App = () => {
               exact
             />
 
-            <PrivateRoute component={AddProductPage} path="/addProduct" exact />
-            <PrivateRoute component={AddPromotionPage} path="/addPromotion" />
+            <PrivateRoute user={user} component={AddProductPage} path="/addProduct" exact />
+            <PrivateRoute user={user} component={AddPromotionPage} path="/addPromotion" />
           </Switch>
         </Suspense>
       </div>
