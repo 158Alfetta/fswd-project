@@ -12,13 +12,16 @@ const PromotionProduct = (props) => {
     variables: { id: productId },
   })
 
-  const handleButtonClick = useCallback(async (e) => {
-    try {
-      await deleteProduct({ variables: { id: product?._id } })
-    } catch (err) {
-      console.log(JSON.stringify(err))
-    }
-  }, [])
+  const handleButtonClick = useCallback(
+    async (e) => {
+      try {
+        await deleteProduct({ variables: { id: product?._id } })
+      } catch (err) {
+        console.log(JSON.stringify(err))
+      }
+    },
+    [deleteProduct, product]
+  )
 
   const callTwoFunctions = () => {
     handleButtonClick()

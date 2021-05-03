@@ -28,7 +28,7 @@ const ProductCard = () => {
       skip: page.skip,
       limit: page.limit,
     })
-  }, [])
+  }, [page, refetch])
 
   const handleNextPage = useCallback(() => {
     if (page.pageNum * page.limit >= page.items_count) {

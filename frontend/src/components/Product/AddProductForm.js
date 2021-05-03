@@ -20,7 +20,7 @@ const AddProductForm = (props) => {
     image: [],
     price: 0,
     count: 0,
-    category: "",
+    category: '',
     createdByUser: user?._id,
   })
   const [type, setType] = useState('PromotionProduct')
@@ -69,11 +69,11 @@ const AddProductForm = (props) => {
         // if (type === 'Product')
         //   await createProduct({ variables: { record: newProduct } })
         // else
-          await createPromotionProduct({
-            variables: { record: { ...newProduct, ...PromotionProduct } },
-          })
+        await createPromotionProduct({
+          variables: { record: { ...newProduct, ...PromotionProduct } },
+        })
         setErr('')
-        history.push('/products')
+        history.push('/dashboard')
       } catch (err) {
         console.log(JSON.stringify(err))
       }
@@ -81,16 +81,17 @@ const AddProductForm = (props) => {
     [createProduct, createPromotionProduct, newProduct, PromotionProduct, type]
   )
 
-  let PromotionProductForm =
-      <>
-        <label>
-          <select name="promotionId" onChange={handlePromotionChange}>
-            <option value="">--Select Promotion--</option>
-            <PromotionOptions />
-          </select>
-        </label>
-      </>
-    
+  let PromotionProductForm = (
+    <>
+      <label>
+        <select name="promotionId" onChange={handlePromotionChange}>
+          <option value="">--Select Promotion--</option>
+          <PromotionOptions />
+        </select>
+      </label>
+    </>
+  )
+
   return (
     <div className="p-8 mt-20 bg-white rounded-lg max-w-md pb-10 m-4">
       <div className="text-center">
@@ -125,7 +126,6 @@ const AddProductForm = (props) => {
             </label>
           </div>
         </div> */}
-
 
         <input
           className="h-10 rounded w-full border px-3 focus:text-black focus:border-blue-100 my-3"
@@ -171,7 +171,7 @@ const AddProductForm = (props) => {
 
         {PromotionProductForm}
         <label>
-          <select name='category' onChange={handleInputChange}>
+          <select name="category" onChange={handleInputChange}>
             <option value="">--Select Catagory--</option>
             <option value="Plants">Plants</option>
             <option value="Flowers">Flowers</option>
