@@ -8,10 +8,17 @@ export const QUERY_CART = gql`
         productInfo {
           name
           price
+          image
           timestamp
           count
+          ... on PromotionProduct {promotionDetail{
+            name
+            discount
+            }
+        }
         }
         quantity
+        
       }
       createdByUser {
         firstName

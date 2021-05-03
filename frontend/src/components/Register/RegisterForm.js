@@ -8,6 +8,7 @@ import { CREATE_CART } from '../../graphql/CartMutation'
 import { Link } from 'react-router-dom'
 import { useSession } from '../../contexts/SessionContext'
 
+
 const RegisterForm = () => {
   const history = useHistory()
   const { login } = useSession()
@@ -51,6 +52,7 @@ const RegisterForm = () => {
           await createEmptyCart({ variables: { userId: newUserId } })
         } else
           await createAdmin({ variables: { record: { ...newUser, ...admin } } })
+          // await createEmptyCart({ variables: { userId: newUserId } })
         await login(newUser.username, newUser.password)
         history.push('/')
       } catch (err) {
@@ -85,6 +87,7 @@ const RegisterForm = () => {
     ) : null
 
   return (
+    <>
     <div className="p-8 mt-20 bg-white rounded-lg max-w-md pb-10 m-4">
       <div className="text-center">
         <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
@@ -175,6 +178,10 @@ const RegisterForm = () => {
         </div>
       </form>
     </div>
+
+    </>
+
+
   )
 }
 

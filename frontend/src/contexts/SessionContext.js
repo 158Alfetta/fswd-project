@@ -5,12 +5,14 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation, useLazyQuery, useQuery } from '@apollo/client'
 import { useCookies } from 'react-cookie'
 import { useHistory } from 'react-router'
 
 import { ME_QUERY } from '../graphql/meQuery'
 import { LOGIN_MUTATION } from '../graphql/loginMutation'
+
+import { QUERY_CART } from '../graphql/CartQuery'
 
 const SessionContext = createContext()
 
@@ -19,6 +21,11 @@ export const SessionProvider = (props) => {
   const history = useHistory()
   const [user, setUser] = useState(null)
   const [cookie, setCookie, removeCookie] = useCookies(['token', 'user'])
+
+  const { data: cartData, refetch: refetchCart } = useQuery(QUERY_CART, {
+    fetchPolicy: 'no-cache',
+  })
+
   const [loadMe, { loading, data }] = useLazyQuery(ME_QUERY, {
     fetchPolicy: 'network-only',
   })
@@ -92,9 +99,11 @@ export const SessionProvider = (props) => {
     <SessionContext.Provider
       value={{
         loading,
-        user,
+        user:cookie.user,
         login: handleLogin,
         logout: handleLogout,
+        cartData,
+        refetchCart,
       }}
     >
       {children}

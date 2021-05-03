@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
-
 import { useSession } from '../../contexts/SessionContext'
 
 const LoginForm = () => {
@@ -26,7 +25,10 @@ const LoginForm = () => {
     },
     [login, password, username]
   )
+
+
   return (
+    <>
     <div className="p-8 mt-20 bg-white rounded-lg max-w-6xl pb-10 m-4">
       <div className="flex justify-center mb-8">
         <img src="shop.png" width="50" alt="logo" />
@@ -66,6 +68,7 @@ const LoginForm = () => {
         </div>
       </form>
     </div>
+    </>
   )
 }
 

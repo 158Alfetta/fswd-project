@@ -1,196 +1,229 @@
-import { React } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
-import { QUERY_CART } from '../../graphql/CartQuery'
-import { RESET_CART, CLEAR_CART, UPDATE_CART } from '../../graphql/CartMutation'
-import { useSession } from '../../contexts/SessionContext'
-import DiscountBox from './DiscountBox'
+import { React } from "react";
+import { useMutation } from "@apollo/client";
+import { UPDATE_CART } from "../../graphql/CartMutation";
+import { useSession } from "../../contexts/SessionContext";
 
 const GetCart = () => {
-  const { user } = useSession()
-  const { data } = useQuery(QUERY_CART)
+  const { user, cartData, refetchCart } = useSession();
 
-  const refetchQuery = {
-    refetchQueries: [
-      {
-        query: QUERY_CART
-      },
-    ],
-  }
-  const [resetCart] = useMutation(RESET_CART, refetchQuery)
-  const [clearCart] = useMutation(CLEAR_CART, refetchQuery)
-  const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
+  const [updateCart] = useMutation(UPDATE_CART);
+  var sum = 0;
 
-  var sum = 0
+  async function removeProduct(productId) {
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
 
-  function reset_Cart() {
-    return resetCart({ variables: { userId: user?._id } })
+    inCart.splice(productIndex, 1);
+    inCart.map((obj) => delete obj.__typename);
+    inCart.map((obj) => delete obj.productInfo);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
-  function clear_Cart() {
-    return clearCart({ variables: { userId: user?._id } })
-  }
+  async function Increase(productId) {
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
 
-  function addProduct(productId) {
-    var temp = JSON.stringify(data?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
-
-    var newProduct = {
-      productId: productId,
-      quantity: 1,
-    }
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
-
-    if (productIndex === -1) {
-      inCart = [...inCart, newProduct]
-    } else {
-      inCart[productIndex].quantity = Math.min(
-        inCart[productIndex].quantity + 1,
-        inCart[productIndex].productInfo.count
-      )
-    }
-    inCart.map((obj) => delete obj.productInfo)
-    inCart.map((obj) => delete obj.__typename)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
-  }
-
-  function removeProduct(productId) {
-    var temp = JSON.stringify(data?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
-
-    inCart.splice(productIndex, 1)
-    inCart.map((obj) => delete obj.__typename)
-    inCart.map((obj) => delete obj.productInfo)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
-  }
-
-  function Increase(productId) {
-    var temp = JSON.stringify(data?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
-
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
-      inCart[productIndex].quantity = Math.min(
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
+    inCart[productIndex].quantity = Math.min(
       inCart[productIndex].quantity + 1,
       inCart[productIndex].productInfo.count
-    )
-
-    // for (var index=0;index<inCart.length;index++){
-    //     if (inCart[index].productId === productId){
-    //         if (inCart[index].quantity < inCart[index].productInfo.count){
-    //             inCart[index].quantity += 1
-    //         }else{
-    //             console.log("Limit")
-    //         }
-    //         break;
-    //     }
-    // }
-    inCart.map((obj) => delete obj.__typename)
-    inCart.map((obj) => delete obj.productInfo)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
+    );
+    inCart.map((obj) => delete obj.__typename);
+    inCart.map((obj) => delete obj.productInfo);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
-  function Decrease(productId) {
-    var temp = JSON.stringify(data?.cart[0]?.product)
-    var inCart = JSON.parse(temp)
+  async function Decrease(productId) {
+    var temp = JSON.stringify(cartData?.cart[0]?.product);
+    var inCart = JSON.parse(temp);
 
-    var productIndex = inCart.findIndex((item) => item.productId === productId)
+    var productIndex = inCart.findIndex((item) => item.productId === productId);
     if (inCart[productIndex].quantity === 1) {
-      inCart.splice(productIndex, 1)
+      inCart.splice(productIndex, 1);
     } else {
       inCart[productIndex].quantity = Math.max(
         inCart[productIndex].quantity - 1,
         1
-      )
+      );
     }
-
-    // for (var index=0;index<inCart.length;index++){
-    //     if (inCart[index].productId === productId){
-    //         if (inCart[index].quantity > 1){
-    //             inCart[index].quantity -= 1
-    //         }
-    //         else if(inCart[index].quantity === 1){
-    //             console.log("remove")
-    //         }
-    //         break;
-    //     }
-    // }
-    inCart.map((obj) => delete obj.productInfo)
-    inCart.map((obj) => delete obj.__typename)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
+    inCart.map((obj) => delete obj.productInfo);
+    inCart.map((obj) => delete obj.__typename);
+    await updateCart({ variables: { userId: user?._id, product: inCart } });
+    refetchCart();
   }
 
   function summary(a, b) {
-    sum += a * b
-    return a * b
+    sum += a * b;
+    return a * b;
   }
-
   return (
-    <div>
-      {data &&
-        data.cart.map((item) => {
-          return (
-            <div key={item}>
-              {item.product.map((product) => {
-                return (
-                  <div key={product.productId}>
-                    <span>
-                      Product Name: {product?.productInfo?.name} (
-                      {product?.productInfo?.count} Remaining)
-                      <br />
-                      <button
-                        className="m-2 p-1 bg-gray-200 py-2 px-4 shadow-md hover:shadow-xl"
-                        onClick={() => Decrease(product?.productId)}
+    <>
+      <div className="grid grid-cols-10 w-full h-20 mb-7">
+        <div className="col-span-3 border-b-2 border-green-800">
+          <h2 className="font-sans text-left py-6 px-10 font-semibold text-2xl">
+            {user?.username}'s Shopping Cart
+          </h2>
+        </div>
+
+        <div className="col-span-5"></div>
+
+        <div className="col-span-2 flex flex-col justify-around">
+          <h2 className="font-semibold text-xl text-center">
+            {cartData?.cart[0]?.product?.length} Item(s)
+          </h2>
+        </div>
+      </div>
+
+      <div className=" mx-8 my-5">
+        <div class="flex mt-10 mb-5">
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">
+            Product Details
+          </h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
+            Quantity
+          </h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
+            Price
+          </h3>
+          <h3 class="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
+            Total
+          </h3>
+        </div>
+      </div>
+
+      {cartData?.cart?.map((item) => {
+        return (
+          <div key={item}>
+            {item?.product?.map((product) => {
+              const discount =
+                1 -
+                  parseFloat(product?.productInfo?.promotionDetail?.discount) /
+                    100 || 1;
+              // console.log(discount)
+              return (
+                <div class="flex items-center hover:bg-gray-100 mx-8 px-6 py-5 border-b">
+                  <div class="flex w-2/5">
+                    <div class="w-20">
+                      <a href={"/product/" + product?.productId}>
+                        <img
+                          style={{ width: "10vw" }}
+                          class="h-24"
+                          src={
+                            product?.productInfo?.image[0] ||
+                            "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"
+                          }
+                        />
+                      </a>
+                    </div>
+                    <div class="flex flex-col justify-between ml-4 flex-grow">
+                      <span class="font-bold text-sm">
+                        {product?.productInfo?.name}
+                      </span>
+                      <span class="text-red-500 text-xs">
+                        {product?.productInfo?.count.toLocaleString()} Remaining
+                      </span>
+                      <a
+                        href="#"
+                        class="font-semibold hover:text-red-500 text-gray-500 text-xs"
                       >
-                        {' '}
-                        -{' '}
-                      </button>
-                      Quantity: {product?.quantity}
-                      <button
-                        className="m-2 p-1 bg-gray-200 py-2 px-4 shadow-md hover:shadow-xl"
-                        onClick={() => Increase(product?.productId)}
-                      >
-                        {' '}
-                        +{' '}
-                      </button>
-                      <div>
+                        {" "}
                         <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                           onClick={() => removeProduct(product?.productId)}
                         >
-                          {' '}
-                          remove{' '}
-                        </button>{' '}
-                      </div>
-                      Unitprice: {product?.productInfo?.price}
-                      <br />
-                      <b>
-                        Total:{' '}
-                        {summary(
-                          product?.productInfo?.price,
-                          product?.quantity
-                        )}
-                      </b>
+                          {" "}
+                          Remove{" "}
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-center w-1/5">
+                    <span className="font-light">
+                      <button onClick={() => Decrease(product?.productId)}>
+                        -
+                      </button>
+                    </span>
+
+                    <input
+                      class="disabled:opacity-50 mx-2 border text-center w-8"
+                      type="text"
+                      value={product?.quantity.toLocaleString()}
+                    />
+
+                    <span className="font-light">
+                      <button onClick={() => Increase(product?.productId)}>
+                        +
+                      </button>
                     </span>
                   </div>
-                )
-              })}
-            </div>
-          )
-        })}
-      <b> Summary: {sum} </b> <br />
-      {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={clear_Cart} > CLEARCART (for test only) </button> <br/> */}
-      {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset_Cart} > RESET TO 2 ITEMS (for test only) </button> <br/> */}
-      {/* <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => addProduct("6076ba3bd238cb0bde017e1e")}> ADD FFF3 </button> <br/> */}
-      {/* <DiscountBox/> */}
-      <a href="/checkout">
-        {' '}
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          {' '}
-          Proceed to checkout{' '}
-        </button>
-      </a>
-    </div>
-  )
-}
 
-export default GetCart
+                  <span class="text-center w-1/5 font-semibold text-sm">
+                    {(
+                      parseFloat(product?.productInfo?.price) * discount
+                    ).toLocaleString()}
+                  </span>
+                  <span class="text-center w-1/5 font-semibold text-sm">
+                    {summary(
+                      product?.productInfo?.price * discount,
+                      product?.quantity
+                    ).toLocaleString()}
+                  </span>
+                </div>
+              );
+            })}
+
+            <div className="flex justify-center">
+              <div
+                id="summary"
+                class="w-full md:w-3/5 m-5 px-8 py-10 bg-opacity-10 bg-gray-500 rounded-xl"
+                style={{ float: "left" }}
+              >
+                <h1 class="font-semibold text-2xl pb-8">Order Summary</h1>
+                <div class="flex justify-between mt-10 mb-5">
+                  <span class="font-semibold text-sm uppercase">
+                    Item(s): {cartData?.cart[0]?.product?.length}
+                  </span>
+                  <span class="font-semibold text-sm">
+                    {sum.toLocaleString()}
+                  </span>
+                </div>
+
+                <div class="border-t mt-8">
+                  <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                    <span>Total cost</span>
+                    <span>{sum.toLocaleString()} Baht</span>
+                  </div>
+                  <div className="flex justify-center">
+                    <a href="checkout">
+                      <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-48 rounded-lg">
+                        Proceed to Checkout
+                      </button>
+                    </a>
+                  </div>
+                </div>
+
+                <a
+                  href="/products"
+                  class="flex font-semibold text-indigo-600 text-sm mt-10"
+                >
+                  <svg
+                    class="fill-current mr-2 text-indigo-600 w-4"
+                    viewBox="0 0 448 512"
+                  >
+                    <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
+                  </svg>
+                  Continue Shopping
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+export default GetCart;

@@ -11,12 +11,13 @@ const ProductInOrderSchema = new Schema({
 
 const OrderSchema = new Schema({
   status: {type: String, required: true},
-  createdById: {type: String, required: true},
+  createdById: {type: String},
   paymentDetail: {type: String, required: true},
-  product: {type: [ProductInOrderSchema], required: true}
+  product: {type: [ProductInOrderSchema], required: true},
+  address: {type: String},
+  timestamp:{type: Date, default: Date.now},
+  shippingCost: {type: Number, require:true}
 })
-
-
 
 export const OrderModel = mongoose.model('Order', OrderSchema)
 export const OrderTC = composeWithMongoose(OrderModel)

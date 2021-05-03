@@ -21,19 +21,21 @@ const BaseProductSchema = new Schema({
     image:{ type: [ String ] , required: true},
     price:{ type: mongoose.Decimal128, required: true},
     count:{ type: Number, required: true},
-    category:{ type: [ String ]},
+    category:{ type: String },
     createdByUser:{
         type: String,
-        required: true,
+        required: false,
         ref: 'User'
     },
-    timestamp:{type: Date, default: Date.now}
+    timestamp:{type: Date, default: Date.now} 
 })
 
 const PromotionProductSchema = new Schema({
-    discount: {type: mongoose.Decimal128, require: true},
-    limit:{type: Number, required: true}
+    promotionId:{type: String, ref: 'Promotions', default:""},
+    discount: {type: mongoose.Decimal128, require: false},
+    limit:{type: Number, required: false}
 })
+
 const ProductSchema = new Schema({
 
 })

@@ -1,24 +1,24 @@
-import ProductCard from './ProductCard'
-
 import { DELETE_PRODUCT_MUTATION } from '../../graphql/deleteProductById'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { QUERY_CART } from '../../graphql/CartQuery'
 import { UPDATE_CART } from '../../graphql/CartMutation'
 import { useSession } from '../../contexts/SessionContext'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+import { Link } from 'react-router-dom'
 const Product = (props) => {
   const { product } = props
   const [[deleteProduct]] = [useMutation(DELETE_PRODUCT_MUTATION)]
-  const { user } = useSession()
-  const { data } = useQuery(QUERY_CART, { variables: { userId: user?._id } })
+  const { loading, user, cartData: data, refetchCart } = useSession()
   const refetchQuery = {
     refetchQueries: [
       {
         query: QUERY_CART,
-        variables: { userId: user?._id },
       },
     ],
   }
+
+  console.log(product)
+
   const [updateCart] = useMutation(UPDATE_CART, refetchQuery)
   const handleButtonClick = useCallback((e) => {
     try {
@@ -29,7 +29,7 @@ const Product = (props) => {
     }
   }, [])
 
-  function addtoCart(productId) {
+  async function addtoCart(productId) {
     var temp = JSON.stringify(data?.cart[0]?.product)
     var inCart = JSON.parse(temp)
 
@@ -49,42 +49,47 @@ const Product = (props) => {
     }
     inCart.map((obj) => delete obj.productInfo)
     inCart.map((obj) => delete obj.__typename)
-    return updateCart({ variables: { userId: user?._id, product: inCart } })
+    await updateCart({ variables: { userId: user?._id, product: inCart } })
+    refetchCart()
   }
 
   return (
-    <div>
-      <div className="max-w-sm rounded overflow-hidden shadow-lg">
-        {product?.image?.[1]}
-        <img
-          className="w-full"
-          src={
-            product?.image?.[0] ||
-            'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
-          }
-          alt="Sunset in the mountains"
-        />
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{product?.name}</div>
-          <p className="text-gray-700 text-base">{product?.price}</p>
+    <>
+      <div className="bg-yellow-800 bg-opacity-10 rounded-lg shadow-lg h-full w-full">
+        <Link to={'/product/' + product?._id}>
+          {/* IMAGE PANEL */}
+          <div className="rounded-tl-lg rounded-tr-lg">
+            <img
+              className="rounded-tl-lg rounded-tr-lg"
+              src={
+                product?.image?.[0] ||
+                'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png'
+              }
+              alt="Sunset in the mountains"
+            />
+          </div>
+
+          {/* PRICEING AND NAME PANEL */}
+
+          <div className="grid grid-cols-2 p-3">
+            <div className="font-semibold text-lg">{product?.name}</div>
+            <p className="text-gray-700 text-right">
+              {parseFloat(product?.price).toLocaleString()}
+            </p>
+          </div>
+        </Link>
+
+        <div className="bg-yellow-800 bg-opacity-30 rounded-bl-lg rounded-br-lg flex justify-end">
+          <button
+            className="bg-yellow-700 hover:bg-yellow-900 text-white font-bold m-2 py-2 px-4 rounded-lg"
+            onClick={() => addtoCart(product?._id)}
+          >
+            {' '}
+            Add to cart
+          </button>
         </div>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={() => addtoCart(product?._id)}
-        >
-          {' '}
-          Add to cart
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-          onClick={handleButtonClick}
-        >
-          Remove Product
-        </button>
-      </div>
-    </div>
+    </>
   )
 }
 export default Product

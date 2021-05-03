@@ -9,9 +9,9 @@ mutation createPromotionProduct($record: CreateOnePromotionProductInput!){
             image
             price
             count
+            category
             createdByUser
-            discount
-            limit
+            promotionId
         }
     }
 }
