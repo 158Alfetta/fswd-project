@@ -13,11 +13,11 @@ const PromotionCard = () => {
         <>
             {data?.DiscountPromotions?.map((promotion) => { 
                 return (
-                    <div className="bg-yellow-200 m-2 max-w-sm rounded overflow-hidden shadow-2xl justify-center p-20 mt-10">
-                        <div className="px-6 py-4 ">
-                            <div className="font-bold text-xl mb-2">Promotion</div>
+                    <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 m-2 max-w-sm rounded overflow-hidden shadow-2xl justify-center p-20 mt-10">
+                        <div className="px-6 py-4 text-white">
+                            <div className="font-bold text-2xl mb-2">Promotion</div>
                             <div className="text-xl mb-2">{promotion?.name}</div>
-                            <div className="text-xl mb-2">{promotion?.discount} percent off</div>
+                            <div className="text-xl mb-2">{promotion?.discount} percent off !</div>
                         </div>
                     </div>
                     )
