@@ -30,7 +30,10 @@ const ProductDetail = () => {
     const product = data?.ProductId
     const imageCount = product?.image?.length
 
-    function addtoCart(productId) {
+    function addtoCart(productId, count) {
+        if (count === 0){
+            return alert("Product out of stock")
+          }
         var temp = JSON.stringify(CartData?.cart[0]?.product)
         var inCart = JSON.parse(temp)
 
@@ -161,7 +164,7 @@ const ProductDetail = () => {
                             <span className="font-light text-2xl"><button className="pr-2 pl-4" onClick={() => setItemCount(itemCount > 1 ? itemCount - 1 : 1)}> - </button>{itemCount}<button className="pl-2" onClick={() => setItemCount(itemCount + 1 <= product?.count ? itemCount + 1 : product?.count)}> + </button>
                             </span>
                             <div className="pl-10">
-                                <button type="button" className="focus:outline-none text-white text-sm font-bold py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg" onClick={() => addtoCart(product?._id)} >Add to cart</button>
+                                <button type="button" className="focus:outline-none text-white text-sm font-bold py-2.5 px-5 rounded-md bg-green-800 hover:bg-green-600 hover:shadow-lg" onClick={() => addtoCart(product?._id, product?.count)} >Add to cart</button>
                             </div>
 
                     </div>
