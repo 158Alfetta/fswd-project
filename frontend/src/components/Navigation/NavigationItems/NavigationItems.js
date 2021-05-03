@@ -76,7 +76,7 @@ const NavigationItems = (props) => {
 const AdminDashboardButton = (props) => {
   return (
     <NavigationItem link="/dashboard" clickedFromNav={props.clicked} exact>
-      dashboard
+      Dashboard
     </NavigationItem>
   )
 }
