@@ -41,8 +41,10 @@ const PromotionProduct = (props) => {
   if (error) {
     return 'Error'
   }
-  // console.log(data?.PromotionProductId)
-  function addtoCart(productId) {
+  function addtoCart(productId, count) {
+    if (count === 0){
+      return alert("Product out of stock")
+    }
     var temp = JSON.stringify(dataCart?.cart[0]?.product)
     var inCart = JSON.parse(temp)
 
@@ -134,7 +136,7 @@ const PromotionProduct = (props) => {
 
           <button
             className="bg-green-600 hover:bg-green-800 text-white font-bold m-2 py-2 px-4 rounded-lg"
-            onClick={() => addtoCart(product?._id)}
+            onClick={() => addtoCart(product?._id, product?.count)}
           >
             {' '}
             Add to cart
